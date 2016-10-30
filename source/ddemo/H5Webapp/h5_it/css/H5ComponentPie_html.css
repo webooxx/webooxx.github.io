@@ -1,0 +1,95 @@
+
+/*饼图*/
+.h5_component_pie{
+    position: absolute;
+    background-color: #ccc;
+    border-radius: 50%;
+}
+
+.h5_component_pie .pie{
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    left: 0;
+    top: 0;
+    font-size: 14px;
+}
+.h5_component_pie .cover,.h5_component_pie  .half{
+  display: block;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1;
+  clip: rect(0, 100px, auto, 0);
+
+}
+.h5_component_pie  .left .cover{
+    background: #FFF;
+    -webkit-transform: rotate(180deg);
+}
+
+.h5_component_pie .right{
+   
+   -webkit-transform: rotate(180deg);
+}
+.h5_component_pie .right .cover{
+    background: #FFF;
+    -webkit-transform: rotate(180deg);   
+}
+.h5_component_pie .mark{
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    text-align: center;
+    left: 0;
+    top: 0;
+    color: #000;
+}
+.h5_component_pie .text{
+    position: absolute;
+    left: -40px;
+    bottom: 0px;
+    text-align: center;
+    font-weight: bold;
+    padding: 2px;
+    border-radius: 3px;
+    color: #fff;
+}
+
+.h5_component_pie .per{
+    font-size: 9px;
+}
+
+.h5_component_pie .text{
+   -webkit-transition: all 1s 1s;
+}
+
+.h5_component_pie_load .text{
+    -webkit-opacity: 1;
+    -webkit-transform: scale(1);   
+}
+.h5_component_pie_leave .text{
+    -webkit-opacity: 0;
+    -webkit-transform: scale(.5); 
+}
+/*饼图-loading*/
+
+.h5_component_pie .pie_pie_animate .cover{
+    background-color: #CCC;
+    z-index: 99;
+    -webkit-opacity:1;
+    -webkit-transform: rotate(0deg) translateZ(0) ;
+}
+.h5_component_pie .pie_pie_animate .left .cover{
+    transition: -webkit-transform .5s 0s ease-in , -webkit-opacity .5s .5s;
+}
+.h5_component_pie .pie_pie_animate .right .cover{
+    transition: -webkit-transform .5s .5s ease-out , -webkit-opacity .5s 1s;   
+}
+.h5_component_pie_load .pie_pie_animate .cover{
+    -webkit-transform: rotate(180deg) translateZ(0);
+    -webkit-opacity:0;
+}

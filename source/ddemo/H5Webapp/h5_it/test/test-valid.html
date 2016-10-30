@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, minimum-scale=1, maximum-scale=1">
+    <title>慕课网2015课程学习情况</title>
+
+    <script type="text/javascript" src="../js/lib/jquery.js"></script>
+    <script type="text/javascript" src="../js/lib/jquery-ui.min.js"></script>
+    <script type="text/javascript" src="../js/lib/jquery.fullpage.js"></script>
+
+    <script type="text/javascript">
+ 
+    $(function(){
+        $('#h5').fullpage({
+            sectionsColor: ['#1bbc9b', '#4BBFC3', '#7BAABE', '#f90'],
+            onLeave:function(index , nextIndex , direction){
+                $('#h5').find('.page').eq(index-1).trigger('onLeave');
+            },
+            afterLoad:function( anchorLink , index ){
+                $('#h5').find('.page').eq(index-1).trigger('onLoad');
+            }
+        });
+
+        $('.page').on('onLeave',function(){
+            console.log( $(this).attr('id'),'===>','onLeave');
+            $(this).find('.component').trigger('onLeave');
+        })
+        $('.page').on('onLoad',function(){
+            console.log( $(this).attr('id'),'===>','onLoad');
+            $(this).find('.component').trigger('onLoad');
+        })
+        $('.component').on('onLoad',function(){
+            $(this).fadeIn();
+            return false;
+        })
+        $('.component').on('onLeave',function(){
+            $(this).fadeOut();
+            return false;
+        });
+        $('.page').eq(0).trigger('onLoad');
+    });
+    </script>
+    <style type="text/css">
+   
+        body {
+            padding: 0;
+            margin: 0;
+        }
+        .component{
+            display: none;
+            width: 50%;
+            height: 30px;
+            margin-bottom: 20px;
+            background-color: #eee;
+        }
+
+    </style>
+
+</head>
+
+<body onselectstart="return false;">
+
+<div id="h5">
+    <div class="section page" id="page-1">
+        <div class="component logo">logo</div>
+        <div class="component desc">desc</div>
+    </div>
+    <div class="section page" id="page-2">
+        <div class="component text">text</div>
+        
+    </div>
+    <div class="section page" id="page-3">
+        <div class="component bar">bar</div>
+    </div>
+</div>
+
+</body>
+</html>
