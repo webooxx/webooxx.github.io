@@ -91,8 +91,8 @@
     <div class="article-entry" itemprop="articleBody">
       
         <p>有时候需要个抽奖的界面，现在抽出来单独做个应用，年会上抽奖可以用。</p>
-<h2 id="运行界面："><a href="#运行界面：" class="headerlink" title="运行界面："></a>运行界面：</h2><p><a href="./ddemo/reward-maching.html">预览地址</a></p>
-<p><img src="./images/2016-10-30 10.18.29.png" alt="效果预览"></p>
+<h2 id="运行界面："><a href="#运行界面：" class="headerlink" title="运行界面："></a>运行界面：</h2><p><a href="/demo/reward-maching.html">预览地址</a></p>
+<p><img src="/images/2016-10-30 10.18.29.png" alt="效果预览"></p>
 <h2 id="关键代码"><a href="#关键代码" class="headerlink" title="关键代码"></a>关键代码</h2><h4 id="盒子设定"><a href="#盒子设定" class="headerlink" title="盒子设定"></a>盒子设定</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> size = <span class="number">5</span>;</div><div class="line"></div><div class="line"></div><div class="line"><span class="keyword">var</span> items = [];</div><div class="line"><span class="keyword">var</span> items_top = [];</div><div class="line"><span class="keyword">var</span> items_bottom=[]</div><div class="line"><span class="keyword">var</span> items_right = [];</div><div class="line"><span class="keyword">var</span> items_left = [];</div><div class="line"></div><div class="line"><span class="keyword">var</span> box = $(<span class="string">'.box'</span>);  <span class="comment">// 容器</span></div><div class="line"></div><div class="line">box.css(<span class="string">'width'</span>,size*<span class="number">100</span>+<span class="string">'px'</span>); <span class="comment">// 默认100*100 是每个格子的大小</span></div><div class="line">box.css(<span class="string">'height'</span>,size*<span class="number">100</span>+<span class="string">'px'</span>)</div></pre></td></tr></table></figure>
 <h4 id="插入中奖方块"><a href="#插入中奖方块" class="headerlink" title="插入中奖方块"></a>插入中奖方块</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line">$.each(<span class="built_in">Array</span>(size),<span class="function"><span class="keyword">function</span> (<span class="params">x</span>) </span>&#123;</div><div class="line">  $.each(<span class="built_in">Array</span>(size),<span class="function"><span class="keyword">function</span> (<span class="params">y</span>) </span>&#123;</div><div class="line">      <span class="keyword">var</span> idx = x*size + y;</div><div class="line">      <span class="keyword">var</span> id = <span class="string">'i_'</span>+idx;</div><div class="line">      box.append(<span class="string">'&lt;div class="box__item" data-idx="'</span>+idx+<span class="string">'" id="'</span>+id+<span class="string">'"&gt;'</span>);</div><div class="line"></div><div class="line">      <span class="comment">// 把id分成四个部分</span></div><div class="line">      <span class="keyword">if</span>( idx &gt; size  &amp;&amp; idx%size == size<span class="number">-1</span> &amp;&amp; idx &lt; size*size-size)&#123;</div><div class="line">        items_right.push(id);</div><div class="line">      &#125;</div><div class="line">      <span class="keyword">if</span>( idx &gt; size<span class="number">-1</span>  &amp;&amp; idx%size == <span class="number">0</span> &amp;&amp; idx &lt; size*size-size)&#123;</div><div class="line">        items_left.push(id);</div><div class="line">      &#125;</div><div class="line">      <span class="keyword">if</span>( idx&lt; size)&#123;</div><div class="line">        items_top.push(id);</div><div class="line">      &#125;</div><div class="line">      <span class="keyword">if</span>(idx &gt; size*size-size<span class="number">-1</span>  )&#123;</div><div class="line">          items_bottom.push(id);</div><div class="line">      &#125;</div><div class="line"></div><div class="line">  &#125;);        </div><div class="line">&#125;);</div></pre></td></tr></table></figure>
 <h4 id="调整id顺序为逆时针"><a href="#调整id顺序为逆时针" class="headerlink" title="调整id顺序为逆时针"></a>调整id顺序为逆时针</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">items = items_top.join(<span class="string">','</span>)+<span class="string">','</span>+items_right.join(<span class="string">','</span>)+<span class="string">','</span>+items_bottom.reverse().join(<span class="string">','</span>)+<span class="string">','</span>+items_left.reverse().join(<span class="string">','</span>);</div><div class="line">items = items.split(<span class="string">','</span>);</div><div class="line"></div><div class="line">$.each(items,<span class="function"><span class="keyword">function</span>  (<span class="params">i,id</span>) </span>&#123;</div><div class="line">  $(<span class="string">'#'</span>+id).text(i+<span class="number">1</span>)</div><div class="line">&#125;)</div></pre></td></tr></table></figure>
@@ -136,8 +136,8 @@
     <div class="article-entry" itemprop="articleBody">
       
         <p>网上找的js小游戏，难以想象贪吃蛇的游戏代码就这么点～</p>
-<p><a href="./rdemo/snake.html">效果预览</a></p>
-<p><img src="./images/2016-10-30 11.15.54.png" alt="效果预览"></p>
+<p><a href="/rdemo/snake.html">效果预览</a></p>
+<p><img src="/images/2016-10-30 11.15.54.png" alt="效果预览"></p>
 
       
     </div>
@@ -360,8 +360,8 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p><a href="./ddemo/merge.html">效果预览</a></p>
-<p><img src="./images/2016-10-30 11.12.22.png" alt="效果预览"></p>
+        <p><a href="/demo/merge.html">效果预览</a></p>
+<p><img src="/images/2016-10-30 11.12.22.png" alt="效果预览"></p>
 
       
     </div>
@@ -400,8 +400,8 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p><a href="./ddemo/gallery.html">效果预览</a></p>
-<p><img src="./images/2016-10-30 11.09.44.png" alt="效果预览"></p>
+        <p><a href="/demo/gallery.html">效果预览</a></p>
+<p><img src="/images/2016-10-30 11.09.44.png" alt="效果预览"></p>
 
       
     </div>
@@ -441,10 +441,10 @@
     <div class="article-entry" itemprop="articleBody">
       
         <p> 2015年百度首页Logo彩蛋，移动端Canvas小游戏</p>
-<p> <a href="./ddemo/2015s/index.html">效果预览</a></p>
-<p> <img src="./images/2016-10-30 11.46.13.png" alt="效果预览"></p>
+<p> <a href="/demo/2015s/index.html">效果预览</a></p>
+<p> <img src="/images/2016-10-30 11.46.13.png" alt="效果预览"></p>
 <p>在 logo.baidu.com 上可以看到所有的 Logo 彩蛋历史</p>
-<p><img src="./images/2016-10-30 11.51.45.png" alt="效果预览"></p>
+<p><img src="/images/2016-10-30 11.51.45.png" alt="效果预览"></p>
 
       
     </div>
@@ -486,15 +486,15 @@
         <p>也许有这样的需求，当我们在公司的时候，连公司的网络后需要开启网关验证程序，在家里连网后需要开启VPN。即：希望在连接到某个特定的网络时执行某些特定的程序。</p>
 <h2 id="步骤0-准备"><a href="#步骤0-准备" class="headerlink" title="步骤0.准备"></a>步骤0.准备</h2><p>思路理清：当网络发生变动时，会有某些事件被记录，那么我们执行的特定程序就在某些特定事件被记录之后。</p>
 <p>相关程序：控制面板-管理工具-查看日志事件，控制面板-管理工具-计划任务</p>
-<p><img src="./images/wn-01.jpg" alt="1"></p>
-<p><img src="./images/wn-02.jpg" alt="2"></p>
+<p><img src="/images/wn-01.jpg" alt="1"></p>
+<p><img src="/images/wn-02.jpg" alt="2"></p>
 <h2 id="步骤1-连接网络，得到特定事件的ID。"><a href="#步骤1-连接网络，得到特定事件的ID。" class="headerlink" title="步骤1. 连接网络，得到特定事件的ID。"></a>步骤1. 连接网络，得到特定事件的ID。</h2><p>查看网卡的连接日志事件 中 左侧树展开：应用程序和服务日志-Microsoft-Windows-WLAN-AutoConfig-Operational ，首先清空这里的日志，然后连接公司的网络。接下来就可以看到一系列的事件。</p>
-<p><img src="./images/wn-11.jpg" alt="2"></p>
+<p><img src="/images/wn-11.jpg" alt="2"></p>
 <p>从事件的详细信息中，确认对应网络的SSID。（加入不同的网络事件ID会不一样）</p>
-<p><img src="./images/wn-12.jpg" alt="12"></p>
-<h2 id="步骤2-将执行程序的操作附加到特定事件发生后"><a href="#步骤2-将执行程序的操作附加到特定事件发生后" class="headerlink" title="步骤2.将执行程序的操作附加到特定事件发生后"></a>步骤2.将执行程序的操作附加到特定事件发生后</h2><p><img src="./images/wn-21.jpg" alt="21"></p>
+<p><img src="/images/wn-12.jpg" alt="12"></p>
+<h2 id="步骤2-将执行程序的操作附加到特定事件发生后"><a href="#步骤2-将执行程序的操作附加到特定事件发生后" class="headerlink" title="步骤2.将执行程序的操作附加到特定事件发生后"></a>步骤2.将执行程序的操作附加到特定事件发生后</h2><p><img src="/images/wn-21.jpg" alt="21"></p>
 <p>设置完成后在计划任务中可以看到对应的事件</p>
-<p><img src="./images/wn-22.jpg" alt="22"></p>
+<p><img src="/images/wn-22.jpg" alt="22"></p>
 <h2 id="步骤3-当这个网络断开连接后，关闭上步执行的程序"><a href="#步骤3-当这个网络断开连接后，关闭上步执行的程序" class="headerlink" title="步骤3.当这个网络断开连接后，关闭上步执行的程序"></a>步骤3.当这个网络断开连接后，关闭上步执行的程序</h2><p>在网络连接正常的情况下清空 Microsoft-Windows-WLAN-AutoConfig-Operational 的日志，然后断开网络。从中查找对应的事件ID，然后重复步骤2.</p>
 <p>PS：linux、ubuntu 的直接把脚本放在 /etc/network/if-up.d/ 和/etc/network/if-dn.d/ 下即可，MAC OSX 还没有找到对应方法，如果有知道的还请告知，谢谢。</p>
 
@@ -626,7 +626,7 @@
     <div class="article-entry" itemprop="articleBody">
       
         <p>要抓取走HTTPS的JS内容，Fiddler必须解密HTTPS流量。但是，浏览器将会检查数字证书，并发现会话遭到窃听。为了骗过浏览器，Fiddler通过使用另一个数字证书重新加密HTTPS流量。Fiddler被配置为解密HTTPS流量后，会自动生成一个名为DO_NOT_TRUST_FiddlerRoot的CA证书，并使用该CA颁发每个域名的TLS证书。若DO_NOT_TRUST_FiddlerRoot证书被列入浏览器或其他软件的信任CA名单内，则浏览器或其他软件就会认为HTTPS会话是可信任的、而不会再弹出“证书错误”警告。</p>
-<p><img src="./images/fiddler-1.jpg" alt="fillder工具栏"><br><img src="./images/fiddler-2.jpg" alt="fillder工具栏"></p>
+<p><img src="/images/fiddler-1.jpg" alt="fillder工具栏"><br><img src="/images/fiddler-2.jpg" alt="fillder工具栏"></p>
 <p>点完，ok 之后，会弹出一个框提示你是否安装证书，直接确定就好了。</p>
 
       
@@ -769,13 +769,13 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p><a href="./ddemo/diffImg/index.html">效果预览</a></p>
+        <p><a href="/demo/diffImg/index.html">效果预览</a></p>
 <p>以前和别人联机玩连连看的时候，总是一群人围在一起看；不过就算是一群人看一个人也总有看不到的时候。</p>
 <p>那时候就想要是有 个外挂就好了。</p>
 <p>HTML5的Canvas是可以处理像素级的信息的。那可否用Canvas来比较呢。自己PS两个图来测试一把。</p>
-<p>A.PNG<br><img src="./ddemo/diffImg/A.png" alt="A图片"><br>B.PNG<br><img src="./ddemo/diffImg/B.png" alt="B图片"><br>写完代码，LOAD到页面中。DIFF出来信息。</p>
-<p><img src="./ddemo/diffImg/diff.png" alt="对比后图片"></p>
-<p><a href="./ddemo/diffImg/index.html">效果预览</a></p>
+<p>A.PNG<br><img src="/demo/diffImg/A.png" alt="A图片"><br>B.PNG<br><img src="/demo/diffImg/B.png" alt="B图片"><br>写完代码，LOAD到页面中。DIFF出来信息。</p>
+<p><img src="/demo/diffImg/diff.png" alt="对比后图片"></p>
+<p><a href="/demo/diffImg/index.html">效果预览</a></p>
 
       
     </div>

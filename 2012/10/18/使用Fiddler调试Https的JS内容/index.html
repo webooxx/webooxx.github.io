@@ -11,13 +11,13 @@
 <meta property="og:url" content="http://webooxx.com/2012/10/18/使用Fiddler调试Https的JS内容/index.html">
 <meta property="og:site_name" content="webooxx">
 <meta property="og:description" content="要抓取走HTTPS的JS内容，Fiddler必须解密HTTPS流量。但是，浏览器将会检查数字证书，并发现会话遭到窃听。为了骗过浏览器，Fiddler通过使用另一个数字证书重新加密HTTPS流量。Fiddler被配置为解密HTTPS流量后，会自动生成一个名为DO_NOT_TRUST_FiddlerRoot的CA证书，并使用该CA颁发每个域名的TLS证书。若DO_NOT_TRUST_FiddlerRo">
-<meta property="og:image" content="http://webooxx.com/./images/fiddler-1.jpg">
-<meta property="og:image" content="http://webooxx.com/./images/fiddler-2.jpg">
-<meta property="og:updated_time" content="2016-10-30T06:03:21.000Z">
+<meta property="og:image" content="http://webooxx.com/images/fiddler-1.jpg">
+<meta property="og:image" content="http://webooxx.com/images/fiddler-2.jpg">
+<meta property="og:updated_time" content="2016-10-30T06:30:50.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="使用Fiddler调试Https的JS内容">
 <meta name="twitter:description" content="要抓取走HTTPS的JS内容，Fiddler必须解密HTTPS流量。但是，浏览器将会检查数字证书，并发现会话遭到窃听。为了骗过浏览器，Fiddler通过使用另一个数字证书重新加密HTTPS流量。Fiddler被配置为解密HTTPS流量后，会自动生成一个名为DO_NOT_TRUST_FiddlerRoot的CA证书，并使用该CA颁发每个域名的TLS证书。若DO_NOT_TRUST_FiddlerRo">
-<meta name="twitter:image" content="http://webooxx.com/./images/fiddler-1.jpg">
+<meta name="twitter:image" content="http://webooxx.com/images/fiddler-1.jpg">
   
     <link rel="alternate" href="/atom.xml" title="webooxx" type="application/atom+xml">
   
@@ -93,7 +93,7 @@
     <div class="article-entry" itemprop="articleBody">
       
         <p>要抓取走HTTPS的JS内容，Fiddler必须解密HTTPS流量。但是，浏览器将会检查数字证书，并发现会话遭到窃听。为了骗过浏览器，Fiddler通过使用另一个数字证书重新加密HTTPS流量。Fiddler被配置为解密HTTPS流量后，会自动生成一个名为DO_NOT_TRUST_FiddlerRoot的CA证书，并使用该CA颁发每个域名的TLS证书。若DO_NOT_TRUST_FiddlerRoot证书被列入浏览器或其他软件的信任CA名单内，则浏览器或其他软件就会认为HTTPS会话是可信任的、而不会再弹出“证书错误”警告。</p>
-<p><img src="./images/fiddler-1.jpg" alt="fillder工具栏"><br><img src="./images/fiddler-2.jpg" alt="fillder工具栏"></p>
+<p><img src="/images/fiddler-1.jpg" alt="fillder工具栏"><br><img src="/images/fiddler-2.jpg" alt="fillder工具栏"></p>
 <p>点完，ok 之后，会弹出一个框提示你是否安装证书，直接确定就好了。</p>
 
       

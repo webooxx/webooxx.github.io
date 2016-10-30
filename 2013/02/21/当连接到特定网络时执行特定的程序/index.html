@@ -21,13 +21,13 @@
 
 
 步骤1. 连接网络，得到特定事件的ID。查看网卡的连接">
-<meta property="og:image" content="http://webooxx.com/./images/wn-01.jpg">
-<meta property="og:image" content="http://webooxx.com/./images/wn-02.jpg">
-<meta property="og:image" content="http://webooxx.com/./images/wn-11.jpg">
-<meta property="og:image" content="http://webooxx.com/./images/wn-12.jpg">
-<meta property="og:image" content="http://webooxx.com/./images/wn-21.jpg">
-<meta property="og:image" content="http://webooxx.com/./images/wn-22.jpg">
-<meta property="og:updated_time" content="2016-10-30T06:23:22.000Z">
+<meta property="og:image" content="http://webooxx.com/images/wn-01.jpg">
+<meta property="og:image" content="http://webooxx.com/images/wn-02.jpg">
+<meta property="og:image" content="http://webooxx.com/images/wn-11.jpg">
+<meta property="og:image" content="http://webooxx.com/images/wn-12.jpg">
+<meta property="og:image" content="http://webooxx.com/images/wn-21.jpg">
+<meta property="og:image" content="http://webooxx.com/images/wn-22.jpg">
+<meta property="og:updated_time" content="2016-10-30T06:30:50.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="当连接到特定网络时执行特定的程序">
 <meta name="twitter:description" content="也许有这样的需求，当我们在公司的时候，连公司的网络后需要开启网关验证程序，在家里连网后需要开启VPN。即：希望在连接到某个特定的网络时执行某些特定的程序。
@@ -36,7 +36,7 @@
 
 
 步骤1. 连接网络，得到特定事件的ID。查看网卡的连接">
-<meta name="twitter:image" content="http://webooxx.com/./images/wn-01.jpg">
+<meta name="twitter:image" content="http://webooxx.com/images/wn-01.jpg">
   
     <link rel="alternate" href="/atom.xml" title="webooxx" type="application/atom+xml">
   
@@ -114,15 +114,15 @@
         <p>也许有这样的需求，当我们在公司的时候，连公司的网络后需要开启网关验证程序，在家里连网后需要开启VPN。即：希望在连接到某个特定的网络时执行某些特定的程序。</p>
 <h2 id="步骤0-准备"><a href="#步骤0-准备" class="headerlink" title="步骤0.准备"></a>步骤0.准备</h2><p>思路理清：当网络发生变动时，会有某些事件被记录，那么我们执行的特定程序就在某些特定事件被记录之后。</p>
 <p>相关程序：控制面板-管理工具-查看日志事件，控制面板-管理工具-计划任务</p>
-<p><img src="./images/wn-01.jpg" alt="1"></p>
-<p><img src="./images/wn-02.jpg" alt="2"></p>
+<p><img src="/images/wn-01.jpg" alt="1"></p>
+<p><img src="/images/wn-02.jpg" alt="2"></p>
 <h2 id="步骤1-连接网络，得到特定事件的ID。"><a href="#步骤1-连接网络，得到特定事件的ID。" class="headerlink" title="步骤1. 连接网络，得到特定事件的ID。"></a>步骤1. 连接网络，得到特定事件的ID。</h2><p>查看网卡的连接日志事件 中 左侧树展开：应用程序和服务日志-Microsoft-Windows-WLAN-AutoConfig-Operational ，首先清空这里的日志，然后连接公司的网络。接下来就可以看到一系列的事件。</p>
-<p><img src="./images/wn-11.jpg" alt="2"></p>
+<p><img src="/images/wn-11.jpg" alt="2"></p>
 <p>从事件的详细信息中，确认对应网络的SSID。（加入不同的网络事件ID会不一样）</p>
-<p><img src="./images/wn-12.jpg" alt="12"></p>
-<h2 id="步骤2-将执行程序的操作附加到特定事件发生后"><a href="#步骤2-将执行程序的操作附加到特定事件发生后" class="headerlink" title="步骤2.将执行程序的操作附加到特定事件发生后"></a>步骤2.将执行程序的操作附加到特定事件发生后</h2><p><img src="./images/wn-21.jpg" alt="21"></p>
+<p><img src="/images/wn-12.jpg" alt="12"></p>
+<h2 id="步骤2-将执行程序的操作附加到特定事件发生后"><a href="#步骤2-将执行程序的操作附加到特定事件发生后" class="headerlink" title="步骤2.将执行程序的操作附加到特定事件发生后"></a>步骤2.将执行程序的操作附加到特定事件发生后</h2><p><img src="/images/wn-21.jpg" alt="21"></p>
 <p>设置完成后在计划任务中可以看到对应的事件</p>
-<p><img src="./images/wn-22.jpg" alt="22"></p>
+<p><img src="/images/wn-22.jpg" alt="22"></p>
 <h2 id="步骤3-当这个网络断开连接后，关闭上步执行的程序"><a href="#步骤3-当这个网络断开连接后，关闭上步执行的程序" class="headerlink" title="步骤3.当这个网络断开连接后，关闭上步执行的程序"></a>步骤3.当这个网络断开连接后，关闭上步执行的程序</h2><p>在网络连接正常的情况下清空 Microsoft-Windows-WLAN-AutoConfig-Operational 的日志，然后断开网络。从中查找对应的事件ID，然后重复步骤2.</p>
 <p>PS：linux、ubuntu 的直接把脚本放在 /etc/network/if-up.d/ 和/etc/network/if-dn.d/ 下即可，MAC OSX 还没有找到对应方法，如果有知道的还请告知，谢谢。</p>
 
