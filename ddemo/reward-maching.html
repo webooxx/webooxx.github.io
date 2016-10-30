@@ -3,18 +3,51 @@
 <head>
   <meta charset="utf-8">
   
-  <title>TeeEyeTribe追踪网页视线热点简易版 | webooxx</title>
+  <title>webooxx</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="用一个外挂的脚本在线上的网页里面捕捉视线，即刻显示热力图。">
-<meta property="og:type" content="article">
-<meta property="og:title" content="TeeEyeTribe追踪网页视线热点简易版">
-<meta property="og:url" content="http://webooxx.com/2016/10/30/TeeEyeTribe追踪网页视线热点简易版/index.html">
+  <meta name="description" content="正方形抽奖
+    
+
+    
+      .box{
+        border-top: 1px solid #000;
+        border-left: 1px solid #000;
+      }
+      .box__item{
+        width: 99px;
+        height: 99px;
+        float">
+<meta property="og:type" content="website">
+<meta property="og:title" content="webooxx">
+<meta property="og:url" content="http://webooxx.com/ddemo/reward-maching.html">
 <meta property="og:site_name" content="webooxx">
-<meta property="og:description" content="用一个外挂的脚本在线上的网页里面捕捉视线，即刻显示热力图。">
-<meta property="og:updated_time" content="2016-10-30T02:51:28.000Z">
+<meta property="og:description" content="正方形抽奖
+    
+
+    
+      .box{
+        border-top: 1px solid #000;
+        border-left: 1px solid #000;
+      }
+      .box__item{
+        width: 99px;
+        height: 99px;
+        float">
+<meta property="og:updated_time" content="2016-10-16T03:22:40.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="TeeEyeTribe追踪网页视线热点简易版">
-<meta name="twitter:description" content="用一个外挂的脚本在线上的网页里面捕捉视线，即刻显示热力图。">
+<meta name="twitter:title" content="webooxx">
+<meta name="twitter:description" content="正方形抽奖
+    
+
+    
+      .box{
+        border-top: 1px solid #000;
+        border-left: 1px solid #000;
+      }
+      .box__item{
+        width: 99px;
+        height: 99px;
+        float">
   
     <link rel="alternate" href="/atom.xml" title="webooxx" type="application/atom+xml">
   
@@ -67,62 +100,145 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main"><article id="post-TeeEyeTribe追踪网页视线热点简易版" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main"><article id="page-undefined" class="article article-type-page" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2016/10/30/TeeEyeTribe追踪网页视线热点简易版/" class="article-date">
-  <time datetime="2016-10-30T02:49:13.000Z" itemprop="datePublished">2016-10-30</time>
+    <a href="/ddemo/reward-maching.html" class="article-date">
+  <time datetime="2016-10-16T03:22:40.000Z" itemprop="datePublished">2016-10-16</time>
 </a>
     
   </div>
   <div class="article-inner">
     
     
-      <header class="article-header">
-        
-  
-    <h1 class="article-title" itemprop="name">
-      TeeEyeTribe追踪网页视线热点简易版
-    </h1>
-  
-
-      </header>
-    
     <div class="article-entry" itemprop="articleBody">
       
-        <p>用一个外挂的脚本在线上的网页里面捕捉视线，即刻显示热力图。</p>
-<embed src="http://static.video.qq.com/TPout.swf?vid=w01922e9s8j&auto=0" allowfullscreen="true" quality="high" width="480" height="400" align="middle" allowscriptaccess="always" type="application/x-shockwave-flash">
+        <html>
+  
+  <head>
+    <meta charset="utf-8">
+    <title>正方形抽奖</title>
+    
 
+    <style>
+      .box{
+        border-top: 1px solid #000;
+        border-left: 1px solid #000;
+      }
+      .box__item{
+        width: 99px;
+        height: 99px;
+        float: left;
+        border-right :1px solid #000;
+        border-bottom :1px solid #000;
+        background: #333;
+        color: #fff;
+        text-align: center;
+        line-height: 99px;
+
+      }
+      .highlight{
+        color: #666;
+        background:#fff;
+      }
+    </style>
+</head>
+  
+  <body>
+    <div class="box">
+    </div>
+
+    <script src="http://lib.sinaapp.com/js/jquery/1.9.1/jquery-1.9.1.min.js"></script>
+
+
+    <script type="text/javascript">
+
+      var size = 5;
+
+
+      var items = []; 
+      var items_top = [];
+      var items_bottom=[]
+      var items_right = [];
+      var items_left = [];
+
+      var box = $('.box');
+
+      box.css('width',size*100+'px');
+      box.css('height',size*100+'px')
+
+
+      $.each(Array(size),function (x) {
+        $.each(Array(size),function (y) {
+            var idx = x*size + y;
+            var id = 'i_'+idx;
+            box.append('<div class="box__item" data-idx="'+idx+'" id="'+id+'">');
+
+            if( idx > size  && idx%size == size-1 && idx < size*size-size){
+              items_right.push(id);
+            }
+            if( idx > size-1  && idx%size == 0 && idx < size*size-size){
+              items_left.push(id);
+            }
+            if( idx< size){
+              items_top.push(id);
+            }
+            if(idx > size*size-size-1  ){
+                items_bottom.push(id);
+            }
+
+        });        
+      });
+
+      items = items_top.join(',')+','+items_right.join(',')+','+items_bottom.reverse().join(',')+','+items_left.reverse().join(',');
+      items = items.split(',');
+
+      $.each(items,function  (i,id) {
+        $('#'+id).text(i+1)
+      })
+
+      var last = '';
+      var go = function (num) {
+          
+          var end = items.slice(0,num+1).join(',');
+          
+          
+
+
+          var all = items.join(',');
+          var arr = (last+all+','+all+','+all+','+end).split(',');
+          var len = arr.length -1;
+          
+           last = items.slice(num+1).join(',')+',';
+
+          $.each(arr,function  (i,item) {
+            setTimeout(function  () {
+              $('.box__item').removeClass('highlight');
+              $('#'+item).addClass('highlight');
+            },100*i);
+
+          })
+      }
+
+      go( ~~ (Math.random()*items.length )  )
+
+      
+
+    </script>
+
+    <input onclick=" go( ~~ (Math.random()*items.length )  ) " value="go" type="button">
+  </body>
+
+</html>
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://webooxx.com/2016/10/30/TeeEyeTribe追踪网页视线热点简易版/" data-id="ciuw2ip7h0006dfmotke4y4sa" class="article-share-link">Share</a>
+      <a data-url="http://webooxx.com/ddemo/reward-maching.html" data-id="ciuw2ip720001dfmo19vzkdxy" class="article-share-link">Share</a>
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/用户体验-眼动实验-智能设备/">用户体验,眼动实验,智能设备</a></li></ul>
-
     </footer>
   </div>
   
     
-<nav id="article-nav">
-  
-    <a href="/2016/10/30/JS特效-旋转画廊相册/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Newer</strong>
-      <div class="article-nav-title">
-        
-          JS特效-旋转画廊相册
-        
-      </div>
-    </a>
-  
-  
-    <a href="/2016/10/30/TheEyeTribe眼动捕捉实际效果/" id="article-nav-older" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">TheEyeTribe眼动捕捉实际效果</div>
-    </a>
-  
-</nav>
-
   
 </article>
 
