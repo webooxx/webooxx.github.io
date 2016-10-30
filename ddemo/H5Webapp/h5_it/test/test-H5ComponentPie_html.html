@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, minimum-scale=1, maximum-scale=1">
+    <title>慕课网2015课程学习情况</title>
+    <style type="text/css">
+
+        body{
+          margin: 0;
+          padding: 0;
+          background-color: #000;
+          font-size: 12px;
+        }
+        .iphone{
+            width: 340px;
+            height: 540px;
+            background-color: #fff;
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            margin: -270px 0 0 -170px
+        }
+    </style>
+
+    <script type="text/javascript" src="../js/lib/jquery.js"></script>
+    <script type="text/javascript" src="../js/lib/jquery-ui.min.js"></script>
+
+</head>
+
+<body onselectstart="return false;">
+
+
+<div class="iphone">
+    
+</div>
+
+
+<script type="text/javascript" src="../js/H5ComponentBase.js"></script>
+<link rel="stylesheet" href="../css/H5ComponentBase.css"/>    
+
+<script type="text/javascript" src="../js/H5ComponentPie_html.js"></script>
+<link rel="stylesheet" href="../css/H5ComponentPie_html.css"/>    
+
+
+
+<script type="text/javascript">
+
+    var cfg =  {
+        type:'pie',
+        data:[['Android',.71,'#ff7676'],['IOS',.25,'#5ddbd8'],['Cocos2d-x',.02,'#99c1ff'],['Unity-3D',.02,'#ffad69',20]],
+        css:{top:200},
+        width:300,
+        height:300,
+        center:true
+    };
+    
+    ( new H5ComponentPie('test',cfg) ).appendTo('.iphone');
+
+    var load = true;
+    $('body').click(function(){
+        load=!load;
+        $('.h5_component').trigger(load?'onLeave':'onLoad');
+    });
+
+</script>
+
+</body>
+</html>
