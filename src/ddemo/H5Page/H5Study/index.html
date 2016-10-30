@@ -1,0 +1,779 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>webooxx</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="H5-WORK
+    
+    body{ margin: 0; padding: 0; font-size: 12px; font-family: &quot;Microsoft Yahei&quot;, &quot;Hiragino Sans GB&quot;, Helvetica, &quot;Helvetica Neue&quot;, 微软雅黑, Tahoma, Arial, sans-serif; transit">
+<meta property="og:type" content="website">
+<meta property="og:title" content="webooxx">
+<meta property="og:url" content="http://webooxx.com/src/ddemo/H5Page/H5Study/index.html">
+<meta property="og:site_name" content="webooxx">
+<meta property="og:description" content="H5-WORK
+    
+    body{ margin: 0; padding: 0; font-size: 12px; font-family: &quot;Microsoft Yahei&quot;, &quot;Hiragino Sans GB&quot;, Helvetica, &quot;Helvetica Neue&quot;, 微软雅黑, Tahoma, Arial, sans-serif; transit">
+<meta property="og:updated_time" content="2016-09-11T16:28:26.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="webooxx">
+<meta name="twitter:description" content="H5-WORK
+    
+    body{ margin: 0; padding: 0; font-size: 12px; font-family: &quot;Microsoft Yahei&quot;, &quot;Hiragino Sans GB&quot;, Helvetica, &quot;Helvetica Neue&quot;, 微软雅黑, Tahoma, Arial, sans-serif; transit">
+  
+    <link rel="alternate" href="/atom.xml" title="webooxx" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">webooxx</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">懒惰即美德</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="Flux RSS"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Rechercher"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://webooxx.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="page-undefined" class="article article-type-page" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/src/ddemo/H5Page/H5Study/index.html" class="article-date">
+  <time datetime="2016-10-14T09:35:09.000Z" itemprop="datePublished">2016-10-14</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <html>
+  
+  <head>
+    <meta charset="utf-8">
+    <title>H5-WORK</title>
+    <style type="text/css">
+    body{ margin: 0; padding: 0; font-size: 12px; font-family: "Microsoft Yahei", "Hiragino Sans GB", Helvetica, "Helvetica Neue", 微软雅黑, Tahoma, Arial, sans-serif; transition:all 1s;} 
+
+    a{ color: #14191e ; text-decoration: none; }
+    a:hover{ color: #f01400; }
+   
+
+    .header {position:fixed;top:0px;left:0px;right:0px;z-index:2;height:60px;background-image:-webkit-linear-gradient(top,rgb(0,0,0),rgba(0,0,0,0));transition:all 1s;}
+    .header_animate_fadeInDown{
+      animation-duration: 2s;
+      animation-name: fadeInDown;
+    }
+    .header_status_white {background-image:none;background:rgba(255,255,255,.8);color:rgb(7,17,27);}
+    .header_status_white .header__logo {color:rgb(7,17,27);}
+    .header_status_white .header__nav-item {color:rgb(102,102,102);}
+    .header_status_white .header__nav-item:hover {color:rgb(7,17,27);}
+    .header_status_white .header__nav-item_status_active {color:rgb(7,17,27);}
+    .header_status_white .header__nav-item_custom_button {color:rgb(255,255,255);}
+    .header__logo {float:left;height:40px;color:rgb(255,255,255);margin:10px 0px 0px 10px;padding:0px 0px 0px 50px;background:url("./img/logo.png") left top no-repeat;display:block;font-size:18px;font-weight:bold;line-height:40px;}
+    .header__nav {float:right;margin:10px 10px 0px 0px;position: relative;}
+    
+    /*border-bottom:2px solid rgb(240,20,0);*/
+    .header__nav-item:hover {color:rgb(255,255,255);}
+    .header__nav-item {float:left;margin:0px 20px;color:rgb(255,255,255);font-size:14px;line-height:40px;transition:color 1s;}
+    .header__nav-item-tip{
+      width: 56px;
+      height: 2px;
+      background: red;
+      position: absolute;
+      left: 20px;
+      bottom: -2px;
+      transition:left .5s;
+
+    }
+    /*.header__nav-item_status_active {border-bottom:2px solid rgb(240,20,0);}*/
+    .header__nav-item_custom_button {color:rgb(255,255,255);background:rgb(240,20,0);padding:0px 20px;border-radius:5px;}
+    .header__nav-item_custom_button:hover {background:rgb(200,20,20);border-bottom:0px;}
+    .screen-1 {color:rgb(255,255,255);height:640px;background:url("img/sc1.jpg") center top no-repeat;background-size:cover;text-align:center;}
+    .screen-1__wrap {max-width:1200px;min-width:800px;margin:0px auto;height:100%;position:relative;overflow:hidden;}
+    .screen-1__heading {position:absolute;top:230px;width:100%;font-size:42px;font-weight:bold;}
+    .screen-1__heading_animate_fadeInUp{
+          animation-duration: 1s;
+          animation-name: fadeInUp;
+    }
+    .screen-1__subheading {width:100%;top:310px;position:absolute;font-size:16px;}
+    .screen-1__subheading_animate_fadeInUp{
+        animation: fadeInUp 1s .5s;
+        opacity: 0;
+    }
+    .screen-2 {color:rgb(7,17,27);height:640px;background:url("img/sc2.png") center bottom no-repeat rgb(243,245,247);text-align:center;}
+    .screen-2__wrap {max-width:1200px;min-width:800px;margin:0px auto;height:100%;position:relative;overflow:hidden;}
+    .screen-2__heading {position:absolute;top:80px;width:100%;font-size:42px;font-weight:bold;}
+    .screen-2__tip {position:absolute;left:50%;margin:0px 0px 0px -25px;width:50px;height:3px;top:167px;background:red;}
+    .screen-2__subheading {width:100%;top:190px;position:absolute;font-size:16px;}
+
+    .screen-2__sub-1 {width:100%;height:640px;left:0px;top:0px;position:absolute;background:url("img/sc2-1.png") center bottom no-repeat;}
+    .screen-2__sub-2 {width:100%;left:100px;top:-100px;height:640px;position:absolute;background:url("img/sc2-2.png") center bottom no-repeat;}
+    .screen-3 {color:rgb(255,255,255);height:640px;background:url("img/sc3.png") 130px center no-repeat rgb(43,51,59);}
+    .screen-3__wrap {max-width:1200px;min-width:800px;margin:0px auto;height:100%;position:relative;overflow:hidden;}
+    .screen-3__heading {position:absolute;top:220px;left:666px;width:100%;font-size:36px;font-weight:bold;}
+    .screen-3__tip {position:absolute;left:666px;width:50px;height:3px;top:295px;background:red;}
+    .screen-3__subheading {width:512px;top:320px;left:666px;position:absolute;font-size:16px;}
+    .screen-3__skill {width:520px;position:absolute;bottom:50px;right:0px;}
+    .screen-3__skill-item {float:left;width:56px;height:56px;border-radius:50%;text-align:center;line-height:56px;margin-right:40px;margin-top:10px;border:4px solid rgb(31,89,117);color:rgb(2,176,255);
+      animation:pulse 1s infinite .5s;
+    }
+    .screen-3__skill-item:nth-child(1){
+      border: 4px solid #1f5975;
+      color: #02b0ff;
+    }
+    .screen-3__skill-item:nth-child(2){
+      border: 4px solid #424d76;
+      color: #7888fd;
+    }
+    .screen-3__skill-item:nth-child(3){
+          border: 4px solid #6b4146;
+      color: #ff6060;
+    }
+        .screen-3__skill-item:nth-child(4){
+             border: 4px solid #29535f;
+    color: #22c7e5;
+    }
+    
+        .screen-3__skill-item:nth-child(5){
+       border: 4px solid #3e4e40;
+      color: #90bd56;
+    }
+    
+    .screen-4 {color:rgb(7,17,27);height:640px;background:rgb(243,245,247);text-align:center;}
+    .screen-4__wrap {max-width:1200px;min-width:800px;margin:0px auto;height:100%;position:relative;overflow:hidden;}
+    .screen-4__heading {position:absolute;top:80px;width:100%;font-size:42px;font-weight:bold;}
+    .screen-4__tip {position:absolute;left:50%;margin:0px 0px 0px -25px;width:50px;height:3px;top:167px;background:red;}
+    .screen-4__subheading {width:100%;top:190px;position:absolute;font-size:16px;}
+    .screen-4__env {width:100%;top:290px;position:absolute;font-size:16px;}
+    .screen-4__env-item {width:25%;padding:100px 0px 0px;height:14px;line-height:14px;float:left;}
+    .screen-4__env-item_i_1 {background:url("./img/sc4-1.png") center top no-repeat;}
+    .screen-4__env-item_i_2 {background:url("./img/sc4-2.png") center top no-repeat;}
+    .screen-4__env-item_i_3 {background:url("./img/sc4-3.png") center top no-repeat;}
+    .screen-4__env-item_i_4 {background:url("./img/sc4-4.png") center top no-repeat;}
+    .screen-5 {color:rgb(255,255,255);height:640px;background:url("img/sc5.jpg") no-repeat rgb(243,245,247);background-size:cover;text-align:center;overflow:hidden;}
+    .screen-5__wrap {max-width:1200px;min-width:800px;margin:0px auto;height:100%;position:relative;overflow:hidden;}
+    .screen-5__head {width:100%;height:640px;background:url("img/sc5-1.png") center top no-repeat;top:100px;position:absolute;}
+    .screen-5__heading {position:absolute;top:350px;width:100%;font-size:42px;font-weight:bold;}
+    .screen-5__tip {position:absolute;left:50%;margin:0px 0px 0px -25px;width:50px;height:3px;top:430px;background:white;}
+    .screen-5__subheading {width:100%;top:460px;position:absolute;font-size:16px;}
+    .screen-5__sub-1 {width:100%;height:640px;left:0px;top:0px;position:absolute;background:url("img/sc2-1.png") center bottom no-repeat;}
+    .screen-5__sub-2 {width:100%;left:100px;top:-100px;height:640px;position:absolute;background:url("img/sc2-2.png") center bottom no-repeat;}
+    .more {height:60px;padding:70px 0px;}
+    .more__button {width:144px;height:58px;line-height:58px;font-size:18px;border-radius:3px;display:block;margin:0px auto;border:1px solid rgb(112,112,112);padding:0px 47px;}
+    .outline {
+
+      position: fixed;
+      padding: 15px;
+      bottom: 120px;
+      right: 0;
+      z-index: 2;
+      background-color: #fff;
+      box-shadow: 0px 4px 12px 0px rgba(7, 17, 27, 0.1);
+      transition:all 1s;
+      opacity: 0;
+    }
+    .outline__item {display:block;width:20px;height:20px;background:rgb(255,255,255);margin:5px 0px 0px;text-align:center;}
+    .footer {height:80px;padding:26px 0px 0px;background:rgb(0,0,0);line-height:25px;}
+    .footer__link {padding:0px 0px 0px 40px;}
+    .footer__link-item {color:rgb(200,205,210);display:inline-block;margin:0px 30px 0px 0px;}
+    .footer__wrap {max-width:1200px;min-width:800px;margin:0px auto;height:100%;position:relative;overflow:hidden;}
+    .footer__copyright {color:rgb(120,125,130);padding:0px 0px 0px 40px;font-size:16px;}
+
+
+    @keyframes fadeInDown {
+      0% {
+        opacity: 0;
+        transform: translate3d(0, -100%, 0);
+      }
+
+      100% {
+        opacity: 1;
+        transform: none;
+      }
+    }
+
+    @keyframes fadeInUp {
+      0% {
+        opacity: 0;
+        transform: translate3d(0, 100%, 0);
+      }
+
+      100% {
+        opacity: 1;
+        transform: none;
+      }
+    }
+
+    @keyframes bounceInUp {
+      0%, 60%, 75%, 90%, 100% {
+        -webkit-transition-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000);
+        transition-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000);
+      }
+
+      0% {
+        opacity: 0;
+        -webkit-transform: translate3d(0, 3000px, 0);
+        transform: translate3d(0, 3000px, 0);
+      }
+
+      60% {
+        opacity: 1;
+        -webkit-transform: translate3d(0, -20px, 0);
+        transform: translate3d(0, -20px, 0);
+      }
+
+      75% {
+        -webkit-transform: translate3d(0, 10px, 0);
+        transform: translate3d(0, 10px, 0);
+      }
+
+      90% {
+        -webkit-transform: translate3d(0, -5px, 0);
+        transform: translate3d(0, -5px, 0);
+      }
+
+      100% {
+        -webkit-transform: translate3d(0, 0, 0);
+        transform: translate3d(0, 0, 0);
+      }
+    }
+    @keyframes zoomIn {
+      0% {
+        opacity: 0;
+        transform: scale3d(.3, .3, .3);
+      }
+      50% {
+        opacity: 1;
+      }
+    }
+
+    @media (max-width: 1199px){
+
+    }
+
+    @keyframes pulse {
+      0% {
+        -webkit-transform: scale3d(1, 1, 1);
+        transform: scale3d(1, 1, 1);
+      }
+
+      50% {
+        -webkit-transform: scale3d(1.05, 1.05, 1.05);
+        transform: scale3d(1.05, 1.05, 1.05);
+      }
+
+      100% {
+        -webkit-transform: scale3d(1, 1, 1);
+        transform: scale3d(1, 1, 1);
+      }
+    }
+
+    /*特殊，的动画初始状态通用样式*/
+
+    .screen-5__heading,
+    .screen-5__subheading,
+    .screen-5__tip,
+
+    .screen-4__heading,
+    .screen-4__subheading,
+    .screen-4__tip,
+
+    .screen-3__skill,
+    .screen-3__heading,
+    .screen-3__subheading,
+    .screen-3__tip,
+
+    .screen-2__heading,
+    .screen-2__subheading,
+    .screen-2__tip,
+    .screen-2__sub-1,
+    .screen-2__sub-2
+    {
+      opacity: 0
+    }
+    .screen-5__heading_status_load,
+    .screen-4__heading_status_load,
+    .screen-3__heading_status_load,
+    .screen-2__heading_status_load{
+      animation:fadeInUp 1s;
+      opacity: 1;
+    }
+    .screen-5__subheading_status_load,
+    .screen-4__subheading_status_load,
+    .screen-3__subheading_status_load,
+    .screen-2__subheading_status_load{
+      animation:fadeInUp 1s .5s;
+      transition:all 1s .5s;
+      opacity: 1;
+    }
+    .screen-5__tip_status_load,
+    .screen-4__tip_status_load,
+    .screen-3__tip_status_load,
+    .screen-2__tip_status_load{
+      animation:fadeInUp 1s .5s;
+      transition:all 1s .5s;
+      opacity: 1;
+    }
+    .screen-2__sub-1_status_load{
+      transition:all 1s .5s;
+      opacity: 1;
+    }
+    
+    .screen-3__skill_status_load,
+    .screen-2__sub-2_status_load{
+       animation:bounceInUp 1s 1.5s;
+       transition:all 0s 2s;
+       opacity: 1;
+    }
+
+    .screen-5__head_status_init,
+    .screen-3_status_init{
+      background-size: 5%;
+    }
+
+    .screen-3_status_load{
+      background-size: 30%;
+      transition: all 1s;
+    }
+    .screen-5__head_status_load{
+      background-size: 17%;
+      transition: all 1s;
+    }
+    .screen-4__env-item_staus_load{
+      animation:zoomIn 1s;
+    }
+    </style>
+    <style>
+  </style></head>
+  
+  <body>
+    <div class="box">
+      <header class="header header_animate_fadeInDown">
+        <a href="#screen-1" class="header__logo">H5实战页面</a>
+        <nav class="header__nav">
+          <a href="javascript:;" data-idx="0" class="header__nav-item header__nav-item_status_active" target="_blank" rel="external">实战课程</a>
+          <a href="javascript:;" data-idx="1" class="header__nav-item" target="_blank" rel="external">商业案例</a>
+          <a href="javascript:;" data-idx="2" class="header__nav-item" target="_blank" rel="external">课程体系</a>
+          <a href="javascript:;" data-idx="3" class="header__nav-item" target="_blank" rel="external">集成环境</a>
+          <a href="javascript:;" data-idx="4" class="header__nav-item" target="_blank" rel="external">云端学习</a>
+          <a href="javascript:;" class="header__nav-item header__nav-item_custom_button" target="_blank" rel="external">即刻学习</a>
+          <div class="header__nav-item-tip"></div>
+        </nav>
+      </header>
+      <section class="screen-1">
+        <div class="screen-1__wrap">
+          <div class="screen-1__heading screen-1__heading_animate_fadeInUp">实战课程重磅上线</div>
+          <div class="screen-1__subheading screen-1__subheading_animate_fadeInUp">一键云学习，还在等待什么？</div></div>
+      </section>
+      <section class="screen-2">
+        <div class="screen-2__wrap">
+          <div class="screen-2__sub-2"></div>
+          <div class="screen-2__sub-1"></div>
+          <div class="screen-2__heading">每门课都是真实商业案例</div>
+          <div class="screen-2__tip"></div>
+          <div class="screen-2__subheading">真实案例，真实场景，在实战中实践、操作、调试
+            <br>大牛带你体验BAT真实开发流程，所有开发过程一一为你呈现</div></div>
+      </section>
+      <section class="screen-3">
+        <div class="screen-3__wrap">
+          <div class="screen-3__heading">强大的语言课程体系支持</div>
+          <div class="screen-3__tip"></div>
+          <div class="screen-3__subheading">学习环境与课程轻松对接，安装、调试、写入、部署、运行，一站式解决
+            <br>,让你体验开发全流程</div>
+          <div class="screen-3__skill">
+            <div class="screen-3__skill-item">HTML5</div>
+            <div class="screen-3__skill-item">PHP</div>
+            <div class="screen-3__skill-item">JAVA</div>
+            <div class="screen-3__skill-item">Python</div>
+            <div class="screen-3__skill-item">Node.js</div></div>
+        </div>
+      </section>
+      <section class="screen-4">
+        <div class="screen-4__wrap">
+          <div class="screen-4__heading">省去本地复杂的环境搭建</div>
+          <div class="screen-4__tip"></div>
+          <div class="screen-4__subheading">你可以告别在虚拟机中调试开发了</div>
+          <div class="screen-4__env">
+            <div class="screen-4__env-item screen-4__env-item_i_1">实战课程集成开发环境</div>
+            <div class="screen-4__env-item screen-4__env-item_i_2">内置终端命令行</div>
+            <div class="screen-4__env-item screen-4__env-item_i_3">编译你的应用程序</div>
+            <div class="screen-4__env-item screen-4__env-item_i_4">通过云端服务输出效果</div></div>
+        </div>
+      </section>
+      <section class="screen-5">
+        <div class="screen-5__wrap">
+          <div class="screen-5__head"></div>
+          <div class="screen-5__heading">云端学习可以这样简单</div>
+          <div class="screen-5__tip"></div>
+          <div class="screen-5__subheading">看视频，敲代码，一气呵成。结合慕课网为你提供的云端学习工具，所见即所得。从此学习不一样</div></div>
+      </section>
+      <section class="more">
+        <a href="#" class="more__button">继续了解学习体验</a></section>
+      <div class="outline">
+        <a href="javascript:;" data-idx="0" class="outline__item " target="_blank" rel="external">实</a>
+        <a href="javascript:;" data-idx="1" class="outline__item " target="_blank" rel="external">商</a>
+        <a href="javascript:;" data-idx="2" class="outline__item " target="_blank" rel="external">课</a>
+        <a href="javascript:;" data-idx="3" class="outline__item " target="_blank" rel="external">环</a>
+        <a href="javascript:;" data-idx="4" class="outline__item " target="_blank" rel="external">云</a>
+      </div>
+      <footer class="footer">
+        <div class="footer__wrap">
+          <div class="footer__link">
+            <a href="#" class="footer__link-item">网站首页</a>
+            <a href="#" class="footer__link-item">人才招聘</a>
+            <a href="#" class="footer__link-item">联系我们</a>
+            <a href="#" class="footer__link-item">高校联盟</a>
+            <a href="#" class="footer__link-item">关于我们</a>
+            <a href="#" class="footer__link-item">讲师招募</a>
+            <a href="#" class="footer__link-item">意见反馈</a>
+            <a href="#" class="footer__link-item">友情链接</a></div>
+          <div class="footer__copyright">Copyright © 2015 imooc.com All Rights Reserved | 京ICP备 13046642号-2</div></div>
+      </footer>
+    </div>
+
+    <script type="text/javascript">
+        
+        var getByClass = function (className) {
+          return document.getElementsByClassName(className);
+        }
+        var addClass = function (element , _className) {
+          
+          var className = element.className.split(' ');
+          var classNameMap = {}
+
+          for(var i=0;i<className.length;i++){ // 基本代码，需要优化
+            classNameMap[ className[i]] = 1;
+          }
+          classNameMap[_className] = 1;
+
+          className = [];
+          for(i in classNameMap){
+            className.push(i);
+          }
+          element.className = className.join(' ');
+
+          // element.className += (' '+className ); 错误示例
+        }
+        var removeClass = function (element ,  _className) {
+
+          var className = element.className.split(' ');
+          var classNameMap = {}
+          for(var i=0;i<className.length;i++){ // 基本代码，需要优化
+            classNameMap[ className[i]] = 1;
+          }
+          delete classNameMap[_className];
+          className = [];
+          for(i in classNameMap){
+            className.push(i);
+          }
+          element.className = className.join(' ');
+          // element.className =  element.className.replace(className,'');
+        }
+
+
+        setTimeout(function  () {getByClass('screen-1__subheading')[0].style.opacity =1;},1000);
+        
+        window.onscroll = function () {
+            
+            var top  = document.body.scrollTop;
+
+            //   顶部菜单栏的设置
+            if( top < 100 ){
+              removeClass( getByClass('header')[0] , 'header_status_white' );
+              getByClass('outline')[0].style.opacity=0;
+
+
+            }else{
+              addClass( getByClass('header')[0] , 'header_status_white' ) ;
+              mouseEnterTip(getByClass('header__nav-item')[0]);
+              getByClass('outline')[0].style.opacity=1;
+
+            }
+
+            //  第二屏的初始设置
+            // getByClass('screen-2__subheading')[0].style.opacity =0;
+            // getByClass('screen-2__tip')[0].style.opacity = 0;
+            // getByClass('screen-2__sub-1')[0].style.opacity = 0;
+            // getByClass('screen-2__sub-2')[0].style.opacity = 0;
+
+
+            //  滚动后第二屏幕的设置
+            // if(top > 340){
+              
+            //   getByClass('screen-2__heading')[0].style.opacity = 1;
+            //   getByClass('screen-2__heading')[0].style.animation = 'fadeInUp 1s';
+
+            //   getByClass('screen-2__subheading')[0].style.animation = 'fadeInUp 1s .5s';
+            //   getByClass('screen-2__sub-2')[0].style.animation = 'bounceInUp 1s 1.5s';
+              
+            //   setTimeout(function  () {
+
+            //     getByClass('screen-2__subheading')[0].style.opacity =1;
+
+            //     getByClass('screen-2__tip')[0].style.transition = 'all 1s'; // 为 tip 增加过渡动画
+            //     getByClass('screen-2__tip')[0].style.opacity = 1;
+
+            //     getByClass('screen-2__sub-1')[0].style.transition = 'all 1s';
+            //     getByClass('screen-2__sub-1')[0].style.opacity = 1;
+
+            //   },1000);
+
+            //   setTimeout(function  () {
+            //     getByClass('screen-2__sub-2')[0].style.opacity = 1;
+            //   },2000);
+
+            // }
+            //  不断的滚动后，会有动画的BUG，我们换成用 className的
+
+            if(top>340){
+                addClass(getByClass('screen-2__heading')[0],'screen-2__heading_status_load');
+                addClass(getByClass('screen-2__subheading')[0],'screen-2__subheading_status_load');
+                addClass(getByClass('screen-2__tip')[0],'screen-2__tip_status_load');
+                addClass(getByClass('screen-2__sub-1')[0],'screen-2__sub-1_status_load');
+                addClass(getByClass('screen-2__sub-2')[0],'screen-2__sub-2_status_load');
+
+              mouseEnterTip(getByClass('header__nav-item')[1])
+            }
+
+            addClass(getByClass('screen-3')[0],'screen-3_status_init');
+
+            if(top > 340+640){
+              //  我们可以首先直接用 screen-2的，这样就是 BEM 开发的好处，结构非常清晰
+                addClass(getByClass('screen-3__heading')[0],'screen-3__heading_status_load');
+                addClass(getByClass('screen-3__subheading')[0],'screen-3__subheading_status_load');
+                addClass(getByClass('screen-3__tip')[0],'screen-3__tip_status_load');
+                addClass(getByClass('screen-3__skill')[0],'screen-3__skill_status_load');
+                
+                setTimeout(function () {
+                  addClass(getByClass('screen-3')[0],'screen-3_status_load');
+                },100)
+
+                mouseEnterTip(getByClass('header__nav-item')[2])
+            }
+
+            if(top > 340+640+640){
+                addClass(getByClass('screen-4__heading')[0],'screen-4__heading_status_load');
+                addClass(getByClass('screen-4__subheading')[0],'screen-4__subheading_status_load');
+                addClass(getByClass('screen-4__tip')[0],'screen-4__tip_status_load');
+
+
+                addClass(getByClass('screen-4__env-item')[0],'screen-4__env-item_staus_load');
+                addClass(getByClass('screen-4__env-item')[1],'screen-4__env-item_staus_load');
+                addClass(getByClass('screen-4__env-item')[2],'screen-4__env-item_staus_load');
+                addClass(getByClass('screen-4__env-item')[3],'screen-4__env-item_staus_load');
+
+                mouseEnterTip(getByClass('header__nav-item')[3])
+            }
+
+            addClass(getByClass('screen-5__head')[0],'screen-5__head_status_init');
+            if(top > 340+640+640+640){
+                addClass(getByClass('screen-5__heading')[0],'screen-5__heading_status_load');
+                addClass(getByClass('screen-5__subheading')[0],'screen-5__subheading_status_load');
+                addClass(getByClass('screen-5__tip')[0],'screen-5__tip_status_load');
+                
+                setTimeout(function () {
+                  addClass(getByClass('screen-5__head')[0],'screen-5__head_status_load');
+                },100);
+
+                mouseEnterTip(getByClass('header__nav-item')[4])
+
+            }
+
+        }
+
+        var  moveTip = function(e) {
+          var idx = e.target.getAttribute('data-idx');
+          getByClass('header__nav-item-tip')[0].style.left = (20+idx*96)+'px';
+        }
+
+        var moveScroll = function (e) {
+          var idx = e.target.getAttribute('data-idx');
+          document.body.scrollTop = (idx*640)
+        }
+        var mouseEnterTip = function (element) {
+            var e = document.createEvent('MouseEvents');
+            e.initEvent( 'mouseenter', true, false );
+            element.dispatchEvent(e);
+        }
+
+        window.onload = function  (argument) {
+            getByClass('header__nav-item')[0].addEventListener('mouseenter',moveTip)
+            getByClass('header__nav-item')[1].addEventListener('mouseenter',moveTip)
+            getByClass('header__nav-item')[2].addEventListener('mouseenter',moveTip)
+            getByClass('header__nav-item')[3].addEventListener('mouseenter',moveTip)
+            getByClass('header__nav-item')[4].addEventListener('mouseenter',moveTip)
+
+
+            getByClass('header__nav-item')[0].addEventListener('click',moveScroll)
+            getByClass('header__nav-item')[1].addEventListener('click',moveScroll)
+            getByClass('header__nav-item')[2].addEventListener('click',moveScroll)
+            getByClass('header__nav-item')[3].addEventListener('click',moveScroll)
+            getByClass('header__nav-item')[4].addEventListener('click',moveScroll)
+
+
+            getByClass('outline__item')[0].addEventListener('click',moveScroll)
+            getByClass('outline__item')[1].addEventListener('click',moveScroll)
+            getByClass('outline__item')[2].addEventListener('click',moveScroll)
+            getByClass('outline__item')[3].addEventListener('click',moveScroll)
+            getByClass('outline__item')[4].addEventListener('click',moveScroll)
+        }
+
+      
+
+    </script>
+  </body>
+
+</html>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://webooxx.com/src/ddemo/H5Page/H5Study/index.html" data-id="ciuw33n9c000ckfmobdp4u53s" class="article-share-link">Partager</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Mot-clés</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/js特效/">js特效</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/单页应用/">单页应用</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/慕课网案例/">慕课网案例</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/智能设备/">智能设备</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/游戏/">游戏</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/用户体验/">用户体验</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/相册/">相册</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/眼动实验/">眼动实验</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/网络案例/">网络案例</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Nuage de mot-clés</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/js特效/" style="font-size: 20px;">js特效</a> <a href="/tags/单页应用/" style="font-size: 10px;">单页应用</a> <a href="/tags/慕课网案例/" style="font-size: 15px;">慕课网案例</a> <a href="/tags/智能设备/" style="font-size: 15px;">智能设备</a> <a href="/tags/游戏/" style="font-size: 10px;">游戏</a> <a href="/tags/用户体验/" style="font-size: 15px;">用户体验</a> <a href="/tags/相册/" style="font-size: 15px;">相册</a> <a href="/tags/眼动实验/" style="font-size: 15px;">眼动实验</a> <a href="/tags/网络案例/" style="font-size: 10px;">网络案例</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/10/">October 2016</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Articles récents</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2016/10/30/JS小游戏-贪吃蛇/">JS小游戏-贪吃蛇</a>
+          </li>
+        
+          <li>
+            <a href="/2016/10/30/JS特效-网格拼贴相册/">JS特效-网格拼贴相册</a>
+          </li>
+        
+          <li>
+            <a href="/2016/10/30/JS特效-旋转画廊相册/">JS特效-旋转画廊相册</a>
+          </li>
+        
+          <li>
+            <a href="/2016/10/30/TeeEyeTribe追踪网页视线热点简易版/">TeeEyeTribe追踪网页视线热点简易版</a>
+          </li>
+        
+          <li>
+            <a href="/2016/10/30/TheEyeTribe眼动捕捉实际效果/">TheEyeTribe眼动捕捉实际效果</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2016 Lyn<br>
+      Propulsé by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//libs.baidu.com/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+</body>
+</html>

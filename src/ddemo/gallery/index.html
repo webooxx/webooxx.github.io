@@ -1,0 +1,624 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>webooxx</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="散列画廊
+    
+        
+
+            *{padding: 0;margin:0;}
+
+            body{
+                background-color: #fff;
+                color: #555;
+                font-family: &apos;A">
+<meta property="og:type" content="website">
+<meta property="og:title" content="webooxx">
+<meta property="og:url" content="http://webooxx.com/src/ddemo/gallery/index.html">
+<meta property="og:site_name" content="webooxx">
+<meta property="og:description" content="散列画廊
+    
+        
+
+            *{padding: 0;margin:0;}
+
+            body{
+                background-color: #fff;
+                color: #555;
+                font-family: &apos;A">
+<meta property="og:image" content="http://webooxx.com/photo/">
+<meta property="og:updated_time" content="2015-01-27T05:34:18.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="webooxx">
+<meta name="twitter:description" content="散列画廊
+    
+        
+
+            *{padding: 0;margin:0;}
+
+            body{
+                background-color: #fff;
+                color: #555;
+                font-family: &apos;A">
+<meta name="twitter:image" content="http://webooxx.com/photo/">
+  
+    <link rel="alternate" href="/atom.xml" title="webooxx" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">webooxx</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">懒惰即美德</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="Flux RSS"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Rechercher"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://webooxx.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="page-undefined" class="article article-type-page" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/src/ddemo/gallery/index.html" class="article-date">
+  <time datetime="2016-10-14T09:26:37.000Z" itemprop="datePublished">2016-10-14</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>散列画廊</title>
+    
+        <style type="text/css">
+
+            *{padding: 0;margin:0;}
+
+            body{
+                background-color: #fff;
+                color: #555;
+                font-family: 'Avenir Next', Avenir, 'Helvetica Neue', Helvetica, 'Lantinghei SC';
+                font-size: 14px;
+
+                -webkit-font-smoothing: antialiased;
+                -moz-font-smoothing: antialiased;
+            }
+            big{
+                color: #9C0;
+                display: block;
+            }
+            .wrap{
+                width: 100%;
+                height: 600px;
+                position: absolute;
+                top: 50%;
+                margin-top: -300px;
+                background-color: #333;
+                overflow: hidden;
+
+                -webkit-perspective: 800px;
+                -moz-perspective: 800px;
+            }
+            .hide{
+                display: none;
+            }
+
+         
+            /*样式*/
+            .photo {
+                position: absolute;
+                width: 260px;
+                height: 320px;
+                cursor: pointer;
+
+                z-index: 1;
+                box-shadow: 0 0 1px rgba(0,0,0,.01);
+
+                -webkit-transition: -webkit-transform 0.6s ease-in-out , left 0.6s ease-in-out , top 0.6s ease-in-out ,  margin 0.6s ease-in-out;
+                -moz-transition: -moz-transform 0.6s ease-in-out , left 0.6s ease-in-out , top 0.6s ease-in-out ,  margin 0.6s ease-in-out;
+            }
+            /*位置：居中*/
+            .photo_center{
+                left: 50%;
+                top: 50%;
+                margin: -160px 0 0 -130px;
+                z-index: 999;
+   /*             -webkit-transform: scale(1.3);
+                transform: scale(1.3);*/
+            }
+
+            .photo_wrap{
+                position: absolute;
+                width: 100%;
+                height: 100%;
+                
+                -webkit-transition: -webkit-transform 0.6s ease-in-out;
+                -webkit-transform-origin: 0% 50%;
+                -webkit-backface-visibility:hidden;
+                -webkit-transform-style: preserve-3d;
+
+
+                -moz-transition: -moz-transform 0.6s ease-in-out;
+                -moz-transform-origin: 0% 50%;
+                -moz-backface-visibility:hidden;
+                -moz-transform-style: preserve-3d;
+            }
+            
+            .photo .image{
+                width: 100%;
+                height: 250px;
+                background-color: #333;
+                line-height: 250px;
+                overflow: hidden;
+            }
+            .photo .image img{
+                width: 100%;
+            }
+            .photo .caption{
+                text-align: center;
+                font-size: 16px;
+                line-height: 50px;
+            }
+            .photo .desc{
+               color: #666;
+               font-size: 14px;
+               line-height: 1.5em; 
+            }
+
+            /*样式：翻面*/
+            .photo .side{
+                position: absolute;
+                left: 0;right: 0;
+                width: 100%;
+                height: 100%;
+                
+                padding: 20px;
+
+                box-sizing:border-box;
+
+                -webkit-backface-visibility:hidden;
+                -moz-backface-visibility:hidden;
+            }
+            .photo .side{
+                background-color: #eee;
+            }
+            .photo_center .side{
+                background: #FFF;
+            }
+
+            .photo .side-front{
+                -moz-transform: rotateY(0deg);
+                -moz-transform: rotateY(0deg);
+            }
+            .photo .side-back{
+                -webkit-transform: rotateY(179.9deg);
+                -moz-transform: rotateY(179.9deg);
+            }
+
+            /*翻面：*/
+            .photo_front .photo_wrap{
+                -webkit-transform: translate(0px,0px)  rotateY(0deg);
+                -moz-transform: translate(0px,0px)  rotateY(0deg);
+            }
+            .photo_back .photo_wrap{
+                -webkit-transform: translate(260px,0px)  rotateY(179.9deg);
+                -moz-transform: translate(260px,0px)  rotateY(179.9deg);
+            }
+             /*导航条*/
+            .nav{
+                width: 80%;
+                height: 30px;
+                line-height: 30px;
+                position: absolute;
+                left: 10%;
+                text-align: center;
+                bottom: 20px;
+                z-index: 999;
+            }
+            .nav .i{
+                position: relative;
+                display: inline-block;
+                width: 30px;
+                height: 30px;
+                cursor: pointer;
+                background: #AAA;
+                border-radius: 50%;
+                text-align: center;
+                -webkit-transition: -webkit-transform 0.6s ease-in-out, background 0.3s;
+                transition: transform 0.6s ease-in-out, background 0.3s;
+                -webkit-transform: scale(0.48);
+                transform: scale(0.48);
+            }
+
+            @font-face {
+                font-family: 'icons';
+                src:url('icons.woff') format('woff');
+                font-weight: normal;
+                font-style: normal;
+            }
+
+            .nav .i:after{
+                content: "\e600";
+                font-family: 'icons';
+                font-size: 80%;
+                speak: none;
+                display: inline-block;
+                vertical-align: top;
+                font-style: normal;
+                font-weight: normal;
+                font-variant: normal;
+                text-transform: none;
+                line-height: 30px;
+                color: #FFF;
+                opacity: 0;
+                -webkit-font-smoothing: antialiased;
+                -moz-osx-font-smoothing: grayscale;
+                -webkit-transition: opacity 0.3s;
+                transition: opacity 0.3s;
+                -webkit-backface-visibility: hidden;
+                backface-visibility: hidden;
+            }
+            .nav .i_current{
+                background: #888;
+                -webkit-transform: scale(1);
+                transform: scale(1);
+            }
+            .nav .i_current:after{
+                 opacity: 1;
+                -webkit-transition-delay: 0.4s;
+                transition-delay: 0.4s;
+            }
+            .nav .i_back{
+                -webkit-transform: scale(1) rotateY(-180deg) translateZ(-1px);
+                transform: scale(1) rotateY(-180deg) translateZ(-1px);
+                background: #555;
+            }
+     
+        </style>
+    </head>
+
+    <body onselectstart="return false;">
+
+        <div class="wrap" id="wrap">
+
+            <div class="photo photo_center photo_front" onclick="turn(this)" id="photo_">
+                <div class="photo_wrap">
+                    <div class="side side-front">
+                        <p class="image"><img src="photo/"></p>
+                        <p class="caption"></p>
+                    </div>
+
+                    <div class="side side-back">
+                        <p class="desc"></p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <script type="text/javascript" src="data.js"></script>
+        <script type="text/javascript">
+            var g = function(selector){
+                return document[(selector.substr(0,1) == '.' ? 'getElementsByClassName' : 'getElementById')](selector.replace(/[\.\#]/,''));
+            }
+
+            //  照片的HTML - 构造一些数据
+            var data = data;
+            
+             //  照片的HTML - 操作
+            function addPhotos(){
+                var template = g('#wrap').innerHTML;
+                var html = [];
+                var nav  = [];
+                for(s in data){
+
+                    var _html = template
+                                    .replace( '' , s )
+                                    .replace( '' , data[s].caption )
+                                    .replace( '' , data[s].img )
+                                    .replace( '' , data[s].desc );
+                    html.push( _html );
+                    nav.push( '<span  id="nav_'+s+'" class="i nav-i" onclick="turn( g(\'#photo_'+s+'\') )">&nbsp;</span>' );
+                }
+
+                html.push('<div class="nav">'+nav.join('')+'</div>');
+                g('#wrap').innerHTML = html.join('');
+                rsort( random([0,data.length]) );
+            }
+            addPhotos();
+
+
+            //  范围 x-left x-center x-right
+            //  范围 y-full y-top,y-bottom y-full
+
+            //  x-left   : x > 0-photo宽度  ,x < wrap中心-photo宽度
+            //  x-right  : x > wrap中心 + photo宽度 , x < wrap宽度       ( 模 20 网格)
+            //  x-center : x > wrap中心-photo宽度  ,  x < wrap中心 + photo宽度
+            
+            //  y-full   : y > 0-photo高度 , y < wrap高度+photo高度
+            //  y-top    : y > 0-photo高度 , y < 0+photo高度
+                        
+            // transform: rotate(33deg) translate(20px,0px);
+
+
+            //  范围计算( base center )
+            function range(){
+                var range = {};
+                var wrap = {
+                    w : g('#wrap').clientWidth,
+                    h : g('#wrap').clientHeight
+                }
+                var photo = {
+                    w : g('.photo')[0].clientWidth,
+                    h : g('.photo')[0].clientHeight 
+                }
+                range.xLeft  = [ 0-photo.w , wrap.w/2 - photo.w ];
+                range.xRight = [ wrap.w/2+photo.w , wrap.w];
+                range.yFull = [ 0- photo.h, wrap.h+photo.h];
+
+                range.xCenter = [ wrap.w/2-photo.w*1.5,wrap.w/2+photo.w/4];
+                range.yTop    = [ photo.h*-1+30,photo.h*-1+10];
+
+                return range;
+            }
+
+
+            //  根据范围获得一个随机数
+            function random( range , modulo ){
+                var max = Math.max(range[0],range[1]);
+                var min = Math.min(range[0],range[1])-1;
+                var diff = max - min;
+                var number = min + Math.ceil( diff*Math.random() );
+                var modulo = modulo ? number % modulo : 0; 
+                return number-modulo;
+            }
+
+
+            //  重新排列
+            function rsort( idx ){
+
+                var ranges = range();               //  位置范围
+
+                var _photos = g('.photo');
+                var  photos = [];                   //  放在一个正常的数组中
+                                                    //  反复排序时恢复到默认状态
+                for(s =0;s<_photos.length;s++){
+
+                    _photos[s].className = _photos[s].className.replace(/\s*photo_center\s*/g,' ');
+                    _photos[s].className = _photos[s].className.replace(/\s*photo_back\s*/g,' ');
+                    _photos[s].className = _photos[s].className.replace(/\s*photo_front\s*/g,' ');
+                    _photos[s].className += ' photo_front';
+
+                    _photos[s].style.left = '';
+                    _photos[s].style.top = '';
+                    _photos[s].style['-webkit-transform'] = _photos[s].style['transform'] = 'rotate(360deg) scale(1.3)';
+                    photos.push(_photos[s]);
+                }
+
+                var photo_center = photos.splice( (idx||0) ,1 )[0];
+                photo_center.className += ' photo_center';
+
+                photos.sort(function(a,b){ return Math.random()>.5 });  //  乱序
+
+                photo_top = photos.splice(0,1)[0]  //  顶部的
+
+                photos_left = photos.splice(0,Math.ceil( photos.length/2) )     //  左半
+                photos_right = photos;                                          //  右半
+
+                photo_top.style['-webkit-transform'] = photo_top.style['transform'] = 'rotate('+random([-150,150])+'deg) scale(1)';
+                photo_top.style.left = random(ranges.xCenter) +'px ';
+                photo_top.style.top  = random(ranges.yTop) +'px ';
+
+                for(s in photos_left){
+                    var photo = photos_left[s];
+
+                    photo.style['-webkit-transform'] =
+                    photo.style['transform'] = 'rotate('+random([-150,150])+'deg) scale(1)';
+
+                    photo.style.left = random(ranges.xLeft,50) +'px ';
+                    photo.style.top  = random(ranges.yFull,50) +'px ';
+
+                }
+
+                for(s in photos_right){
+                    var photo = photos_right[s];
+
+                    photo.style['-webkit-transform'] = photo.style['transform'] = 'rotate('+random([-150,150])+'deg) scale(1)';
+
+                    photo.style.left = random(ranges.xRight) +'px ';
+                    photo.style.top  = random(ranges.yFull) +'px ';
+
+                }
+
+                var navs = g('.nav-i');
+
+                for(var s=0;s<navs.length;s++){
+                    navs[s].className = navs[s].className.replace(/\s*i_current\s*/g,' ');
+                    navs[s].className = navs[s].className.replace(/\s*i_back\s*/g,' ');
+                }
+
+                g('nav_'+idx).className+= ' i_current';
+            }
+
+            //  翻面
+            function turn (elem) {
+                var cls = elem.className;
+                var idx = elem.id.split('_')[1];
+                if( !/photo_center/.test(cls) ){
+                    return rsort(idx);
+                }
+                
+
+                if(/photo_front/.test(cls)){
+                    cls = cls.replace(/\s*photo_front\s*/g,' photo_back ');
+                    g('nav_'+idx).className += ' i_back';
+
+                }else{
+
+                    cls = cls.replace(/\s*photo_back\s*/g,' photo_front ');
+                    g('nav_'+idx).className = g('nav_'+idx).className.replace(/\s*i_back\s*/g,' ');
+                }
+                return elem.className  =cls;
+            }
+        </script>
+    </body>
+</html>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://webooxx.com/src/ddemo/gallery/index.html" data-id="ciuw33n7n0006kfmopbky2blf" class="article-share-link">Partager</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Mot-clés</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/js特效/">js特效</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/单页应用/">单页应用</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/慕课网案例/">慕课网案例</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/智能设备/">智能设备</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/游戏/">游戏</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/用户体验/">用户体验</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/相册/">相册</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/眼动实验/">眼动实验</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/网络案例/">网络案例</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Nuage de mot-clés</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/js特效/" style="font-size: 20px;">js特效</a> <a href="/tags/单页应用/" style="font-size: 10px;">单页应用</a> <a href="/tags/慕课网案例/" style="font-size: 15px;">慕课网案例</a> <a href="/tags/智能设备/" style="font-size: 15px;">智能设备</a> <a href="/tags/游戏/" style="font-size: 10px;">游戏</a> <a href="/tags/用户体验/" style="font-size: 15px;">用户体验</a> <a href="/tags/相册/" style="font-size: 15px;">相册</a> <a href="/tags/眼动实验/" style="font-size: 15px;">眼动实验</a> <a href="/tags/网络案例/" style="font-size: 10px;">网络案例</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/10/">October 2016</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Articles récents</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2016/10/30/JS小游戏-贪吃蛇/">JS小游戏-贪吃蛇</a>
+          </li>
+        
+          <li>
+            <a href="/2016/10/30/JS特效-网格拼贴相册/">JS特效-网格拼贴相册</a>
+          </li>
+        
+          <li>
+            <a href="/2016/10/30/JS特效-旋转画廊相册/">JS特效-旋转画廊相册</a>
+          </li>
+        
+          <li>
+            <a href="/2016/10/30/TeeEyeTribe追踪网页视线热点简易版/">TeeEyeTribe追踪网页视线热点简易版</a>
+          </li>
+        
+          <li>
+            <a href="/2016/10/30/TheEyeTribe眼动捕捉实际效果/">TheEyeTribe眼动捕捉实际效果</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2016 Lyn<br>
+      Propulsé by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//libs.baidu.com/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+</body>
+</html>
