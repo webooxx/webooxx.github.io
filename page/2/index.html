@@ -1,0 +1,666 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>webooxx</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="对于程序员来说 懒是一种美德">
+<meta property="og:type" content="website">
+<meta property="og:title" content="webooxx">
+<meta property="og:url" content="http://webooxx.com/page/2/index.html">
+<meta property="og:site_name" content="webooxx">
+<meta property="og:description" content="对于程序员来说 懒是一种美德">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="webooxx">
+<meta name="twitter:description" content="对于程序员来说 懒是一种美德">
+  
+    <link rel="alternate" href="/atom.xml" title="webooxx" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">webooxx</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">懒惰即美德</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://webooxx.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main">
+  
+    <article id="post-jQuery的arrayLike" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2011/12/08/jQuery的arrayLike/" class="article-date">
+  <time datetime="2011-12-08T09:45:00.000Z" itemprop="datePublished">2011-12-08</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2011/12/08/jQuery的arrayLike/">jQuery的arrayLike</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>jquery的链式调用很是喜欢，想模拟一个，发现了一个很奇特的事。</p>
+<p>那就是jquery查询DOM返回的是一个[]</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">$(<span class="string">'body'</span>)</div><div class="line">[</div><div class="line"><span class="xml"><span class="tag">&lt;<span class="name">body</span>&gt;</span>​…​<span class="tag">&lt;/<span class="name">body</span>&gt;</span></span>​</div><div class="line">]</div></pre></td></tr></table></figure>
+<p>仔细检查了$这个函数。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">jQuery = <span class="function"><span class="keyword">function</span>(<span class="params"> selector, context </span>) </span>&#123;</div><div class="line">        <span class="keyword">return</span> <span class="keyword">new</span> jQuery.fn.init( selector, context );</div><div class="line">&#125;</div><div class="line"></div><div class="line">jQuery.fn = jQuery.prototype = &#123;</div><div class="line">    <span class="attr">init</span>: <span class="function"><span class="keyword">function</span>(<span class="params"> selector, context </span>) </span>&#123;</div><div class="line">....</div></pre></td></tr></table></figure>
+<p>再检查 $.fn 时就囧了。</p>
+<p>$.fn 返回的是 []<br> 。。。<br>仔细把无用的属性排除后</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">a = &#123;</div><div class="line">    length: 0,</div><div class="line">    splice: [].splice</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>a 也是一个 [] 了~</p>
+<p>网上一搜索 arrayLike 发现还是有蛮多的资料。。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://webooxx.com/2011/12/08/jQuery的arrayLike/" data-id="ciuw99grr000pbsmo3g1bh7xo" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JS/">JS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/jQuery/">jQuery</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/jQuery原理/">jQuery原理</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/小工具/">小工具</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-使用wubi安装ubuntu11-04后无线网卡被禁用无法打开-解决办法" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2011/07/16/使用wubi安装ubuntu11-04后无线网卡被禁用无法打开-解决办法/" class="article-date">
+  <time datetime="2011-07-15T16:11:00.000Z" itemprop="datePublished">2011-07-16</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2011/07/16/使用wubi安装ubuntu11-04后无线网卡被禁用无法打开-解决办法/">使用wubi安装ubuntu11.04后无线网卡被禁用无法打开-解决办法</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>在WIN7下用WUBI安装好UBUNTU后，进入到UBUNTUN却发现无线网络被禁用了。</p>
+<p>手工点“启用无线网络”依然无效</p>
+<p>ctrl+alt T在命令行下输入</p>
+<pre><code>ifconfig
+</code></pre><p>发现只有lo和eth0</p>
+<p>硬件驱动应该是没有问题。所以系统才会说被禁用。换个命令</p>
+<pre><code>iwconfig
+</code></pre><p>这时候发现有wlan0了，但是电源是off状态。</p>
+<p>尝试开启它。</p>
+<pre><code>sudo ifconfig wlan0 up
+</code></pre><p><code>报错：SIOCSIFFLAGS: Operation not possible due to RF-kill</code></p>
+<p>没办法了，<code>RF-kill</code> 是个啥东西？？</p>
+<p>用手机一上，搜索到一条信息，rfkill 是LINUX管理无线网卡的模块。</p>
+<p>输入命令</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">rfkill</div><div class="line">Usage:    rfkill [options] <span class="built_in">command</span></div><div class="line">Options:</div><div class="line">    --version    show version (0.4-1 (Ubuntu))</div><div class="line">Commands:</div><div class="line">    <span class="built_in">help</span></div><div class="line">    event</div><div class="line">    list [IDENTIFIER]</div><div class="line">    block IDENTIFIER</div><div class="line">    unblock IDENTIFIER</div><div class="line"><span class="built_in">where</span> IDENTIFIER is the index no. of an rfkill switch or one of:</div><div class="line">    &lt;idx&gt; all wifi wlan bluetooth uwb ultrawideband wimax wwan gps fm</div></pre></td></tr></table></figure>
+<p>好家伙，藏在这里呢。</p>
+<pre><code>rfkill list
+</code></pre><p>查看被block的设备，然后解锁他。</p>
+<pre><code>rfkill unblock 0
+</code></pre><p>最后，</p>
+<pre><code>sudo ifconfig wlan0 up
+</code></pre><p>OK成功上网，博文发出。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://webooxx.com/2011/07/16/使用wubi安装ubuntu11-04后无线网卡被禁用无法打开-解决办法/" data-id="ciuw99grz000wbsmoay762lp3" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/UBUNTUN/">UBUNTUN</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/无线网卡/">无线网卡</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-在手机上安装BT5系统-没错就是破解无线密码的那个" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2011/05/25/在手机上安装BT5系统-没错就是破解无线密码的那个/" class="article-date">
+  <time datetime="2011-05-25T11:11:00.000Z" itemprop="datePublished">2011-05-25</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2011/05/25/在手机上安装BT5系统-没错就是破解无线密码的那个/">在手机上安装BT5系统,没错就是破解无线密码的那个</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>原文地址：</p>
+<p><a href="http://www.backtrack-linux.org/forums/backtrack-5-how-tos/40719-installing-bt5-arm-samsung-galaxy-s-captivate.html?langid=8" target="_blank" rel="external">http://www.backtrack-linux.org/forums/backtrack-5-how-tos/40719-installing-bt5-arm-samsung-galaxy-s-captivate.html?langid=8</a></p>
+<p>在 Samsung Galaxy S (Captivate)上安装BT5 ARM</p>
+<p>大家好</p>
+<p>首先，祝贺BT的团队，他们太神了（居然可以有支持ARM系列CPU的系统）</p>
+<p>这是一篇关于如何在Samsung Galaxy S(SGS - Captivate)上安装ARM 版BT5的文章，但这方法在其他同类（android）的设备上也应该是可行的。</p>
+<p>手机准备工作</p>
+<ol>
+<li>一张新的microSD卡8GB以上。</li>
+<li>ROOT权限,我是用z4root在机子上弄的。</li>
+<li>Busybox, (如果你安装了钛备份同时也会安装busybox)</li>
+<li>一个Android的终端模拟器(我用的是ConnectBot)</li>
+<li>VNC 客户端</li>
+</ol>
+<p>开始安装</p>
+<h4 id="1-首先我们得找到设备挂文件去挂载microSD卡"><a href="#1-首先我们得找到设备挂文件去挂载microSD卡" class="headerlink" title="1.首先我们得找到设备挂文件去挂载microSD卡"></a>1.首先我们得找到设备挂文件去挂载microSD卡</h4><p>把SD卡装到 手机上,然后用 ConnectBot, 连接到手机.<br>Android系统会自动挂载SD卡</p>
+<p>现在我们检查下哪些设备文件是用了的。</p>
+<p>代码:<br><figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">su</div><div class="line">mount</div></pre></td></tr></table></figure></p>
+<p>找一下SD卡挂载在哪个文件上，这个根据你机器的ROM而不同，我的ROM是Cognition 3.03</p>
+<p>在我的手机上挂载的文件是</p>
+<p>代码:</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">/dev/block/vold/179:9</div></pre></td></tr></table></figure>
+<p>需要使用PC机了<br>PC的系统要用到LINUX（译注：其实用WINDOWS也可以）</p>
+<h4 id="2-把SD卡撞到PC机上去，并且挂载到文件系统中"><a href="#2-把SD卡撞到PC机上去，并且挂载到文件系统中" class="headerlink" title="2. 把SD卡撞到PC机上去，并且挂载到文件系统中"></a>2. 把SD卡撞到PC机上去，并且挂载到文件系统中</h4><p>我使用的是usb-microSD 适配器，所以我的SD卡挂载文件是/dev/sdb1</p>
+<h5 id="3-格式化SD卡为ext2格式"><a href="#3-格式化SD卡为ext2格式" class="headerlink" title="3. 格式化SD卡为ext2格式"></a>3. 格式化SD卡为ext2格式</h5><p>如题（所以，不用LINUX的话就用磁盘工具格式化成ext2也是一样）</p>
+<p>代码:</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">mkfs.ext2 /dev/sdb1</div></pre></td></tr></table></figure>
+<h4 id="4-挂在SD卡"><a href="#4-挂在SD卡" class="headerlink" title="4. 挂在SD卡"></a>4. 挂在SD卡</h4><p>代码:</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">mkdir /mnt/sdb1</div><div class="line"></div><div class="line">mount -t ext2 /dev/sdb1 /mnt/sdb1</div></pre></td></tr></table></figure>
+<h4 id="5-创建BT5的目录，并且解压BT5的7z包"><a href="#5-创建BT5的目录，并且解压BT5的7z包" class="headerlink" title="5. 创建BT5的目录，并且解压BT5的7z包"></a>5. 创建BT5的目录，并且解压BT5的7z包</h4><p>代码:</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">mkdir /mnt/sdb1/BT5</div><div class="line"></div><div class="line">cp bt5-arm.7z /mnt/sdb1/BT5</div><div class="line"></div><div class="line"><span class="built_in">cd</span> /mnt/sdb1/BT5</div><div class="line"></div><div class="line">7z e bt5-arm.7z</div></pre></td></tr></table></figure>
+<h4 id="6-解压映像文件"><a href="#6-解压映像文件" class="headerlink" title="6. 解压映像文件"></a>6. 解压映像文件</h4><p>代码:</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">gunzip bt5.img.gz</div></pre></td></tr></table></figure>
+<h4 id="7-修改引导文件（Boot-Loader）"><a href="#7-修改引导文件（Boot-Loader）" class="headerlink" title="7. 修改引导文件（Boot Loader）"></a>7. 修改引导文件（Boot Loader）</h4><p>如下修改（译者：这里应该是修改解压出来BT5系统中的引导文件）<br>将第6行修改为: export kit=/data/local/sdcard/BT5</p>
+<p>如果你想显示（启动）设备信息，你需要将18行修改为busybox mount -o loop,noatime -t ext2 $kit/bt5.img $mnt</p>
+<p>代码:<br><figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div></pre></td><td class="code"><pre><div class="line">perm=$(id|cut -b 5)</div><div class="line"><span class="keyword">if</span> [ <span class="string">"<span class="variable">$perm</span>"</span> != <span class="string">"0"</span> ];<span class="keyword">then</span> <span class="built_in">echo</span> <span class="string">"This Script Needs Root! Type : su"</span>;<span class="built_in">exit</span>;<span class="keyword">fi</span></div><div class="line">mount -o remount,rw /dev/block/mmcblk0p5 /system</div><div class="line"><span class="built_in">export</span> kit=/data/<span class="built_in">local</span>/sdcard/BT5</div><div class="line"><span class="built_in">export</span> bin=/system/bin</div><div class="line"><span class="built_in">export</span> mnt=/data/<span class="built_in">local</span>/mnt</div><div class="line">mkdir -p <span class="variable">$mnt</span></div><div class="line"><span class="built_in">export</span> PATH=<span class="variable">$bin</span>:/usr/bin:/usr/<span class="built_in">local</span>/bin:/usr/sbin:/bin:/usr/<span class="built_in">local</span>/sbin:/usr/games:<span class="variable">$PATH</span></div><div class="line"><span class="built_in">export</span> TERM=linux</div><div class="line"><span class="built_in">export</span> HOME=/root</div><div class="line"><span class="keyword">if</span> [ -b /dev/loop2 ]; <span class="keyword">then</span></div><div class="line">        <span class="built_in">echo</span> <span class="string">"Loop device exists"</span></div><div class="line"><span class="keyword">else</span></div><div class="line">        busybox mknod /dev/loop2 b 7 0</div><div class="line"><span class="keyword">fi</span></div><div class="line"><span class="comment">#busybox mount -o loop,noatime -t ext2 $kit/bt5.img $mnt</span></div><div class="line">mount -o loop,noatime -t ext2 <span class="variable">$kit</span>/bt5.img <span class="variable">$mnt</span></div><div class="line">mount -t devpts devpts <span class="variable">$mnt</span>/dev/pts</div><div class="line">mount -t proc proc <span class="variable">$mnt</span>/proc</div><div class="line">mount -t sysfs sysfs <span class="variable">$mnt</span>/sys</div><div class="line">busybox sysctl -w net.ipv4.ip_forward=1</div><div class="line"><span class="built_in">echo</span> <span class="string">"nameserver 8.8.8.8"</span> &gt; <span class="variable">$mnt</span>/etc/resolv.conf</div><div class="line"><span class="built_in">echo</span> <span class="string">"127.0.0.1 localhost bt5"</span> &gt; <span class="variable">$mnt</span>/etc/hosts</div><div class="line">busybox chroot <span class="variable">$mnt</span> /bin/bash</div><div class="line"></div><div class="line"><span class="built_in">echo</span> <span class="string">"Shutting down BackTrack ARM For Xoom"</span></div><div class="line">umount <span class="variable">$mnt</span>/dev/pts</div><div class="line">umount <span class="variable">$mnt</span>/proc</div><div class="line">umount <span class="variable">$mnt</span>/sys</div><div class="line">umount <span class="variable">$mnt</span></div></pre></td></tr></table></figure></p>
+<p>现在用到你的Samsung Galaxy S (Captivate)手机了</p>
+<h4 id="8-把SD卡装回去-手机"><a href="#8-把SD卡装回去-手机" class="headerlink" title="8. 把SD卡装回去 手机"></a>8. 把SD卡装回去 手机</h4><p>因为现在SD卡是ext的系统，所以手机不能正确识别。</p>
+<h4 id="9-把SD卡挂在到-data-local-sdcard-没有文件夹你就创建他"><a href="#9-把SD卡挂在到-data-local-sdcard-没有文件夹你就创建他" class="headerlink" title="9. 把SD卡挂在到 /data/local/sdcard (没有文件夹你就创建他)"></a>9. 把SD卡挂在到 /data/local/sdcard (没有文件夹你就创建他)</h4><p>现在我们需要挂在我们的SD卡，需要用到第一步的操作。</p>
+<p>代码:<br><figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">mkdir /data/<span class="built_in">local</span>/sdcard</div><div class="line"></div><div class="line">mount -t ext2 /dev/block/vold/179:9 /data/<span class="built_in">local</span>/sdcard</div></pre></td></tr></table></figure></p>
+<h4 id="10-切换到SD卡的目录（因为我们把SDK挂载到-data-local-sdcard目录了，所以这个目录对应的就是SD卡的根目录）"><a href="#10-切换到SD卡的目录（因为我们把SDK挂载到-data-local-sdcard目录了，所以这个目录对应的就是SD卡的根目录）" class="headerlink" title="10. 切换到SD卡的目录（因为我们把SDK挂载到 /data/local/sdcard目录了，所以这个目录对应的就是SD卡的根目录）"></a>10. 切换到SD卡的目录（因为我们把SDK挂载到 /data/local/sdcard目录了，所以这个目录对应的就是SD卡的根目录）</h4><p>代码:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">cd /data/local/sdcard/BT5</div></pre></td></tr></table></figure></p>
+<h4 id="11-引导BT系统"><a href="#11-引导BT系统" class="headerlink" title="11.引导BT系统"></a>11.引导BT系统</h4><p>代码:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sh bootbt</div></pre></td></tr></table></figure></p>
+<p>如果你返回了像下面一样的信息的话:</p>
+<p>代码:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">root@localhost / #</div></pre></td></tr></table></figure></p>
+<p>恭喜你BT系统已经开始工作了。</p>
+<p>现在开始搞界面了</p>
+<h4 id="12-修改starvnc文件设置分辨率为800x480-因为这是-手机-的分辨率。"><a href="#12-修改starvnc文件设置分辨率为800x480-因为这是-手机-的分辨率。" class="headerlink" title="12. 修改starvnc文件设置分辨率为800x480, 因为这是 手机 的分辨率。"></a>12. 修改starvnc文件设置分辨率为800x480, 因为这是 手机 的分辨率。</h4><p>你也可以不改，但如果改了，/usr/bin/startvnc，那就得修改成下面这个样子</p>
+<p>代码:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">#!/bin/bash</div><div class="line"></div><div class="line">rm -rf /tmp/.X1*</div><div class="line"></div><div class="line">vncserver -geometry 800x480</div></pre></td></tr></table></figure></p>
+<h4 id="13-获得环境变量"><a href="#13-获得环境变量" class="headerlink" title="13. 获得环境变量"></a>13. 获得环境变量</h4><p>现在你可以运行startvnc了，但是会有些错误，所以我建议先打下面的代码：:</p>
+<p>代码:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">su -</div></pre></td></tr></table></figure>
+<h4 id="14-运行startvnc"><a href="#14-运行startvnc" class="headerlink" title="14. 运行startvnc"></a>14. 运行startvnc</h4><p>代码:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">export USER=root</div><div class="line"></div><div class="line">vncpasswd</div><div class="line"></div><div class="line">startvnc</div></pre></td></tr></table></figure>
+<p>如果你没有干第12步的话:</p>
+<p>代码:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">tightvncserver -geometry 800x480</div></pre></td></tr></table></figure></p>
+<h4 id="15-使用-android的vnc连接到本机"><a href="#15-使用-android的vnc连接到本机" class="headerlink" title="15. 使用 android的vnc连接到本机"></a>15. 使用 android的vnc连接到本机</h4><p>使用VNC连接到 手机</p>
+<p>代码:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">Nickname: BT5 ARM</div><div class="line"></div><div class="line">Password: ******* (whatever you chose)</div><div class="line"></div><div class="line">Address: localhost</div><div class="line"></div><div class="line">Port: 5901</div><div class="line"></div><div class="line">Colof-Format: 24-bit (Recommended)</div></pre></td></tr></table></figure>
+<h4 id="16-从顶部面板删掉消息和关机的托盘图标"><a href="#16-从顶部面板删掉消息和关机的托盘图标" class="headerlink" title="16. 从顶部面板删掉消息和关机的托盘图标"></a>16. 从顶部面板删掉消息和关机的托盘图标</h4><p>当我用键盘控制VNC去连接的时候，有些字母我用不了，比如s或是m，用鼠标去干掉那些程序（就行了）。</p>
+<h4 id="17-享受你的BT5系统吧"><a href="#17-享受你的BT5系统吧" class="headerlink" title="17. 享受你的BT5系统吧"></a>17. 享受你的BT5系统吧</h4><p>欢迎任何意见。</p>
+<p>原文地址：</p>
+<p><a href="http://www.backtrack-linux.org/forums/backtrack-5-how-tos/40719-installing-bt5-arm-samsung-galaxy-s-captivate.html?langid=8" target="_blank" rel="external">http://www.backtrack-linux.org/forums/backtrack-5-how-tos/40719-installing-bt5-arm-samsung-galaxy-s-captivate.html?langid=8</a></p>
+<p>讲来讲去就是第11步重要。引导了BT5起来了基本上就OK了。后面的VNC的作用是获得一个图形界面来操控。</p>
+<p>2011-05-30后记：</p>
+<p>老D按照教程，格式化了ext2后，在手机中死活mount不上去。报错，No such Devive。</p>
+<p>后来我们商量了下估计是系统原因，驱动是OK的，把SD卡拿下来放上去/dev/block/vold/下有新文件出来。</p>
+<p>把SD卡放回UBUNTU格式化为Ext3后，再放回手机就挂上去了。</p>
+<p><img src="http://pic002.cnblogs.com/images/2011/140670/2011053021105641.jpg" alt="手机安装bt5系统"></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://webooxx.com/2011/05/25/在手机上安装BT5系统-没错就是破解无线密码的那个/" data-id="ciuw99gs70015bsmofy3gp58s" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android/">Android</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/收集系统/">收集系统</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/无线密码破解/">无线密码破解</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/翻译/">翻译</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-PHP遍历解析XML为一个数组" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2011/04/01/PHP遍历解析XML为一个数组/" class="article-date">
+  <time datetime="2011-04-01T10:40:00.000Z" itemprop="datePublished">2011-04-01</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2011/04/01/PHP遍历解析XML为一个数组/">PHP遍历解析XML为一个数组</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div></pre></td><td class="code"><pre><div class="line">public <span class="function"><span class="keyword">function</span> <span class="title">parseXML</span>(<span class="params">$menus</span>)</span>&#123;</div><div class="line">  $result = array();</div><div class="line">  foreach($menus <span class="keyword">as</span> $menu)&#123;</div><div class="line">      $tmparr = array();</div><div class="line"></div><div class="line">      <span class="comment">//    处理空文本节点方式A</span></div><div class="line">      <span class="keyword">if</span>( $menu-&gt;nodeName !=<span class="string">'#text'</span>)&#123;</div><div class="line"></div><div class="line">          <span class="comment">//    检索子元素时跳跃过文本节点  - 处理空文本节点方式B</span></div><div class="line">          <span class="keyword">for</span>($i=<span class="number">1</span>; $i&lt;$menu-&gt;childNodes-&gt;length; $i+=<span class="number">2</span>) &#123;</div><div class="line">              $aNode = $menu-&gt;childNodes-&gt;item($i);</div><div class="line"></div><div class="line">              <span class="comment">//    子元素遍历</span></div><div class="line">              $aNode-&gt;childNodes-&gt;length &gt; <span class="number">1</span> ? $tmparr[$aNode-&gt;nodeName] = $<span class="keyword">this</span>-&gt;parseXML( $aNode-&gt;childNodes)</div><div class="line">              : $tmparr[$aNode-&gt;nodeName] = $aNode-&gt;nodeValue;</div><div class="line">          &#125;</div><div class="line">          array_push($result,$tmparr);</div><div class="line">      &#125;</div><div class="line">  &#125;</div><div class="line">  <span class="keyword">return</span> $result;</div><div class="line">&#125;</div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line">$doc = <span class="keyword">new</span> DOMDocument();</div><div class="line">$doc-&gt;load ( ‘a.xml’ );</div><div class="line"></div><div class="line"><span class="comment">//    第一种，有空文本节点</span></div><div class="line">$menus =  $doc-&gt;getElementsByTagName(<span class="string">'siteMap'</span>)-&gt;item(<span class="number">0</span>)-&gt;childNodes;  </div><div class="line"></div><div class="line"> <span class="comment">//    第二种，明确指定标签，序列无空文本节点。但子元素仍然有空节点</span></div><div class="line"></div><div class="line">$xpath = <span class="keyword">new</span> DOMXPath($doc);</div><div class="line">$query = <span class="string">"/siteMap/child::a"</span>;</div><div class="line"></div><div class="line">$menus = $xpath-&gt;query($query);</div></pre></td></tr></table></figure>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://webooxx.com/2011/04/01/PHP遍历解析XML为一个数组/" data-id="ciuw99grh000gbsmokn6lyvn2" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/PHP/">PHP</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/XML解析/">XML解析</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/开发工具/">开发工具</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-讨厌的文本选区" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2011/03/11/讨厌的文本选区/" class="article-date">
+  <time datetime="2011-03-11T09:31:00.000Z" itemprop="datePublished">2011-03-11</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2011/03/11/讨厌的文本选区/">讨厌的文本选区</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>喜欢直奔主题的同学可略过介绍和分析，直接copy去吧，代码都是function式的，看效果可以直接以 fun.call(element,arg….) 调用。</p>
+<p>Ctrl+End直奔页尾吧~</p>
+<p>文本选区的操作可能是WEB前端的一个比较郁闷的地方。</p>
+<p>我想有时候想自己写个编辑器，设置编辑器中的文本为特定的样式就是一个很大的难点。</p>
+<p>看书上写的也是云里雾里的，于是自己动手写吧，资料还是找官方的。</p>
+<p>首先我啥也不知道。列出一个我需要的功能。</p>
+<ol>
+<li>获得我选中的文本值</li>
+<li>获得当前的位置</li>
+<li>替换、删除选中的值</li>
+<li>在固定的位置插入值</li>
+<li>设置光标所在的位置</li>
+<li>选中一个段文本</li>
+</ol>
+<p>首先开始百度谷歌，不过情况都不太好，不给力。代码都含糊不清。但是搜索到一个有用的信息：IE浏览器的 Range 和非IE浏览器的 Range 实现方式不一致。</p>
+<p>搜索到的代码就不列出了，现就最后 的实现代码做分析。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//    取得选中的值    </span></div><div class="line"><span class="comment">//    参数            </span></div><div class="line"><span class="comment">//    返回    String:"Range Text"</span></div><div class="line"> <span class="function"><span class="keyword">function</span> <span class="title">getRngVal</span>(<span class="params"></span>)</span>&#123;</div><div class="line">    <span class="keyword">if</span>(    <span class="built_in">document</span>.selection &amp;&amp;(<span class="built_in">document</span>.selection.type==<span class="string">'Text'</span>))&#123;</div><div class="line">    <span class="comment">//    IE处理</span></div><div class="line">     <span class="comment">//    document.selection 是IE下特有的在这里侦测了下选中的是否是文本</span></div><div class="line">         <span class="keyword">var</span> rng = <span class="built_in">document</span>.selection.createRange();</div><div class="line">        <span class="comment">//    整个文档选取创建了一个  Range  对象，注意不是 TextRange，此时的rng.text是整个页面内所有的文本</span></div><div class="line"></div><div class="line">        <span class="comment">//    如果选取的文本区域不是从当前对象选取的话就返回一个空</span></div><div class="line">         <span class="keyword">if</span> (rng.parentElement() != <span class="keyword">this</span>)&#123;</div><div class="line">            <span class="keyword">return</span> <span class="string">""</span>;</div><div class="line">        &#125;</div><div class="line">        <span class="comment">//    否则返回选中的文本段落</span></div><div class="line">         <span class="keyword">return</span> <span class="built_in">document</span>.selection.createRange().text;</div><div class="line">    &#125;</div><div class="line">    <span class="comment">//    非IE处理</span></div><div class="line">     <span class="keyword">if</span>(<span class="keyword">this</span>.selectionStart != <span class="literal">undefined</span> &amp;&amp; <span class="keyword">this</span>.selectionEnd != <span class="literal">undefined</span>) &#123;</div><div class="line">        <span class="comment">//    验证下，有没有选中文字</span></div><div class="line"></div><div class="line">        <span class="comment">//    这里比较简单了直接获得选取文字的头尾（所在的字符位置）然后substring返回</span></div><div class="line">         <span class="keyword">var</span> s = <span class="keyword">this</span>.selectionStart;</div><div class="line">        <span class="keyword">var</span> e = <span class="keyword">this</span>.selectionEnd;</div><div class="line">        <span class="keyword">return</span> <span class="keyword">this</span>.value.substring(s,e);</div><div class="line">    &#125;<span class="keyword">else</span> &#123;<span class="keyword">return</span> <span class="string">""</span>&#125;;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>已经可以取得选取的文本的信息了，接下去看下如何获得文本所在的位置，相信看过上面的代码了，非IE浏览器直接获得 this.selectionStart; this.selectionEnd;就可以了。IE呢？</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//    取得光标位置</span></div><div class="line"><span class="comment">//    参数</span></div><div class="line"><span class="comment">//    返回    array :[start,end]</span></div><div class="line"> <span class="function"><span class="keyword">function</span> <span class="title">getRngPos</span>(<span class="params"></span>)</span>&#123;</div><div class="line">    <span class="keyword">var</span> pos = [<span class="number">0</span>,<span class="number">0</span>];</div><div class="line">    <span class="keyword">if</span>(<span class="keyword">typeof</span> <span class="keyword">this</span>.selectionStart == <span class="string">'number'</span>)&#123;</div><div class="line">        pos[<span class="number">0</span>] = <span class="keyword">this</span>.selectionStart;</div><div class="line">        pos[<span class="number">1</span>] = <span class="keyword">this</span>.selectionEnd;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">else</span>&#123;</div><div class="line">        <span class="comment">//    曲折的IE</span></div><div class="line">         <span class="keyword">var</span> dng = <span class="built_in">document</span>.selection.createRange();</div><div class="line">        <span class="comment">//    如果选中的文本长度为空</span></div><div class="line">         <span class="comment">//    先聚焦到对象中，再去设置选区</span></div><div class="line">         <span class="keyword">if</span>(dng.text.length&lt;<span class="number">1</span>)&#123;</div><div class="line">            txt.focus();</div><div class="line">            dng = <span class="built_in">document</span>.selection.createRange();</div><div class="line">        &#125;</div><div class="line">        <span class="comment">//    如果选取的文字所在对象不是当前对象</span></div><div class="line">        <span class="comment">//    退</span></div><div class="line">        <span class="keyword">if</span> (dng.parentElement() != <span class="keyword">this</span>)&#123;</div><div class="line">            <span class="keyword">return</span> pos;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">var</span> tng = <span class="keyword">this</span>.createTextRange();</div><div class="line">        <span class="keyword">var</span> al = tng.text.length;</div><div class="line">        <span class="comment">//    IE处理光标范围在最后一个总是会报“未指定的错误”，没办法，只好把他拉到 try 中来了</span></div><div class="line">        <span class="keyword">try</span>&#123;</div><div class="line">        <span class="comment">//    移动选取到光标所在的位置(像素)</span></div><div class="line">        tng.moveToPoint(dng.offsetLeft,dng.offsetTop);</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">catch</span>(e)&#123;</div><div class="line">            <span class="keyword">return</span> [al,al];</div><div class="line">        &#125;</div><div class="line">        <span class="comment">//    IE中，移动选取范围从当前位置到整个字符的长度</span></div><div class="line">        <span class="comment">//    后面是计算了，开始的位置就是，所有字符，剪掉移动后的字符，后的长度</span></div><div class="line">        <span class="comment">//    结束的位置就是，所有字符，剪掉移动后的字符，再加上选取的字符本身的长度</span></div><div class="line">        tng.moveEnd(<span class="string">'character'</span>,al);</div><div class="line">        pos[<span class="number">0</span>] = al-tng.text.length;</div><div class="line">        pos[<span class="number">1</span>] = al-tng.text.length+dng.text.length;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> pos;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>设置部分下回再说。 ^_^</p>
+<p><a href="./ddemo/textareaRange.html">在线演示</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://webooxx.com/2011/03/11/讨厌的文本选区/" data-id="ciuw99gsd001cbsmo7ls2zef4" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JS/">JS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/富文本编辑器/">富文本编辑器</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/小工具/">小工具</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-Dom-Biulder-数据替换脚本-基于jquery" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2011/03/02/Dom-Biulder-数据替换脚本-基于jquery/" class="article-date">
+  <time datetime="2011-03-02T01:30:00.000Z" itemprop="datePublished">2011-03-02</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2011/03/02/Dom-Biulder-数据替换脚本-基于jquery/">Dom Biulder 数据替换脚本 基于jquery</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>这个函数其实可以写在makeDome里面，目前只是变量替换，以后实现语法分析就能对数组、对象进行支持了。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//语法：$.makeDom( str,data,reg)</span></div><div class="line"><span class="comment">//参数：str 字符格式的带有标记的原始文本, data &#123;name:value&#125; ,reg 可选的替换模式</span></div><div class="line"><span class="comment">//返回：string</span></div><div class="line"><span class="comment">// 2011-02-28 XZH   目前只实现了字符变量的传递。数组、循环还需要努力啊。</span></div><div class="line"></div><div class="line">$.dataReg = <span class="function"><span class="keyword">function</span>(<span class="params">str,data,reg</span>)</span>&#123;</div><div class="line"></div><div class="line">　　<span class="keyword">var</span> reg = reg || <span class="regexp">/\%([a-z]+)\%/g</span> ;</div><div class="line"></div><div class="line">　　<span class="keyword">var</span> rep = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line"></div><div class="line">　　<span class="keyword">return</span> <span class="keyword">typeof</span> data[<span class="built_in">arguments</span>[<span class="number">1</span>]] == <span class="string">'string'</span> ? data[<span class="built_in">arguments</span>[<span class="number">1</span>]]  : <span class="built_in">arguments</span>[<span class="number">0</span>] ;</div><div class="line"></div><div class="line">　　&#125;</div><div class="line"></div><div class="line">　　<span class="keyword">return</span> str.replace(reg,rep);</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//配合上文的makeDom示例2   </span></div><div class="line"> <span class="keyword">var</span> d = &#123;</div><div class="line">      <span class="attr">username</span>:<span class="string">'用户名'</span>,</div><div class="line">      <span class="attr">userinfo</span>: <span class="string">'用户信息'</span></div><div class="line"> &#125;</div><div class="line"> $(<span class="string">'.baseinfo'</span>).text( $.dataReg( $(<span class="string">'.baseinfo'</span>).text(),d ) );</div></pre></td></tr></table></figure>
+<p> 差点忘了，还有 $(‘.baseinfo’)的dom结构</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&#123;tag:&apos;span&apos;,cls:&apos;baseinfo&apos;,txt:&apos;%username%在线&apos;,nvs:&#123;title:&apos;%userinfo%&apos;&#125;&#125;</div></pre></td></tr></table></figure>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://webooxx.com/2011/03/02/Dom-Biulder-数据替换脚本-基于jquery/" data-id="ciuw99gqw0004bsmoxpoztnrc" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JS/">JS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/jQuery/">jQuery</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/小工具/">小工具</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-Dom-Builder-基于jquery" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2011/02/25/Dom-Builder-基于jquery/" class="article-date">
+  <time datetime="2011-02-25T06:12:00.000Z" itemprop="datePublished">2011-02-25</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2011/02/25/Dom-Builder-基于jquery/">Dom Builder - 基于jquery</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>搜索了下，貌似只有prototype的dom builder ；貌似项目的IM用的是JQ的，所以为JQ写了个DOM BIULDER。</p>
+<p>效率上考虑，如果要更快的话可以替换掉 操作DOM对象的函数</p>
+<ol>
+<li>对象创建   $(‘&lt;’+tpl.tag+’&gt;’),返回一个 jq 格式的dom对象，换成 document.createElement  就行</li>
+<li>对象添加  $(obj).appendTo(parent) 将obj添加至parent，同时返回obj，这个可能不能直接用原生的 appendChild 方法，得自己去做一个</li>
+<li>文本创建 $(obj).text( string ) 替换 createTextNode</li>
+<li>样式添加 $(obj).addClass( string )</li>
+<li>属性添加 $(obj).attr( json )</li>
+</ol>
+<h2 id="实现代码"><a href="#实现代码" class="headerlink" title="实现代码"></a>实现代码</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//语法：$.makeDom( json)  </span></div><div class="line"><span class="comment">//参数：JSON格式的对象  </span></div><div class="line"><span class="comment">//返回：jquery格式的dom对象  </span></div><div class="line"><span class="comment">// 2011-02-25 XZH</span></div><div class="line"></div><div class="line">$.makeDom = <span class="function"><span class="keyword">function</span> (<span class="params">d</span>)</span>&#123;</div><div class="line"> <span class="keyword">var</span> parent;</div><div class="line"> <span class="keyword">var</span> s= <span class="function"><span class="keyword">function</span> <span class="title">s</span>(<span class="params">d,parent</span>)</span>&#123;</div><div class="line">  <span class="keyword">var</span> c = $( <span class="string">'&lt;'</span>+d.tag+<span class="string">'&gt;'</span> );</div><div class="line">  <span class="keyword">if</span>(d.cls)&#123;c.addClass(d.cls);&#125;</div><div class="line">  <span class="keyword">if</span>(d.txt)&#123;c.text(d.txt);&#125;</div><div class="line">  <span class="keyword">if</span>(d.nvs)&#123;c.attr(d.nvs);&#125;</div><div class="line">  <span class="keyword">if</span>(!parent)&#123;<span class="keyword">var</span> parent=c;&#125;</div><div class="line">  <span class="keyword">else</span>&#123;<span class="keyword">var</span> parent=c.appendTo(parent);&#125;</div><div class="line">  <span class="keyword">if</span>(d.children)&#123;<span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">0</span>;d.children[i];i++)&#123;s(d.children[i],parent);&#125;&#125;</div><div class="line">  <span class="keyword">return</span> parent;</div><div class="line"> &#125;;</div><div class="line"> <span class="keyword">return</span> s(d);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="参数约定："><a href="#参数约定：" class="headerlink" title="参数约定："></a>参数约定：</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&#123; <span class="attr">tag</span>:<span class="string">'标签'</span>,<span class="attr">cls</span>:<span class="string">'快速样式'</span>,<span class="attr">txt</span>:<span class="string">'文本内容'</span>, <span class="attr">nvs</span>:&#123;名:值,名:值&#125; ,<span class="attr">children</span>:[ &#123;...&#125; ] &#125;</div></pre></td></tr></table></figure>
+<h2 id="示例："><a href="#示例：" class="headerlink" title="示例："></a>示例：</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line">talkbox  =  &#123;</div><div class="line">     <span class="attr">tag</span>:<span class="string">'div'</span>,<span class="attr">cls</span>:<span class="string">'talkbox'</span>,</div><div class="line">     <span class="attr">children</span>:[</div><div class="line">      &#123;</div><div class="line">       <span class="attr">tag</span>:<span class="string">'div'</span>,<span class="attr">cls</span>:<span class="string">'titlebar'</span>,</div><div class="line">       <span class="attr">children</span>:[</div><div class="line">        &#123;<span class="attr">tag</span>:<span class="string">'div'</span>,<span class="attr">cls</span>:<span class="string">'avatar'</span>&#125;,</div><div class="line">        &#123;<span class="attr">tag</span>:<span class="string">'div'</span>,<span class="attr">cls</span>:<span class="string">'ctrlbtns'</span>&#125;,</div><div class="line">        &#123;<span class="attr">tag</span>:<span class="string">'div'</span>,<span class="attr">cls</span>:<span class="string">'talktitle'</span>&#125;</div><div class="line">       ]</div><div class="line">      &#125;,</div><div class="line">      &#123;<span class="attr">tag</span>:<span class="string">'div'</span>,<span class="attr">cls</span>:<span class="string">'viewmsgarea'</span>&#125;,</div><div class="line">      &#123;<span class="attr">tag</span>:<span class="string">'div'</span>,<span class="attr">cls</span>:<span class="string">'toolsbar'</span>&#125;,</div><div class="line">      &#123;<span class="attr">tag</span>:<span class="string">'textarea'</span>,<span class="attr">cls</span>:<span class="string">'inputmsgarea'</span>,<span class="attr">txt</span>:<span class="string">'在此输入消息'</span>&#125;,</div><div class="line">      &#123;<span class="attr">tag</span>:<span class="string">'input'</span>,<span class="attr">cls</span>:<span class="string">'sendmsgbutton'</span>,<span class="attr">namevalue</span>:&#123;<span class="attr">type</span>:<span class="string">'button'</span>,<span class="attr">value</span>:<span class="string">'发送消息'</span>&#125; &#125;</div><div class="line">     ]</div><div class="line">    &#125;</div><div class="line"></div><div class="line"></div><div class="line">$.makeDom( talkbox )</div></pre></td></tr></table></figure>
+<h2 id="返回："><a href="#返回：" class="headerlink" title="返回："></a>返回：</h2><figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">[<span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">​</span>"<span class="attr">talkbox</span>"&gt;</span>​</div><div class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">​</span>"<span class="attr">titlebar</span>"&gt;</span>​…​<span class="tag">&lt;/<span class="name">div</span>&gt;</span>​</div><div class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">​</span>"<span class="attr">viewmsgarea</span>"&gt;</span>​<span class="tag">&lt;/<span class="name">div</span>&gt;</span>​</div><div class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">​</span>"<span class="attr">toolsbar</span>"&gt;</span>​<span class="tag">&lt;/<span class="name">div</span>&gt;</span>​</div><div class="line"><span class="tag">&lt;<span class="name">textarea</span> <span class="attr">class</span>=<span class="string">​</span>"<span class="attr">inputmsgarea</span>"&gt;</span>​在此输入消息​<span class="tag">&lt;/<span class="name">textarea</span>&gt;</span>​</div><div class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">class</span>=<span class="string">​</span>"<span class="attr">sendmsgbutton</span>"&gt;</span>​</div><div class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span>​]</div></pre></td></tr></table></figure>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://webooxx.com/2011/02/25/Dom-Builder-基于jquery/" data-id="ciuw99gqu0003bsmo8ctzexv4" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JS/">JS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/jQuery/">jQuery</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/小工具/">小工具</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-返回对象在当前级别中是第几个元素" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2011/01/18/返回对象在当前级别中是第几个元素/" class="article-date">
+  <time datetime="2011-01-18T04:51:00.000Z" itemprop="datePublished">2011-01-18</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2011/01/18/返回对象在当前级别中是第几个元素/">返回对象在当前级别中是第几个元素</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>LuoYe℡  14:22:23<br>恩  我就是想怎么获取 每个层 相对于父级层 是第几个</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//语法：prev(element)</span></div><div class="line"><span class="comment">//参数：element对象</span></div><div class="line"><span class="comment">//返回：对象在当前级别中是第几个元素,从1开始</span></div><div class="line"><span class="comment">//2010-08-26 15:13:55</span></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">prev</span>(<span class="params">elem,cont</span>) </span>&#123;</div><div class="line">    <span class="keyword">if</span>(!cont)&#123;cont=<span class="number">1</span>&#125;</div><div class="line">    elem = elem.previousSibling;</div><div class="line">    <span class="keyword">if</span>(elem)&#123;<span class="keyword">return</span> prev(elem,(cont+<span class="number">1</span>))&#125;</div><div class="line">    <span class="keyword">return</span> cont</div><div class="line">&#125;</div><div class="line"></div><div class="line">prev($(<span class="string">"ext-gen232"</span>))</div></pre></td></tr></table></figure>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://webooxx.com/2011/01/18/返回对象在当前级别中是第几个元素/" data-id="ciuw99gsb001absmo6uahdduk" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JS/">JS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/小工具/">小工具</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-PHP缩略图-满窗格等比例缩小" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2011/01/18/PHP缩略图-满窗格等比例缩小/" class="article-date">
+  <time datetime="2011-01-18T04:45:00.000Z" itemprop="datePublished">2011-01-18</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2011/01/18/PHP缩略图-满窗格等比例缩小/">PHP缩略图-满窗格等比例缩小</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="需求"><a href="#需求" class="headerlink" title="需求"></a>需求</h2><ol>
+<li>等比例缩小</li>
+<li>必须是规定的缩略图大小</li>
+<li>原图可以裁剪但需要中心点在窗口</li>
+</ol>
+<h2 id="实现代码"><a href="#实现代码" class="headerlink" title="实现代码"></a>实现代码</h2><figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div></pre></td><td class="code"><pre><div class="line"><span class="meta">&lt;?php</span></div><div class="line">    <span class="function"><span class="keyword">function</span> <span class="title">thumbs</span><span class="params">($FileName,$SaveTo,$SetW,$SetH)</span></span>&#123;</div><div class="line">        $IMGInfo= getimagesize($FileName);</div><div class="line">        <span class="keyword">if</span>(!$IMGInfo) <span class="keyword">return</span> <span class="keyword">false</span>;        </div><div class="line">        <span class="keyword">if</span>($IMGInfo[mime]== <span class="string">"image/pjpeg"</span> || $IMGInfo[mime]==<span class="string">"image/jpeg"</span>)&#123;</div><div class="line">            $ThisPhoto= imagecreatefromjpeg($FileName);</div><div class="line">        &#125;<span class="keyword">elseif</span>($IMGInfo[mime]== <span class="string">"image/x-png"</span> || $IMGInfo[mime]== <span class="string">"image/png"</span>)&#123;</div><div class="line">            $ThisPhoto= imagecreatefrompng($FileName);    </div><div class="line">        &#125;<span class="keyword">elseif</span>($IMGInfo[mime]== <span class="string">"image/gif"</span>)&#123;</div><div class="line">            $ThisPhoto=imagecreatefromgif($FileName);  </div><div class="line">        &#125;  </div><div class="line">        $width=$IMGInfo[<span class="number">0</span>];</div><div class="line">        $height=$IMGInfo[<span class="number">1</span>];    </div><div class="line">        $scalc = max($width/$SetW,$height/$SetH);</div><div class="line">        $nw = intval($width/$scalc);</div><div class="line">        $nh = intval($height/$scalc);</div><div class="line">        <span class="keyword">echo</span> <span class="string">"缩略大小：w$nw,h$nh &lt;br /&gt;"</span>;</div><div class="line">        <span class="keyword">if</span>($SetW-$nw == <span class="number">1</span>)&#123;$nw = $SetW;&#125;</div><div class="line">        <span class="keyword">if</span>($SetH-$nh == <span class="number">1</span>)&#123;$nh = $SetH;&#125;</div><div class="line">        <span class="keyword">echo</span> <span class="string">"+修正1像素： w$nw,h$nh&lt;br /&gt;"</span>;</div><div class="line">        <span class="comment">//补宽</span></div><div class="line">        <span class="keyword">if</span>($SetW-$nw &gt; <span class="number">0</span>)&#123;</div><div class="line">            $nh = $nh +(($nh/$nw) * ($SetW-$nw));</div><div class="line">            <span class="keyword">echo</span> <span class="string">"*需补宽"</span>.($SetW-$nw).<span class="string">",陪补高"</span>.(($nh/$nw) * ($SetW-$nw)).<span class="string">"  &lt;br /&gt;"</span>;   </div><div class="line">            $nw = $SetW;</div><div class="line">        &#125;</div><div class="line">        <span class="comment">//补高</span></div><div class="line">        <span class="keyword">if</span>($SetH-$nh &gt; <span class="number">0</span>)&#123;</div><div class="line">            $nw = $nw + (($nw/$nh) * ($SetH-$nh));</div><div class="line">            <span class="keyword">echo</span> <span class="string">"*需补高"</span>.($SetH-$nh).<span class="string">",陪补宽"</span>. (($nw/$nh) * ($SetH-$nh)) .<span class="string">"&lt;br /&gt;"</span>;</div><div class="line">            $nh = $SetH;</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        $nw = intval($nw);</div><div class="line">        $nh = intval($nh);</div><div class="line">        <span class="keyword">echo</span> <span class="string">"+修正大小：w$nw,h$nh&lt;br /&gt;"</span>;</div><div class="line">        $px = ($SetW - $nw)/<span class="number">2</span>;</div><div class="line">        $py = ($SetH - $nh)/<span class="number">2</span>;</div><div class="line">        <span class="keyword">echo</span> <span class="string">"窗口大小：w$SetW,h$SetH &lt;br /&gt;"</span>;</div><div class="line">        <span class="keyword">echo</span> <span class="string">"+偏移修正：x$px,y$py &lt;br /&gt;"</span>;</div><div class="line">        $NewPhoto=imagecreatetruecolor($SetW,$SetH);</div><div class="line">        imagecopyresized($NewPhoto,$ThisPhoto,$px,$py,<span class="number">0</span>,<span class="number">0</span>,$nw,$nh,$width,$height);</div><div class="line">        ImageJpeg ($NewPhoto,$SaveTo);</div><div class="line">        <span class="keyword">return</span> <span class="keyword">true</span>;</div><div class="line">    &#125;</div><div class="line">    thumbs(<span class="string">'a.jpg'</span>,<span class="string">'newa.jpg'</span>,<span class="number">150</span>,<span class="number">70</span>);</div><div class="line"><span class="meta">?&gt;</span></div><div class="line">&lt;style&gt;</div><div class="line">    img&#123; border:<span class="number">1</span>px solid <span class="comment">#ccc;margin:2px;&#125;</span></div><div class="line">&lt;/style&gt;</div><div class="line">&lt;img src=<span class="string">"/a.jpg"</span>  /&gt;</div><div class="line">&lt;img src=<span class="string">"/newa.jpg"</span> /&gt;</div></pre></td></tr></table></figure>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://webooxx.com/2011/01/18/PHP缩略图-满窗格等比例缩小/" data-id="ciuw99grf000fbsmosk0d0h4c" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/PHP/">PHP</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/开发工具/">开发工具</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/缩略图/">缩略图</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+
+
+  <nav id="page-nav">
+    <a class="extend prev" rel="prev" href="/">&laquo; __('prev')</a><a class="page-number" href="/">1</a><span class="page-number current">2</span>
+  </nav>
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android/">Android</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Canvas/">Canvas</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JS/">JS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/PHP/">PHP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/UBUNTUN/">UBUNTUN</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/WEB开发/">WEB开发</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/WIN7/">WIN7</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/XML解析/">XML解析</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/fiddler/">fiddler</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/jQuery/">jQuery</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/jQuery原理/">jQuery原理</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/js特效/">js特效</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python/">python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/位操作/">位操作</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/内存性能/">内存性能</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/分页/">分页</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/单页应用/">单页应用</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/基本语法/">基本语法</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/富文本编辑器/">富文本编辑器</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/小工具/">小工具</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/开发工具/">开发工具</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/开发经验/">开发经验</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/开机脚本/">开机脚本</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/性能优化/">性能优化</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/慕课网案例/">慕课网案例</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/摄像头/">摄像头</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/收集系统/">收集系统</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/效率工具/">效率工具</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/无线密码破解/">无线密码破解</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/无线网卡/">无线网卡</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/智能设备/">智能设备</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/游戏/">游戏</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/用户体验/">用户体验</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/百度首页彩蛋/">百度首页彩蛋</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/相册/">相册</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/眼动实验/">眼动实验</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/缩略图/">缩略图</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/网络案例/">网络案例</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/翻译/">翻译</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/视频流/">视频流</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/调试工具/">调试工具</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/进制处理/">进制处理</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/递归/">递归</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/面向对象/">面向对象</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Android/" style="font-size: 10px;">Android</a> <a href="/tags/Canvas/" style="font-size: 10px;">Canvas</a> <a href="/tags/JS/" style="font-size: 20px;">JS</a> <a href="/tags/PHP/" style="font-size: 18.33px;">PHP</a> <a href="/tags/UBUNTUN/" style="font-size: 10px;">UBUNTUN</a> <a href="/tags/WEB开发/" style="font-size: 11.67px;">WEB开发</a> <a href="/tags/WIN7/" style="font-size: 10px;">WIN7</a> <a href="/tags/XML解析/" style="font-size: 10px;">XML解析</a> <a href="/tags/fiddler/" style="font-size: 10px;">fiddler</a> <a href="/tags/jQuery/" style="font-size: 13.33px;">jQuery</a> <a href="/tags/jQuery原理/" style="font-size: 10px;">jQuery原理</a> <a href="/tags/js特效/" style="font-size: 16.67px;">js特效</a> <a href="/tags/python/" style="font-size: 10px;">python</a> <a href="/tags/位操作/" style="font-size: 10px;">位操作</a> <a href="/tags/内存性能/" style="font-size: 10px;">内存性能</a> <a href="/tags/分页/" style="font-size: 11.67px;">分页</a> <a href="/tags/单页应用/" style="font-size: 10px;">单页应用</a> <a href="/tags/基本语法/" style="font-size: 10px;">基本语法</a> <a href="/tags/富文本编辑器/" style="font-size: 10px;">富文本编辑器</a> <a href="/tags/小工具/" style="font-size: 16.67px;">小工具</a> <a href="/tags/开发工具/" style="font-size: 15px;">开发工具</a> <a href="/tags/开发经验/" style="font-size: 10px;">开发经验</a> <a href="/tags/开机脚本/" style="font-size: 10px;">开机脚本</a> <a href="/tags/性能优化/" style="font-size: 10px;">性能优化</a> <a href="/tags/慕课网案例/" style="font-size: 11.67px;">慕课网案例</a> <a href="/tags/摄像头/" style="font-size: 10px;">摄像头</a> <a href="/tags/收集系统/" style="font-size: 10px;">收集系统</a> <a href="/tags/效率工具/" style="font-size: 10px;">效率工具</a> <a href="/tags/无线密码破解/" style="font-size: 10px;">无线密码破解</a> <a href="/tags/无线网卡/" style="font-size: 10px;">无线网卡</a> <a href="/tags/智能设备/" style="font-size: 11.67px;">智能设备</a> <a href="/tags/游戏/" style="font-size: 11.67px;">游戏</a> <a href="/tags/用户体验/" style="font-size: 11.67px;">用户体验</a> <a href="/tags/百度首页彩蛋/" style="font-size: 10px;">百度首页彩蛋</a> <a href="/tags/相册/" style="font-size: 11.67px;">相册</a> <a href="/tags/眼动实验/" style="font-size: 11.67px;">眼动实验</a> <a href="/tags/缩略图/" style="font-size: 10px;">缩略图</a> <a href="/tags/网络案例/" style="font-size: 10px;">网络案例</a> <a href="/tags/翻译/" style="font-size: 10px;">翻译</a> <a href="/tags/视频流/" style="font-size: 10px;">视频流</a> <a href="/tags/调试工具/" style="font-size: 10px;">调试工具</a> <a href="/tags/进制处理/" style="font-size: 10px;">进制处理</a> <a href="/tags/递归/" style="font-size: 10px;">递归</a> <a href="/tags/面向对象/" style="font-size: 11.67px;">面向对象</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/10/">October 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/07/">July 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/06/">June 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/04/">April 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/02/">February 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/08/">August 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/06/">June 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/01/">January 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/02/">February 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/11/">November 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/10/">October 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/07/">July 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/06/">June 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/05/">May 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/04/">April 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/03/">March 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/02/">February 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/12/">December 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/07/">July 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/05/">May 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/04/">April 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/03/">March 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/02/">February 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/01/">January 2011</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2016/10/30/16格抽奖程序/">16格抽奖程序</a>
+          </li>
+        
+          <li>
+            <a href="/2016/10/20/JS小游戏-贪吃蛇/">JS小游戏-贪吃蛇</a>
+          </li>
+        
+          <li>
+            <a href="/2016/07/20/前后端处理分页/">前后端处理分页</a>
+          </li>
+        
+          <li>
+            <a href="/2016/06/24/Javascript-右移0位的作用/">Javascript-右移0位的作用</a>
+          </li>
+        
+          <li>
+            <a href="/2016/04/06/TeeEyeTribe追踪网页视线热点简易版/">TeeEyeTribe追踪网页视线热点简易版</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2016 Lyn<br>
+      Powered by <a href="mailto://web@webooxx.com" target="_blank">webooxx.com</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//libs.baidu.com/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+</body>
+</html>
