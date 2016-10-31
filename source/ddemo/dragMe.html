@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>慕课网-拖拽</title>
+<style type="text/css">
+
+	#draggable{ width: 100px;height: 100px; position: absolute;top: 100px;left: 100px;border: 1px solid #ccc;background: #eee;padding: 10px;cursor: default;}
+
+</style>
+</head>
+<body>
+
+
+<div id="draggable">拖我</div>
+
+
+<script type="text/javascript">
+
+
+	var oDrag = document.getElementById('draggable');
+
+	var isDraging = false;
+	var startX = 0;
+	var startY = 0;
+	
+	oDrag.addEventListener('mousedown',function(e){
+		console.log('mousedown , isDraging = true');
+
+		isDraging = true;
+
+		startX = e.pageX - this.offsetLeft ;
+		startY = e.pageY - this.offsetTop ;
+	})
+
+	document.onmouseup = function(e){
+		console.log('mouseup , isDraging = false');
+		isDraging = false;
+
+	}
+
+	document.onmousemove = function(e) {
+
+	    if (isDraging) {
+			oDrag.style.left = ( e.pageX - startX ) + "px";
+			oDrag.style.top  = ( e.pageY - startY ) + "px";
+
+	    }
+
+	};
+
+
+</script>
+</body>
+</html>

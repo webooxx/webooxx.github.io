@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+<title>慕课网-Resizable</title>
+
+<link rel="stylesheet" type="text/css" href="Resizable.css" />
+<style type="text/css">
+	body{margin:0px;padding:50px;font-size:14px;color:#333}
+	
+	.panel{width:400px;height:240px;border:1px solid #ccc;position:relative;min-width:40px;min-height:24px;}
+	.panel .title{background:#eee;text-align:center;line-height:30px;border:1px solid #fff;font-weight:bold}
+	
+
+</style>
+</head>
+<body onselectstart="return false;" style="-webkit-user-select:none">
+
+<h1>慕课网案例特效：Resizable — 可调大小面板</h1>
+
+<div class="panel" id="ui-Resizable" onselectstart="return false;" style="position:absolute;left:500px;" >
+	<div class="title" >Resizable Panel</div>
+</div>
+
+<div class="panel" id="ui-Resizable2" onselectstart="return false;" >
+	<div class="title" >Resizable Panel2</div>
+</div>
+
+<script type="text/javascript" src="Resizable.js"></script>
+<script type="text/javascript">
+	Resizable('ui-Resizable');
+	Resizable('ui-Resizable2');
+</script>
+
+</body>
+</html>
