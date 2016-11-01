@@ -65,6 +65,10 @@ pagination_dir: page
 ## Themes: https://hexo.io/themes/
 theme: landscape
 
+ # comments
+duoshuo_shortname: webooxx.duoshuo.com
+
+
 # Deployment
 ## Docs: https://hexo.io/docs/deployment.html
 deploy:
