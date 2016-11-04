@@ -1,0 +1,118 @@
+
+body {
+    overflow: hidden;
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    padding: 0;
+    margin: 0;
+}
+
+p, h1, h2, h3, h4, h5 {
+    margin: 0;
+    padding: 0;
+    font-weight: normal;
+}
+
+ul, li {
+    padding: 0;
+    margin: 0;
+    list-style-position: inside;
+}
+
+.ppt {
+    z-index: 10;
+    display: block;
+    position: static;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+
+    -webkit-transition: -webkit-transform .5s ease, -webkit-opacity .5s ease;
+}
+
+.hide {
+    display: none
+}
+
+.page {
+    position: relative;
+    z-index: 19;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+.component {
+    position: absolute;
+}
+
+.preview .component {
+    box-shadow: inset 0px 0px 1px #ccc;
+}
+
+/*loading*/
+
+.spinner {
+    width: 60px;
+    height: 60px;
+    position: relative;
+    margin: -30px auto;
+    top: 50%;
+}
+
+.double-bounce1, .double-bounce2 {
+    width: 100%;
+    height: 100%;
+    background-color: #0062e0;
+
+    -webkit-border-radius: 50%;
+    -webkit-opacity: 0.6;
+
+    position: absolute;
+    top: 0;
+    left: 0;
+
+}
+
+.double-bounce1 {
+    -webkit-animation: bounce 2s infinite ease-in-out 0s;
+}
+
+.double-bounce2 {
+    -webkit-animation: bounce2 2s infinite ease-in-out 0s;
+}
+
+.spinner #rate {
+    font-size: 9px;
+    width: 100%;
+    text-align: center;
+    height: 20px;
+    line-height: 20px;
+    color: #0062e0;
+    position: absolute;
+    top: 100%;
+}
+
+@-webkit-keyframes bounce {
+    0%, 100% {
+        -webkit-transform: scale(0.0)
+    }
+    50% {
+        -webkit-transform: scale(1.0)
+    }
+}
+
+@-webkit-keyframes bounce2 {
+    50% {
+        -webkit-transform: scale(0.0)
+    }
+    0%, 100% {
+        -webkit-transform: scale(1.0)
+    }
+}

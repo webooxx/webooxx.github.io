@@ -1,0 +1,317 @@
+<style type="text/css" id="ppt_theme_black-style">
+
+.ppt-theme-black {
+    font-size: 48px;
+    color: #fff;
+    text-align: center;
+    box-shadow: inset 0px 0px 1px #fff;
+    font-weight: 100;
+}
+
+/* iphone 4 */
+@media screen and (min-width: 320px) {
+    .ppt-theme-black {
+        font-size: 16px;
+    }
+}
+
+@media screen and (min-width: 768px) {
+    .ppt-theme-black {
+        font-size: 30px;
+    }
+}
+
+.ppt-theme-black .page {
+    background-color: #000;
+    position: relative;
+}
+
+.ppt-theme-black ul {
+    width: 86%;
+    right: 7%;
+}
+
+.ppt-theme-black h1,
+.ppt-theme-black h2,
+.ppt-theme-black h3,
+.ppt-theme-black h4,
+.ppt-theme-black h5 {
+    width: 86%;
+    line-height: 1.5em;
+    right: 7%;
+    position: absolute;
+    margin: 0;
+    padding: 0;
+    font-weight: 100;
+}
+
+.ppt-theme-black h1,
+.ppt-theme-black h2 {
+    font-size: 2.5em;
+}
+
+.ppt-theme-black h3 {
+    font-size: .875em;
+}
+
+.ppt-theme-black h4 {
+    font-size: 1.05em;
+}
+
+.ppt-theme-black h5 {
+    font-size: .667em;
+}
+
+.ppt-theme-black p {
+    font-size: .65em;
+}
+
+.ppt-theme-black ul {
+    top: 5%;
+    text-align: left;
+    height: 65%;
+}
+
+.ppt-theme-black ul li {
+    padding: 10px 20px;
+    font-size: .77em;
+    line-height: 1.5em;
+}
+
+.ppt-theme-black img {
+    position: absolute;
+    border: 0;
+}
+
+/* component picture */
+.ppt-theme-black .picture {
+    text-align: left;
+}
+
+/* startup 标题与副标题 - 开始页 */
+.ppt-theme-black .page-startup .caption {
+    bottom: 43%;
+}
+
+.ppt-theme-black .page-startup .description {
+    top: 58%;
+}
+
+/* chapter 标题 - 章节封面页 */
+.ppt-theme-black .page-chapter .caption {
+    bottom: 43%;
+}
+
+/* caption_top 标题_顶部对齐 -  */
+.ppt-theme-black .page-caption_top .caption {
+    top: 5%;
+}
+
+/* caption_list 标题_列表页 -  */
+.ppt-theme-black .page-caption_list .caption {
+    top: 5%;
+}
+
+.ppt-theme-black .page-caption_list .list {
+    top: 30%;
+}
+
+/* list 列表页 -  */
+.ppt-theme-black .page-list .list {
+    top: 5%;
+}
+
+/* caption_list_picture 标题列表与图片页 -  */
+.ppt-theme-black .page-caption_list_picture .caption {
+    top: 5%;
+}
+
+.ppt-theme-black .page-caption_list_picture .list {
+    width: 42%;
+    left: 7%;
+    top: 30%;
+}
+
+.ppt-theme-black .page-caption_list_picture .picture {
+    width: 42%;
+    height: 65%;
+    top: 30%;
+    right: 7%;
+    overflow: hidden;
+}
+
+.ppt-theme-black .page-caption_list_picture .picture img {
+
+}
+
+/* start_picture 开始页与图片 -  */
+.ppt-theme-black .page-startup_picture .caption {
+    width: 42%;
+    height: 44%;
+    bottom: 51%;
+    left: 7%;
+}
+
+.ppt-theme-black .page-startup_picture .description {
+    width: 42%;
+    top: 51%;
+    height: 44%;
+    left: 7%;
+}
+
+.ppt-theme-black .page-startup_picture .picture {
+    width: 42%;
+    height: 90%;
+    top: 5%;
+    right: 7%;
+    overflow: hidden;
+}
+
+/* startup_picture_face 开始页与图片封面 -  */
+.ppt-theme-black .page-startup_picture_face .caption {
+    bottom: 16%;
+    line-height: 1em;
+}
+
+.ppt-theme-black .page-startup_picture_face .description {
+    bottom: 8%;
+}
+
+.ppt-theme-black .page-startup_picture_face .picture {
+    width: 86%;
+    height: 58%;
+    top: 5%;
+    right: 7%;
+    overflow: hidden;
+}
+
+/* picture 图片页 -  */
+.ppt-theme-black .page-picture {
+    width: 100%;
+    height: 100%;
+}
+
+/* picture_three 三图封面 */
+.ppt-theme-black .page-picture_three .picture {
+    overflow: hidden;
+}
+
+.ppt-theme-black .page-picture_three .left {
+    width: 43%;
+    height: 90%;
+    top: 5%;
+    left: 7%;
+}
+
+.ppt-theme-black .page-picture_three .top {
+    width: 42%;
+    height: 44%;
+    bottom: 51%;
+    right: 7%;
+}
+
+.ppt-theme-black .page-picture_three .bottom {
+    width: 42%;
+    top: 51%;
+    height: 44%;
+    right: 7%;
+}
+
+/* reference 引言页 */
+.ppt-theme-black .page-reference .caption {
+    bottom: 43%;
+}
+
+.ppt-theme-black .page-reference .description {
+    top: 65%;
+    font-style: italic;
+    font-weight: 100;
+}
+
+</style>
+
+<div class="ppt ppt-theme-black template hide">
+
+    <!---->
+    <div class="page page-startup hide">
+        <h1 class="component caption"> <!-@caption-->caption</h1>
+
+        <h3 class="component description"><!-@description-->description</h3>
+    </div>
+    <!---->
+    <div class="page page-chapter hide">
+        <h2 class="component caption"> <!-@caption-->caption</h2>
+    </div>
+    <!---->
+    <div class="page page-caption_top hide">
+        <h2 class="component caption"> <!-@caption-->caption</h2>
+    </div>
+    <!---->
+    <div class="page page-caption_list hide">
+        <h2 class="component caption"> <!-@caption-->caption</h2>
+        <ul class="component list">
+            <!-@list-->
+            <li class="li"><!-@li-->li content</li>
+        </ul>
+    </div>
+    <!---->
+    <div class="page page-list hide">
+        <ul class="component list">
+            <!-@list-->
+            <li class="li"><!-@li-->li</li>
+        </ul>
+    </div>
+    <!---->
+    <div class="page page-caption_list_picture hide">
+        <h2 class="component caption"> <!-@caption-->caption</h2>
+        <ul class="component list">
+            <!-@list-->
+            <li class="li"><!-@li-->li</li>
+        </ul>
+        <div class="component picture hide">
+            <!-@picture-->
+            <img src="http://tiyan.baidu.com/static/img.php?&s=999,999&n=a.jpg&c=50,50,50"/>
+        </div>
+    </div>
+    <!---->
+    <div class="page page-startup_picture_face hide">
+        <h2 class="component caption"> <!-@caption-->caption</h2>
+
+        <h3 class="component description"><!-@description-->description</h3>
+
+        <div class="component picture ">
+            <!-@picture-->
+            <img src="http://tiyan.baidu.com/static/img.php?&s=2999,1999&n=a.jpg&c=50,50,50"/>
+        </div>
+    </div>
+    <!---->
+    <div class="page page-picture hide">
+        <div class="component picture left">
+            <!-@picture-->
+            <img src="http://tiyan.baidu.com/static/img.php?&s=2999,1999&n=a.jpg&c=50,50,50"/>
+        </div>
+    </div>
+    <!---->
+    <div class="page page-picture_three hide">
+        <div class="component picture left">
+            <!-@picture-->
+            <img src="http://tiyan.baidu.com/static/img.php?&s=2999,1999&n=a.jpg&c=50,50,50"/>
+        </div>
+        <div class="component picture top">
+            <!-@picture-->
+            <img src="http://tiyan.baidu.com/static/img.php?&s=2999,1999&n=a.jpg&c=50,50,50"/>
+        </div>
+        <div class="component picture bottom">
+            <!-@picture-->
+            <img src="http://tiyan.baidu.com/static/img.php?&s=2999,1999&n=a.jpg&c=50,50,50"/>
+        </div>
+    </div>
+    <!---->
+    <div class="page page-empty hide">
+    </div>
+    <!---->
+    <div class="page page-reference hide">
+        <h4 class="component caption"><!-@caption-->"message"</h4>
+        <h5 class="component description"><!-@description--> — Johnny Appleseed</h5>
+    </div>
+</div>
