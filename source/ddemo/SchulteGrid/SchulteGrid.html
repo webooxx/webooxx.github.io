@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Schulte Grid</title>
+	<style>
+		body{
+			padding: 0;
+			margin: 0;
+			background-color: #fff;
+			-webkit-user-select:none;
+		}
+		.wrap{
+			width: 500px;
+			height: 500px;
+			position: absolute;
+			left: 50%;
+			top: 50%;
+			margin: -200px 0 0 -200px;
+		}
+		.item{
+			width: 80px;
+			height: 80px;
+			margin: 10px 10px 0 0;
+			line-height: 80px;
+			text-align: center;
+			display: block;
+			background-color: #eee;
+			float: left;
+			font-size: 30px;
+			color: #666;
+			cursor: pointer;
+			transition: all .5s;
+		}
+		.item:hover{
+			background-color: rgba(200,0,0,.2);
+			color: #fff;
+		}
+		.checked:hover,
+		.checked{
+			background-color: rgba(0,255,0,.5);
+			color: rgba(0,0,0,.5);
+		}
+		.timer{
+			position: absolute;
+			width: 438px;
+			left: 0;
+			top: -50px;
+			line-height: 25px;
+			text-align: center;
+			font-size: 14px;
+			border: 1px solid #ccc;
+			color: #aaa;
+		}
+	</style>
+</head>
+<body>
+
+<div class="wrap" id="wrap">
+
+
+</div>
+
+
+<script type="text/javascript">
+	var wrap = document.getElementById('wrap');
+	var timer_start =0;
+	var timer_id=0;
+	var idx = -1;
+
+
+	function init() {
+		var arr = new Array(25).join(' ').split(' ')
+			.map(function(item,i){return i})
+			.sort(function(){return Math.random()>.5})
+			.sort(function(){return Math.random()>.5});
+		var html =[];
+		arr.forEach(function(i){html.push( '<span onclick="check(this,'+i+')" class="item">'+(i+1)+'</span>')});
+		wrap.innerHTML  = html.join('')+'<div class="timer" id="timer">0s</div>';
+	}
+
+	function check(el,i){
+		if( i-1 === idx && el.className === 'item'){
+			el.className  = 'item checked';
+			idx=i;
+		}
+
+	}
+
+	function timer(){
+		var timer = document.getElementById('timer');
+		timer_id = setInterval(function(){
+			timer_start+=100;
+			
+			if(idx==24){
+				clearInterval(timer_id);
+			}else{
+				timer.innerHTML = (timer_start/100/10).toFixed(1) + 's';
+			}
+		},100);
+	}
+
+	init();
+	timer();
+
+	arr=new Array(25).join(' ').split(' ').map(function(item,i){return i})
+</script>
+	
+</body>
+</html>
