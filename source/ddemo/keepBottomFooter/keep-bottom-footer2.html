@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="zh-ch">
+<head>
+	<meta charset="UTF-8">
+	<title>padding保持在底部的footer</title>
+	<style type="text/css">
+		
+		html, body {height: 100%;   margin: 0; background-color: #eee} 
+		.wrapper {min-height: 100%;  padding-bottom: 50px;position: relative;    box-sizing: border-box;} 
+			.content{height: 500px;background-color: blue;border-bottom:1px red solid;}
+		.footer{   height: 50px; background-color: black; position: absolute;bottom: 0;width: 100%}
+		
+
+	</style>
+</head>
+<body>
+	<div class="wrapper" onclick="this.innerHTML += '<div class=content>content</div>' "> click me
+<div class="footer"></div>
+	</div>
+	
+</body>
+</html>
