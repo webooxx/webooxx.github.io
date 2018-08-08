@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+
+    <style>
+        .sidebar {
+            width: 300px;
+            background: #eee;
+        }
+        .sidebar-mini {
+            width: 100px;
+        }
+
+        .sidebar-mini .text {
+            display: none;
+        }
+
+        .menu {
+            position: relative;
+        }
+
+        .submenu {
+            display: none;
+            width: 300px;
+        }
+        .submenu-show {
+            display: block;
+            left: 100px;
+            top: 0px;
+        }
+
+        .sidebar-mini .submenu-show {
+            position: absolute;
+        }
+        .blue{
+          color: blue;
+        }
+    </style>
+</head>
+<body>
+
+<div class="sidebar">
+    <div class="toggle">toggle</div>
+
+    <div class="menu">
+        <span class="text">标题</span> <span class="icon">ICON</span>
+        <div class="submenu">
+            <div>子菜单1</div>
+            <div>子菜单2</div>
+            <div>子菜单3</div>
+        </div>
+    </div>
+
+</div>
+<script>
+    var d = document;
+    var toggle = d.querySelector('.toggle');
+    toggle.addEventListener('click',  ()=> {
+        var cls = d.querySelector('.sidebar').className;
+        d.querySelector('.sidebar').className = cls == 'sidebar' ? 'sidebar sidebar-mini' : 'sidebar';
+    });
+
+    var menu = d.querySelector('.menu');
+    menu.addEventListener('click',  ()=> {
+        var cls = menu.querySelector('.submenu').className;
+        menu.querySelector('.submenu').className = cls == 'submenu' ? 'submenu submenu-show' : 'submenu';
+    });
+
+    var submenu = d.querySelectorAll('.submenu div');
+    submenu.forEach((item,i)=>{
+       item.addEventListener('click',(e)=>{
+          submenu.forEach( (_item)=>{_item.className=''} );
+          submenu[i].className='blue';
+          alert(i)
+          e.stopPropagation();
+          // e.preventDefault();
+          return false;
+       })
+
+    })
+
+</script>
+</body>
+</html>

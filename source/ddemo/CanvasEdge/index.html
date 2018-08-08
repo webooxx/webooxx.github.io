@@ -1,0 +1,246 @@
+<html>
+    <head>
+        <style>
+            canvas{
+                box-shadow: 1px 1px 15px rgba(0,0,0,.1);
+                margin: 10px;
+                /*visibility: hidden;*/
+            }
+        </style>
+    </head>
+    <body>
+
+    </body>
+    <script>
+
+        const BASE_SIZE = 200;
+
+
+        const Laplacian = [
+            [0,1,0],
+            [1,-4,1],
+            [0,1,0]
+        ];
+        const Laplacian1 = [
+            [1,1,1],
+            [1,-8,1],
+            [1,1,1]
+        ];
+
+        const Sobel_X=[
+            [-1,-2,-1],
+            [0,0,0],
+            [1,2,1]
+        ]
+        const Sobel_Y=[
+            [-1,0,1],
+            [-2,0,2],
+            [-1,0,1]
+        ]
+        Utils = {
+            toGray : (R,G,B)=>{
+                return  Math.ceil( (R*299 + G*587 + B*114 + 500) / 1000 );
+            },
+            createCtx : (size)=>{
+                var c = document.createElement('canvas');
+                c.width  = size;
+                c.height = size;
+                document.body.appendChild(c);
+                return c.getContext("2d");
+            },
+
+            calcMask : ( mask, imgCtx, sourceImageX, sourceImageY  ) => {
+
+                //    sourceImageX、sourceImageY 为原图 当前要处理的像素点 位置
+                let tempSum = [];
+
+                let maskWidth = mask[0].length;        // 算子 宽度、高度
+                let maskHeight = mask.length;
+
+                for( let y=0; y<maskHeight ; y++){
+                    for( let x=0; x<maskWidth ; x++){
+
+                        let targetX =  sourceImageX + x;        // 原图的像素点 位置 + 算子偏移的 位置
+                        let targetY =  sourceImageY + y;
+
+                        let targetImageData = imgCtx.getImageData( targetX, targetY ,1,1);   // 需要计算的当前点
+                        let targetGray = targetImageData.data[0];         // 因为是灰度处理后的图片，所以灰度值 直接取 RGBA  的 R 即可
+
+                        tempSum = tempSum-0 + ( targetGray * mask[y][x] );    // 累加
+                    }
+                }
+                return tempSum;
+            },
+            appendTitle(text,level){
+                // var h = level || 3;
+                // var c = document.createElement(`h${h}`);
+                // document.body.appendChild(c);
+                // c.innerText=text;
+            }
+        }
+
+        function loadImage(src) {
+             var img = new Image();
+             return new Promise( (resolve,reject)=>{
+                 img.src= src;
+                 img.onload = function(){
+                     resolve(img);
+                 }
+             });
+        }
+
+        function writeImageToCanvas( img ) {
+            var c = document.createElement('canvas');
+            c.width  = BASE_SIZE;
+            c.height = BASE_SIZE;
+            document.body.appendChild(c);
+            var ctx = c.getContext("2d");
+            ctx.drawImage(img,0,0,BASE_SIZE,BASE_SIZE);
+            return new Promise( (resolve,reject)=>{
+                resolve(ctx);
+            });
+        }
+
+        function transformGrayToCanvas(srcCtx){
+
+            let ctx = Utils.createCtx(BASE_SIZE);
+
+            var imgData = srcCtx.getImageData(0,0,BASE_SIZE,BASE_SIZE);
+            // ctx.putImageData(imgData,0,0);
+
+            for (var i=0;i<imgData.data.length;i+=4){
+
+              let r = imgData.data[i];
+              let g = imgData.data[i+1];
+              let b = imgData.data[i+2];
+
+              let gray = Utils.toGray(r,g,b);
+
+              imgData.data[i]   = gray;
+              imgData.data[i+1] = gray;
+              imgData.data[i+2] = gray;
+
+              imgData.data[i+3]=255;                          // A
+
+            }
+            ctx.putImageData(imgData,0,0);
+            return new Promise( (resolve,reject)=>{
+                resolve(ctx);
+            });
+        }
+
+        function tansformEdgeToCanvas(mask , srcCtx){
+
+            let ctx = Utils.createCtx(BASE_SIZE);
+
+            let list = [];
+            let outImageData = [];
+
+            let imgData = srcCtx.getImageData(0,0,BASE_SIZE,BASE_SIZE);
+
+            for (let i=0;i<imgData.data.length;i+=4){
+
+                let x = (i/4)%BASE_SIZE;
+                let y = ((i/4)/BASE_SIZE)>>0;
+
+                let tempSum = Utils.calcMask(mask,srcCtx,x,y);
+
+                imgData.data[i]   = tempSum;
+                imgData.data[i+1] = tempSum;
+                imgData.data[i+2] = tempSum;
+
+                imgData.data[i+3]=255;                          // A
+
+            }
+            ctx.putImageData(imgData,0,0);
+            return new Promise( (resolve,reject)=>{
+                resolve(ctx);
+            } );
+        }
+
+        function tansformEdgeToCanvasByThreshold( srcCtx , threshold ){
+            let ctx = Utils.createCtx(BASE_SIZE);
+
+            let list = [];
+            let outImageData = [];
+
+            let imgData = srcCtx.getImageData(0,0,BASE_SIZE,BASE_SIZE);
+
+            for (let i=0;i<imgData.data.length;i+=4){
+
+                let tempSum = imgData.data[i] > (threshold||140) ? 0 : 255;
+
+                imgData.data[i]   = tempSum;
+                imgData.data[i+1] = tempSum;
+                imgData.data[i+2] = tempSum;
+
+                imgData.data[i+3]=255;                          // A
+
+            }
+            ctx.putImageData(imgData,0,0);
+        }
+
+
+        loadImage('ok.png').then( (img) => {
+            Utils.appendTitle('原图')
+            writeImageToCanvas(img).then( (rgbCtx)=>{
+
+                Utils.appendTitle('灰度处理')
+
+                transformGrayToCanvas( rgbCtx ).then( (grayCtx)=>{
+
+                    Utils.appendTitle('简单阈值二值化 150');
+
+                    tansformEdgeToCanvasByThreshold( grayCtx )    // 阈值二值化
+
+
+                    Utils.appendTitle('边缘查找 Laplacian operate');
+
+                    tansformEdgeToCanvas( Laplacian,grayCtx ).then( (grayCtx)=>{
+
+                        // Utils.appendTitle('阈值二值化 35');
+                        // tansformEdgeToCanvasByThreshold( grayCtx ,35 )
+                    })
+
+
+                    Utils.appendTitle('边缘查找 Sobel x operate');
+                    tansformEdgeToCanvas( Sobel_X,grayCtx );
+
+                    Utils.appendTitle('边缘查找 Sobel y operate');
+                    tansformEdgeToCanvas( Sobel_Y,grayCtx );
+                    //
+                    // tansformEdgeToCanvas( Laplacian_t,grayCtx );
+                    // tansformEdgeToCanvas( Laplacian_r,grayCtx );
+                    // tansformEdgeToCanvas( Laplacian_b,grayCtx );
+                    // tansformEdgeToCanvas( Laplacian_l,grayCtx );
+                })
+
+            })
+        });
+
+
+        function getDynamicCameraCtx( callback ) {
+
+            let v = document.createElement('video');
+            let ctx = Utils.createCtx(BASE_SIZE);
+
+            v.style.visibility ='hidden';
+
+            navigator.mediaDevices.getUserMedia({
+                audio: false, video: true
+            }).then(function (result) {
+                videoSrc = result;
+                v.srcObject = videoSrc;
+            });
+
+            setInterval(()=>{
+                ctx.drawImage( v, 0, 0, 320, 240);
+            },1000)
+            return ctx;
+        }
+        // getDynamicCameraCtx();
+
+
+
+    </script>
+</html>
