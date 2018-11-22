@@ -1,0 +1,157 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>讨厌的文本选区</title>
+
+<script>
+//    取得选中的值    
+//    参数
+//    返回    String:"Range Text"
+function getRngVal(){
+    if(    document.selection &&(document.selection.type=='Text')){
+        var rng = document.selection.createRange();
+        if (rng.parentElement() != this){
+            return "";
+        }
+        return document.selection.createRange().text;
+    }
+    if(this.selectionStart != undefined && this.selectionEnd != undefined) {
+        var s = this.selectionStart;
+        var e = this.selectionEnd;
+        return this.value.substring(s,e);
+    }else {return ""};
+}
+
+//    取得光标位置
+//    参数
+//    返回    array :[start,end]
+function getRngPos(){
+    var pos = [0,0];
+    if(typeof this.selectionStart == 'number'){
+        pos[0] = this.selectionStart;
+        pos[1] = this.selectionEnd;
+    }
+    else{
+        var dng = document.selection.createRange();
+        if(dng.text.length<1){
+            txt.focus();
+            dng = document.selection.createRange();
+        }
+        if (dng.parentElement() != this){
+            return pos;
+        }
+        var tng = this.createTextRange();
+        var al = tng.text.length;
+        try{
+        tng.moveToPoint(dng.offsetLeft,dng.offsetTop);
+        }
+        catch(e){
+            return [al,al];
+        }
+        tng.moveEnd('character',al);
+        pos[0] = al-tng.text.length;
+        pos[1] = al-tng.text.length+dng.text.length;
+    }
+    return pos;
+}
+//    设置光标位置
+//    参数    [start,end] || number == [number,number]
+//    返回    String:"Range Text"
+function setRngPos(){
+    var arg = arguments[0];
+    var pos = [] ;
+    var txt = '';
+    typeof arg == 'number' ? pos = [arg,arg] : pos = [arg[0],arg[1]];
+    if(typeof this.selectionStart== 'number'){
+        this.selectionStart = pos[0];
+        this.selectionEnd = pos[1];
+        txt = this.value.substr(pos[0],pos[1]);
+    }else{
+        var rng = this.createTextRange();
+        rng.move('character',pos[0]);
+        rng.moveEnd('character',pos[1]-pos[0]);
+        rng.select();
+        txt = rng.text;
+    }
+    return txt;
+}
+
+
+//    插入值到当前位置
+//    参数    位置信息:Array||Number
+//    参数    插入的文本信息:String
+//    参数    正则模式,如果有这个参数的话，并且第一个参数类型是 array，且 a[0]<a[1]则，这个范围内的值将被按照规则替换。
+//    返回    array:[原长,现长]
+function setRngVal(){
+    var pos = typeof arguments[0] == 'number'? [arguments[0],arguments[0]] :arguments[0] ;
+    var txt = arguments[1] || "" ;
+    var reg = arguments[2] || false;
+
+    var al = this.value.length;
+
+    var newtxt = [];
+    newtxt[0] = this.value.substr(0,pos[0]);
+
+
+    if(reg && pos[0]< pos[1] ){
+        newtxt[1] =    this.value.substr(pos[0],pos[1]).replace(reg, txt);
+    }else{
+        newtxt[1] = txt;
+    }
+    newtxt[2] = this.value.substr(pos[1],al);
+
+    this.value = newtxt.join('');
+
+    return [al,this.value.length];
+
+}
+
+
+</script>
+
+</head>
+
+<body style="font-size:12px;color:#000000;background:#FFF;padding:10px;margin:0px; position:relative">
+<h1>讨厌的文本选区</h1>
+
+
+<table width="100%" border="0" cellpadding="10" cellspacing="1" bgcolor="#000000">
+  <tr>
+    <td width="100" bgcolor="#FFFFFF"><textarea name="textfield" cols="99" rows="30" id='txt' >0123.456.789abc.中文.098</textarea></td>
+    <td bgcolor="#FFFFFF">
+
+    <div id="returnvaluetostring" style="width:80%;height:50px;background:#EEE;border:1px solid #DDD"></div>
+    <hr />
+      <p>
+        <input name="button" type="button" onclick="alertin(    getRngVal.call($('txt'))    )" value="取得选中的值"/>
+        <input name="button2" type="button" onclick="alertin(    getRngPos.call($('txt'))    )" value="取得光标位置"/>
+      </p>
+      <hr />
+      <p>位置0<input type="text" id="pos0" value="1" /></p><p>位置1<input type="text" id="pos1" value="2" /></p>
+      <p>
+
+
+        <input name="button3" type="button" onclick="    setRngPos.call( $('txt') ,[    parseInt(    $('pos0').value    ),    parseInt(    $('pos1').value    )    ] )    " value="设置光标位置"/>
+      </p>
+      <p><input type="text" id="msg" value="新值" />,可以用函数处理，这里只当字符处理<br />
+可选正则("pattern",["flags"])<input type="text" id="reg" value="2,ig" /></p>
+      <p>
+        <input name="button4" type="button" onclick="setRngVal.call(     $('txt') ,    [    parseInt(    $('pos0').value    ),    parseInt(    $('pos1').value    )    ] ,$('msg').value , getreg())" value="插入值到指定位置"/>
+    </p></td>
+  </tr>
+</table>
+<script>
+function $(id){return document.getElementById(id)}
+function getreg(){
+    if($('reg').value.length<1){return false};
+    var re = $('reg').value.split(',');
+    return new RegExp(re[0],re[1]);
+}
+function alertin(val){
+
+    $('returnvaluetostring').innerText = val.toString();
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Merging Image</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+
+        <style type="text/css">
+
+			body{
+				margin: 0;
+				padding: 0;
+				background: #000;
+			}
+
+			.wrap{
+				position: absolute;
+				left: 50%;
+				top: 50%;
+				width: 2px;
+				height: 2px;
+				margin-left: -1px;
+				margin-top: -1px;
+				transition: all .3s;
+			}
+			.wrap .item{
+				position: absolute;
+				left: 0;
+				top: 0;
+				
+				cursor: pointer;
+				overflow: hidden;
+
+				
+				border: 5px solid #FFF;
+				box-shadow: 0 0 4px rgba(0,0,0,.1);
+				/*box-sizing: border-box;*/
+				transition: all .3s;
+			}
+			.wrap .item .mask,
+			.wrap .item img{
+				position: absolute;
+				left: 0;
+				top: 0;
+				width: 100%;
+				height: 100%;
+				z-index: 1;
+			}
+			.wrap .item .mask{
+				box-shadow: 0 0 1px rgba(0,0,0,.5) inset;
+				z-index: 2;
+				opacity: 0;
+				
+				background-image: none;
+				transition: all 1s;
+			}
+
+
+			.ctrl{
+				position: absolute;
+				display: block;
+				height: 80px;
+				width: 50px;
+				top: 50%;
+				margin-top: -40px;
+				background-color: #333;
+				color: #FFF;
+				text-decoration: none;
+				text-align: center;
+				line-height: 80px;
+				opacity: 0;
+				transition: all 1s;
+			}
+			.prev{
+				left: 0
+			}
+			.next{
+				right: 0
+			}
+		</style>
+    </head>
+		
+		<a class="prev ctrl" id="prev" href="javascript:hand_change(-1);">&lt;</a>
+		<a class="next ctrl" id="next" href="javascript:hand_change(1);">&gt;</a>
+
+    	<div class="wrap" id="wrap">
+
+    	</div>
+
+    <body>
+		<script type="text/javascript">
+
+		//	获得元素对象
+		var g  =function  (select) {
+			var type = select.substr(0,1);
+			select  = select.replace(/^[\.\#]/,'');
+			return type == '.' ? document.getElementsByClassName(select):document.getElementById(select);
+		}
+
+		//	在元素中添加一个子元素
+		var append_in = function( tag, parent){
+			var fresh = document.createElement(tag);
+			parent.appendChild(fresh);
+			return fresh;
+		}
+
+
+		//	每行6个 ＝》 总6列
+		var imgs = Array(24);
+		var cols = 6;
+		var rows = Math.ceil( imgs/cols );	//	总 N 行 ?
+
+
+		var w = 125;
+		var h = 125;
+
+
+		//	定义 wrap
+		var wrap = g('#wrap');
+		var current_img = '';
+		var imgs_index = false;
+
+
+		// 输出DOM元素
+		function render(){
+			for(var i=0;i<imgs.length;i++){
+				
+
+				var col = i % cols 			//	当前是在第 N 列
+				var row = i / cols >> 0;	//	当前是在第 N 行
+
+				var src = 'imgs/'+i+'.jpg';
+
+				imgs[i] = src;
+
+				var item = append_in('div',wrap);
+				item.style.width = w +'px';
+				item.style.height = h +'px';
+				item.onclick = (function(index){	//	闭包设定事件
+					return function(){
+						change(index);
+					}
+				})(i);
+
+				item.className = 'item';
+
+				var img = append_in('img',item);	//	添加图片
+				img.src = src;						
+
+				var mask = append_in('div',item);	//	添加遮罩层
+				mask.className = 'mask';
+				mask.style.opacity = 0;
+				mask.style.backgroundPosition = col * w *-1+ 'px '+ row * h*-1 +'px';
+			}
+		}
+
+		//	重设位置
+		function order(margin ,src ){
+
+			var margin = margin || 0;
+
+			var items = g('.item');
+			var masks = g('.mask');
+
+			//	设定 mask
+			var opacity = margin== 0 ? 1: 0;
+			var src = src ?  'url('+src+')' : '';
+			for(var i=0;i<masks.length;i++){
+				var mask = masks[i];
+				
+				if(src){
+					mask.style.backgroundImage =src;
+				}
+				mask.style.opacity =  opacity;
+			}
+
+			//	设定 item
+			var border = margin== 0 ? '0': '';
+
+			for(var i=0;i<items.length;i++){
+
+				var rotate = 'rotate('+( margin == 0 ? 0 : ( (Math.random()*30  >> 0) -15 ) ) +'deg)';
+				
+				var col = i % cols 			//	当前是在第 N 列
+				var row = i / cols >> 0;	//	当前是在第 N 行
+				var item = items[i];
+				item.style.left = ( col * w + margin*col )   +'px';
+				item.style.top  = ( row * h + margin*row )  +'px';
+
+				item.style.border =  border;
+				item.style['-webkit-transform']= rotate;
+			}
+			col += 1;
+			row += 1;
+			wrap.style.marginLeft = ( col * w + margin*col ) * -.5 + 'px';
+			wrap.style.marginTop =  ( row * h + margin*row ) * -.5 + 'px';
+		}
+
+		//	切换当前图片
+		function change(index){
+			
+			if(imgs_index === false){
+				imgs_index = index;
+				order(0,imgs[ index ]);
+
+				//	展现控制按钮
+				g('#prev').style.opacity = 1;
+				g('#next').style.opacity = 1;
+			}else{
+				imgs_index = false;
+				order(40);
+
+				g('#prev').style.opacity = 0;
+				g('#next').style.opacity = 0;
+			}
+		}
+
+		// 主动切换
+		function hand_change( next ){
+			if( imgs_index === false){
+				return false;
+			}
+			var next = parseInt(next) || 1;
+			
+			imgs_index = imgs_index+next >= imgs.length ? 0 : imgs_index+next;
+			imgs_index = imgs_index < 0 ? imgs.length -1 : imgs_index;
+
+			var src = imgs[ imgs_index ];
+
+			var masks = g('.mask');
+
+			var ts = new Date().getTime();
+
+			var stack = [];
+			for(var i=0;i<masks.length;i++){
+				var mask = masks[i];
+				stack.push(mask);
+
+				setTimeout(function(){
+					stack.shift().style.backgroundImage ='url('+src+')';	
+				},500 * Math.random() );
+				
+			}
+			stack.sort(function(a,b){return Math.random() > .5})
+		}
+
+
+		render();
+		order( 40 );
+
+
+        </script>
+    </body>
+</html>

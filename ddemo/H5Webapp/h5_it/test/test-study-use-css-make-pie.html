@@ -1,0 +1,90 @@
+
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<style>
+body{
+    padding: 50px;
+    background-color: #000;
+}
+.com{
+    width: 200px;
+    height: 200px;
+    position: relative;
+}
+
+.pie{
+    width: 100%;
+    height: 100%;
+    position: relative;
+    background-color: #ff0;
+
+}
+.cover,.mask{
+  display: block;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1;
+  clip: rect(0, 100px, auto, 0);
+
+}
+.left .cover{
+    background: #64b8f4;
+    -webkit-transform: rotate(180deg);
+}
+
+.right{
+   
+   -webkit-transform: rotate(180deg);
+}
+.right .cover{
+    background: #64b8f4;
+    -webkit-transform: rotate(180deg);   
+}
+
+.pie_75  .left .cover{
+    -webkit-transform: rotate(0deg);
+}
+
+.pie_75  .right .cover{
+    -webkit-transform: rotate(-90deg);
+}
+
+.pie_25{
+    position: absolute;
+    left: 0;
+    top: 0;
+     -webkit-transform: rotate(-90deg);
+}
+.pie_25  .left .cover{
+    background-color: #f00;
+    -webkit-transform: rotate(-90deg);
+}
+
+.pie_25  .right .cover{
+
+}
+</style>
+</head>
+
+<body>
+
+<div class="com">
+    <div class="pie pie_75">
+        <div class="mask left"><div class="cover"></div></div>
+        <div class="mask right"><div class="cover"></div></div>
+    </div>
+
+    <div class="pie pie_25">
+        <div class="mask left"><div class="cover"></div></div>
+        <div class="mask right"><div class="cover"></div></div>
+    </div>
+</div>
+
+</body>
+</html>

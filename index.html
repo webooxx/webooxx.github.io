@@ -1,0 +1,1287 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+  <title>webooxx</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="对于程序员来说 懒是一种美德">
+<meta property="og:type" content="website">
+<meta property="og:title" content="webooxx">
+<meta property="og:url" content="http://webooxx.com/index.html">
+<meta property="og:site_name" content="webooxx">
+<meta property="og:description" content="对于程序员来说 懒是一种美德">
+<meta property="og:locale" content="zh-CN">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="webooxx">
+<meta name="twitter:description" content="对于程序员来说 懒是一种美德">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">webooxx</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">懒惰即美德</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+        <a id="nav-search-btn" class="nav-icon" title="search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://webooxx.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main">
+  
+    <article id="post-Promise实现" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/04/08/Promise实现/" class="article-date">
+  <time datetime="2018-04-08T14:00:18.000Z" itemprop="datePublished">2018-04-08</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/04/08/Promise实现/">Promise实现</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>在知乎上看到一个 Promise 的简易实现教程，发现还是有点小问题，修正了下。改了个更易懂的版本</p>
+<p>首先实现一个简易的 Promise</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 简易 Promise 定义代码</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Promise</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">     <span class="keyword">this</span>.callbacks = [];</span><br><span class="line">&#125;;</span><br><span class="line"><span class="built_in">Promise</span>.prototype.then  = <span class="function"><span class="keyword">function</span>(<span class="params"> fn </span>)</span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.callbacks.push(fn);            <span class="comment">//  压入需要逐次调用的函数，如 [ getWeather , getSuggestion ]</span></span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">this</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">Promise</span>.prototype.reslove = <span class="function"><span class="keyword">function</span>(<span class="params"> data </span>)</span>&#123;</span><br><span class="line">    <span class="keyword">var</span> fn = <span class="keyword">this</span>.callbacks.shift();    <span class="comment">//  弹出最前面的函数</span></span><br><span class="line">    fn &amp;&amp; fn(data , <span class="keyword">this</span> );             <span class="comment">//  &lt;---- 注意第二个参数，this  （1）</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 辅助函数，便于更清晰的打印日志</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">log</span>(<span class="params"> msg </span>)</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log( <span class="keyword">new</span> <span class="built_in">Date</span>().toLocaleString(),msg);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 业务代码开始</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">getCity</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="keyword">var</span> promise = <span class="keyword">new</span> <span class="built_in">Promise</span>();       <span class="comment">// 定义一个 promise 对象（2）</span></span><br><span class="line">    setTimeout( <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        log(<span class="string">'getCity : 杭州'</span>);</span><br><span class="line">        promise.reslove(<span class="string">'杭州'</span>);      <span class="comment">//  此处调用 reslove 的时候，定义代码中的（1），则指向 promise ，即为（2）处定义的对象</span></span><br><span class="line">    &#125;,<span class="number">2000</span>);</span><br><span class="line">    log(<span class="string">'getCity ...'</span>);</span><br><span class="line">    <span class="keyword">return</span> promise;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">getWeather</span>(<span class="params"> city , promise </span>)</span>&#123;      <span class="comment">//  此处需要第二个参数 promise 来接收 Promise 对象，用以执行 reslove</span></span><br><span class="line">    setTimeout( <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        log(<span class="string">'getWeather : 晴朗'</span>);</span><br><span class="line">        promise.reslove(city +<span class="string">'晴朗'</span>)</span><br><span class="line">    &#125;,<span class="number">2000</span>)</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'getWeather ...'</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">getSuggestion</span>(<span class="params"> cityWeather </span>)</span>&#123;      <span class="comment">//  业务逻辑结尾不需要 Promise 对象</span></span><br><span class="line">    setTimeout( <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        log( cityWeather  + <span class="string">'建议防晒'</span> );</span><br><span class="line">    &#125;,<span class="number">1000</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">getCity()</span><br><span class="line">    .then(getWeather)</span><br><span class="line">    .then(getSuggestion)</span><br></pre></td></tr></table></figure>
+<p>然后尝试支持 reslove、reject、catch</p>
+<p>支持调用的格式如下</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">getCity()</span><br><span class="line">    .then( getWeather )</span><br><span class="line">    .catch( onCatch )</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">getCity()</span><br><span class="line">    .then( getWeather , getCityFail )</span><br><span class="line">    .then( getSuggestion , getWeatherFail )</span><br><span class="line">    .catch( onCatch )</span><br></pre></td></tr></table></figure>
+<p>改造后定义</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Promise</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">     <span class="keyword">this</span>.callbacks = [];</span><br><span class="line">     <span class="keyword">this</span>.oncatch = <span class="literal">null</span>;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="built_in">Promise</span>.prototype.then  = <span class="function"><span class="keyword">function</span>(<span class="params"> reslove , reject </span>)</span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.callbacks.push( &#123;<span class="attr">reslove</span>:reslove,<span class="attr">reject</span>:reject&#125; );</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">this</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">Promise</span>.prototype.reslove = <span class="function"><span class="keyword">function</span>(<span class="params"> data </span>)</span>&#123;</span><br><span class="line">    <span class="keyword">var</span> handler = <span class="keyword">this</span>.callbacks.shift();</span><br><span class="line">    <span class="keyword">if</span>( handler )&#123;</span><br><span class="line">        <span class="keyword">var</span> fn = handler.reslove;</span><br><span class="line">        fn &amp;&amp; fn(data , <span class="keyword">this</span> );</span><br><span class="line">    &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.oncatch(<span class="string">'没有 reslove 处理函数'</span>)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">Promise</span>.prototype.reject = <span class="function"><span class="keyword">function</span>(<span class="params"> data </span>)</span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> handler = <span class="keyword">this</span>.callbacks.shift();</span><br><span class="line">    <span class="keyword">var</span> fn = handler ? handler.reject : <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;&#125;;</span><br><span class="line">    fn &amp;&amp; fn(data , <span class="keyword">this</span> );</span><br><span class="line">    <span class="keyword">this</span>.oncatch &amp;&amp; <span class="keyword">this</span>.oncatch( data );</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">Promise</span>.prototype.catch = <span class="function"><span class="keyword">function</span>(<span class="params"> fn </span>)</span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.oncatch = fn;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 测试代码</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">log</span>(<span class="params"> msg </span>)</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log( <span class="keyword">new</span> <span class="built_in">Date</span>().toLocaleString(),msg);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">onCatch</span>(<span class="params"> msg </span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.error( <span class="keyword">new</span> <span class="built_in">Date</span>().toLocaleString(),msg);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">getCity</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="keyword">var</span> promise = <span class="keyword">new</span> <span class="built_in">Promise</span>();</span><br><span class="line">    setTimeout( <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        log(<span class="string">'getCity : 杭州'</span>);</span><br><span class="line">        promise.reslove(<span class="string">'杭州'</span>);   </span><br><span class="line">    &#125;,<span class="number">2000</span>);</span><br><span class="line">    log(<span class="string">'getCity ...'</span>);</span><br><span class="line">    <span class="keyword">return</span> promise;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">getWeather</span>(<span class="params"> city , promise </span>)</span>&#123;      <span class="comment">//  此处需要第二个参数 promise 来接收 Promise 对象，用以执行 reslove</span></span><br><span class="line">    setTimeout( <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        <span class="keyword">var</span> sucess = <span class="built_in">Math</span>.random() &gt; <span class="number">.5</span> ;</span><br><span class="line">        <span class="keyword">if</span>(  sucess )&#123;</span><br><span class="line">            log(<span class="string">'getWeather : 晴朗'</span>);</span><br><span class="line">            promise.reslove(<span class="string">'晴朗'</span>);   </span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            promise.reject(<span class="string">'getWeather 获取失败'</span>);   </span><br><span class="line">        &#125;</span><br><span class="line">    &#125;,<span class="number">2000</span>)</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'getWeather ...'</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">getSuggestion</span>(<span class="params"> cityWeather </span>)</span>&#123;      <span class="comment">//  业务逻辑结尾不需要 Promise 对象</span></span><br><span class="line">    setTimeout( <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        log( cityWeather  + <span class="string">'建议防晒'</span> );</span><br><span class="line">    &#125;,<span class="number">1000</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">getCity()</span><br><span class="line">    .then( getWeather )</span><br><span class="line">    .catch( onCatch )</span><br><span class="line"></span><br><span class="line">getCity()</span><br><span class="line">    .then( getWeather , onCatch )</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">getCity()</span><br><span class="line">    .then( getWeather , onCatch )</span><br><span class="line">    .then( getSuggestion , onCatch )</span><br><span class="line">    .catch( <span class="function"><span class="keyword">function</span>(<span class="params"> msg </span>)</span>&#123;</span><br><span class="line">        onCatch(<span class="string">'final catch , '</span>+ msg);</span><br><span class="line"></span><br><span class="line">    &#125; )</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">getCity()</span><br><span class="line">    .then( getWeather  )</span><br><span class="line">    .then( getSuggestion  )</span><br><span class="line">    .catch( <span class="function"><span class="keyword">function</span>(<span class="params"> msg </span>)</span>&#123;</span><br><span class="line">        onCatch(<span class="string">'final catch , '</span>+ msg);</span><br><span class="line"></span><br><span class="line">    &#125; )</span><br></pre></td></tr></table></figure>
+<p>转换为现代点的 class 定义，转换后的代码依然可以使用之前的测试代码，结果一致</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Promise</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">constructor</span>() &#123;</span><br><span class="line">        <span class="keyword">this</span>.callbacks = [];</span><br><span class="line">        <span class="keyword">this</span>.oncatch = <span class="literal">null</span>;       </span><br><span class="line">    &#125;</span><br><span class="line">    then( reslove , reject )&#123;</span><br><span class="line">        <span class="keyword">this</span>.callbacks.push( &#123;<span class="attr">reslove</span>:reslove,<span class="attr">reject</span>:reject&#125; );</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">this</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    reslove( data )&#123;</span><br><span class="line">        <span class="keyword">let</span> handler = <span class="keyword">this</span>.callbacks.shift();</span><br><span class="line">        <span class="keyword">if</span>( handler )&#123;</span><br><span class="line">            <span class="keyword">let</span> fn = handler.reslove;</span><br><span class="line">            fn &amp;&amp; fn(data , <span class="keyword">this</span> );</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            <span class="keyword">this</span>.oncatch(<span class="string">'没有 reslove 处理函数'</span>)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    reject( data )&#123;</span><br><span class="line">        <span class="keyword">let</span> handler = <span class="keyword">this</span>.callbacks.shift();</span><br><span class="line">        <span class="keyword">let</span> fn = handler ? handler.reject : <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;&#125;;</span><br><span class="line">        fn &amp;&amp; fn(data , <span class="keyword">this</span> );</span><br><span class="line">        <span class="keyword">this</span>.oncatch &amp;&amp; <span class="keyword">this</span>.oncatch( data );</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">catch</span>( fn )&#123;</span><br><span class="line">        <span class="keyword">this</span>.oncatch = fn;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://webooxx.com/2018/04/08/Promise实现/" data-id="cjorxa2td000jbb8soa50165t" class="article-share-link">share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JS/">JS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Promise/">Promise</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/实现原理/">实现原理</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-CanvasEdge" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/12/14/CanvasEdge/" class="article-date">
+  <time datetime="2017-12-14T15:26:12.000Z" itemprop="datePublished">2017-12-14</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/12/14/CanvasEdge/">前端图像处理-使用Canvas查找图片边缘</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>canvas 图像处理、图片灰度算法、二值化、边缘检测算法（拉普拉斯算子）</p>
+<p><a href="/ddemo/CanvasEdge/index.html">在线预览</a></p>
+<p><img src="/ddemo/CanvasEdge/face.png" alt="边缘查找"></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://webooxx.com/2017/12/14/CanvasEdge/" data-id="cjorxa2tb000hbb8smeeigit7" class="article-share-link">share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/canvas/">canvas</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/js/">js</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/卷积/">卷积</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/图像处理/">图像处理</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-为一组数字添加千分位符号" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/10/17/为一组数字添加千分位符号/" class="article-date">
+  <time datetime="2017-10-17T14:44:29.000Z" itemprop="datePublished">2017-10-17</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/10/17/为一组数字添加千分位符号/">为一组数字添加千分位符号</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>实现代码</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">// 数据模拟</span></span><br><span class="line"><span class="string">'0'</span>.repeat(<span class="number">12</span>).split(<span class="string">''</span>).map(<span class="function">(<span class="params">n,i</span>)=&gt;</span>n.toString().repeat(i+<span class="number">1</span>))</span><br><span class="line"></span><br><span class="line"><span class="comment">// 添加千分符</span></span><br><span class="line"></span><br><span class="line">.map(<span class="function">(<span class="params">n</span>)=&gt;</span>n.replace( <span class="regexp">/(?=(...)+$)/g</span>,<span class="string">','</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">//处理 3,6,9.. 位数匹配 ,123,456,789</span></span><br><span class="line">.replace(<span class="regexp">/^,/</span>,<span class="string">''</span>))</span><br></pre></td></tr></table></figure>
+<p>结果返回</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">0</span>:<span class="string">"0"</span></span><br><span class="line"><span class="number">1</span>:<span class="string">"00"</span></span><br><span class="line"><span class="number">2</span>:<span class="string">"000"</span></span><br><span class="line"><span class="number">3</span>:<span class="string">"0,000"</span></span><br><span class="line"><span class="number">4</span>:<span class="string">"00,000"</span></span><br><span class="line"><span class="number">5</span>:<span class="string">"000,000"</span></span><br><span class="line"><span class="number">6</span>:<span class="string">"0,000,000"</span></span><br><span class="line"><span class="number">7</span>:<span class="string">"00,000,000"</span></span><br><span class="line"><span class="number">8</span>:<span class="string">"000,000,000"</span></span><br><span class="line"><span class="number">9</span>:<span class="string">"0,000,000,000"</span></span><br><span class="line"><span class="number">10</span>:<span class="string">"00,000,000,000"</span></span><br><span class="line"><span class="number">11</span>:<span class="string">"000,000,000,000"</span></span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://webooxx.com/2017/10/17/为一组数字添加千分位符号/" data-id="cjorxa2t8000fbb8sw72ms4o7" class="article-share-link">share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/js/">js</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/string/">string</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/正则/">正则</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-使用indexOf成双成对的匹配标签" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/08/15/使用indexOf成双成对的匹配标签/" class="article-date">
+  <time datetime="2017-08-15T09:54:45.000Z" itemprop="datePublished">2017-08-15</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/08/15/使用indexOf成双成对的匹配标签/">使用indexOf成双成对的匹配标签</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>成双成对的匹配HTML标签，主要是 indexOf，没有若使用复杂的正则</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 成双成对的匹配标签outerHTML</span></span><br><span class="line"><span class="comment"> * @param html                HTML字符串内容</span></span><br><span class="line"><span class="comment"> * @param tagName             标签名称</span></span><br><span class="line"><span class="comment"> * @param initStartPosition   起始位置</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">getPairwiseTagPosition</span>(<span class="params"> html , tagName , initStartPosition</span>)</span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> tagStartPositionStack = [initStartPosition];</span><br><span class="line"></span><br><span class="line">    <span class="comment">//  获取下一个开始或者结束标签的位置</span></span><br><span class="line">    <span class="keyword">var</span> nextTagStartOrClose = <span class="function"><span class="keyword">function</span> (<span class="params"> position , content </span>)</span>&#123;</span><br><span class="line">        <span class="keyword">var</span> startPosition = content.indexOf(<span class="string">'&lt;'</span>+tagName,position+<span class="number">1</span>);</span><br><span class="line">        <span class="keyword">var</span> closePosition  = content.indexOf(<span class="string">'&lt;/'</span>+tagName+<span class="string">'&gt;'</span>,position+<span class="number">1</span>);</span><br><span class="line">        <span class="built_in">console</span>.log(startPosition,closePosition,startPosition &gt; position)</span><br><span class="line">        <span class="keyword">if</span> (startPosition &lt;  closePosition &amp;&amp; startPosition &gt; position)&#123; <span class="comment">//  谁小谁在前,如果只有一个标签，如body，直接略过</span></span><br><span class="line">            <span class="keyword">return</span> [<span class="string">'START'</span>,startPosition]</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            <span class="keyword">return</span> [<span class="string">'CLOSE'</span>,closePosition]</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//  开始计算</span></span><br><span class="line">    <span class="keyword">var</span> calc = <span class="function"><span class="keyword">function</span>(<span class="params"> startPosition </span>)</span>&#123;</span><br><span class="line"></span><br><span class="line">        <span class="comment">//  异常处理</span></span><br><span class="line">        <span class="keyword">if</span>( startPosition &lt; <span class="number">0</span> || startPosition &gt; html.length)&#123;</span><br><span class="line">            <span class="keyword">return</span> [<span class="number">0</span>,<span class="number">0</span>];</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">//  主要逻辑</span></span><br><span class="line">        <span class="keyword">var</span> next = nextTagStartOrClose( startPosition , html );</span><br><span class="line"></span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">'NEXT'</span>,next)</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span>( next[<span class="number">0</span>] === <span class="string">'CLOSE'</span> )&#123;  <span class="comment">//  结束标签，需要推出一个开始标签位置</span></span><br><span class="line">            <span class="keyword">var</span> startPosition = tagStartPositionStack.pop();</span><br><span class="line">            <span class="keyword">var</span> closePosition = next[<span class="number">1</span>];</span><br><span class="line"></span><br><span class="line">            <span class="keyword">if</span>( tagStartPositionStack.length &lt;= <span class="number">0</span> )&#123;</span><br><span class="line">                <span class="keyword">return</span> [startPosition,closePosition <span class="number">-0</span> + tagName.length + <span class="number">3</span>] <span class="comment">// 修正结束位置，包含结束标签</span></span><br><span class="line">            &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                <span class="keyword">return</span> calc( next[<span class="number">1</span>] );</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span>(next[<span class="number">0</span>] === <span class="string">'START'</span>)&#123;    <span class="comment">// 开始标签标记，需要压入一个开始标签位置</span></span><br><span class="line">            tagStartPositionStack.push(  next[<span class="number">1</span>] );</span><br><span class="line">            <span class="keyword">return</span> calc( next[<span class="number">1</span>] );</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> calc(initStartPosition);</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//getPairwiseTagPosition( document.body.innerHTML , 'div' , document.body.innerHTML.indexOf('&lt;div id="main"') )</span></span><br><span class="line"></span><br><span class="line">getPairwiseTagPosition( <span class="built_in">document</span>.body.outerHTML , <span class="string">'body'</span> , <span class="built_in">document</span>.body.outerHTML.indexOf(<span class="string">'&lt;body'</span>) )</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://webooxx.com/2017/08/15/使用indexOf成双成对的匹配标签/" data-id="cjorxa2t6000ebb8sgcsitosn" class="article-share-link">share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/js/">js</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/算法/">算法</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-Canvas和Dom实现的五子棋" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/08/02/Canvas和Dom实现的五子棋/" class="article-date">
+  <time datetime="2017-08-02T07:50:05.000Z" itemprop="datePublished">2017-08-02</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/08/02/Canvas和Dom实现的五子棋/">Canvas和Dom实现的五子棋</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><img src="/images/gomoku.png" alt="效果预览"></p>
+<h1 id="Gomoku"><a href="#Gomoku" class="headerlink" title="Gomoku"></a>Gomoku</h1><ul>
+<li>DOM 版效果：<a href="http://webooxx.com/ddemo/Gomoku/index_dom.html">http://webooxx.com/ddemo/Gomoku/index_dom.html</a></li>
+<li>Canvas 版本效果：<a href="http://webooxx.com/ddemo/Gomoku/index_canvas.html">http://webooxx.com/ddemo/Gomoku/index_canvas.html</a></li>
+<li>整合版效果，可以选择渲染模式 <a href="http://webooxx.com/ddemo/Gomoku/index.html">http://webooxx.com/ddemo/Gomoku/index.html</a></li>
+</ul>
+<h2 id="设计要求"><a href="#设计要求" class="headerlink" title="设计要求"></a>设计要求</h2><ol>
+<li>用 Web 技术实现一个五子棋（不用考虑人机对战）</li>
+<li>如果是用 DOM 实现的，换成 Canvas 实现。（需要 Dom 和 Canvas 两个版本）</li>
+<li>实现一个悔棋的功能</li>
+<li>实现一个撤销悔棋的功能</li>
+</ol>
+<h2 id="大致思路-模块划分"><a href="#大致思路-模块划分" class="headerlink" title="大致思路-模块划分"></a>大致思路-模块划分</h2><h4 id="一、User-Interface-Element-用户界面元素"><a href="#一、User-Interface-Element-用户界面元素" class="headerlink" title="一、User Interface Element 用户界面元素"></a>一、User Interface Element 用户界面元素</h4><ul>
+<li>棋盘<ul>
+<li>黑子</li>
+<li>白子</li>
+<li>预览（黑、白）</li>
+<li>辅助文案（当前游戏赢家状态&amp;棋权、悔棋、撤销悔棋）</li>
+</ul>
+</li>
+</ul>
+<h4 id="二、User-Interface-Provide-Method-接口方法"><a href="#二、User-Interface-Provide-Method-接口方法" class="headerlink" title="二、User Interface Provide Method 接口方法"></a>二、User Interface Provide Method 接口方法</h4><ul>
+<li>根据 <strong>Gomoku.board </strong>更新棋盘所有棋子</li>
+<li>更新棋权文案</li>
+</ul>
+<h4 id="三、User-Infterface-Event-用户界面事件（用户输入）"><a href="#三、User-Infterface-Event-用户界面事件（用户输入）" class="headerlink" title="三、User Infterface Event 用户界面事件（用户输入）"></a>三、User Infterface Event 用户界面事件（用户输入）</h4><ul>
+<li>下子</li>
+<li>预览</li>
+<li>悔棋</li>
+<li>撤销悔棋</li>
+</ul>
+<h4 id="四、Core-Logic-核心逻辑"><a href="#四、Core-Logic-核心逻辑" class="headerlink" title="四、Core Logic 核心逻辑"></a>四、Core Logic 核心逻辑</h4><ul>
+<li><strong>游戏对象 Gomoku</strong><ul>
+<li>基本数据<ul>
+<li>是否游戏中状态 inGame</li>
+<li>下棋序列 setInOrder</li>
+<li>悔棋序列 undoOrder（用于支持撤销悔棋）</li>
+<li>下棋序列 setInOrder</li>
+<li>棋盘界面映射 board（用于支持视图可以直接根据 15*15 尺寸的 board 进行更新）</li>
+</ul>
+</li>
+<li>方法<ul>
+<li>落子 setIn()</li>
+<li>更新视图（棋盘落子、棋权）UI.updateBoard()</li>
+<li>重新开始游戏（更新基本数据、视图） restart()</li>
+<li>悔棋 undo()</li>
+<li>撤销悔棋 cancelUndo()</li>
+<li>获取当前棋权  getCurrentRightName() （根据基本数据 Gomoku.setInOrder，若最后一个是白的，现在肯定是黑的）</li>
+</ul>
+</li>
+<li>通用方法<ul>
+<li>判定是否允许落子 checkAllowSetIn</li>
+<li>判定落子之后是否赢了 checkIsWin</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="判断是否赢棋思路"><a href="#判断是否赢棋思路" class="headerlink" title="判断是否赢棋思路"></a>判断是否赢棋思路</h2><ul>
+<li>因为：落子到某个点之后，这个点的 - | \/ \ ，这4个方向联合起来有5个子就赢了</li>
+<li>尝试判定在水平方向 - 是否赢了</li>
+<li>所以：假定判断  当前落子的左侧 所有直接连接的同色 + 右侧所有直接连接的同色 &gt;=4 即赢了。<ul>
+<li>例如刚刚下到 <strong>0,2</strong>即 ： [ 0,0 ,’white’ ] , [ 0,1 ,’white’ ], <strong>[ 0,2 ,’white’ ]</strong>, [ 0,3 ,’white’ ], [ 0,4 ,’white’ ]</li>
+<li>那么 white 赢</li>
+</ul>
+</li>
+<li>判定在垂直方向同理，判定在 / 和 \ 方向，同理</li>
+<li>不同方向的计算方法<ul>
+<li>垂直向上：[ x–  , y]</li>
+<li>垂直向下：[x++, y ]</li>
+<li>水平向左：[ x, y–]</li>
+<li>水平向右：[ x, y++]</li>
+<li>左上方向：[x–,y–]</li>
+<li>左下方向：[x++,y++]</li>
+<li>右上方向：[x++,y–]</li>
+<li>右下方向：[x–,y++]</li>
+</ul>
+</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://webooxx.com/2017/08/02/Canvas和Dom实现的五子棋/" data-id="cjorxa2t3000cbb8si8glsuai" class="article-share-link">share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Canvas/">Canvas</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JS游戏/">JS游戏</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-用css模拟手机下拉Loading" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/07/28/用css模拟手机下拉Loading/" class="article-date">
+  <time datetime="2017-07-28T12:23:58.000Z" itemprop="datePublished">2017-07-28</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/07/28/用css模拟手机下拉Loading/">用css模拟手机下拉Loading</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p> 有时间再想办法来个水滴效果，从小拉大的那种！</p>
+<p><a href="/ddemo/phoneLoading/index.html">效果预览</a><br><img width="70%" src="/ddemo/phoneLoading/face.png" alt="效果预览"></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://webooxx.com/2017/07/28/用css模拟手机下拉Loading/" data-id="cjorxa2t1000bbb8saelablh4" class="article-share-link">share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/css/">css</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/js/">js</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/loading/">loading</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/动画/">动画</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-百度问卷交互-1-问题编辑" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/07/12/百度问卷交互-1-问题编辑/" class="article-date">
+  <time datetime="2017-07-12T05:29:00.000Z" itemprop="datePublished">2017-07-12</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/07/12/百度问卷交互-1-问题编辑/">百度问卷交互设计（一）问题编辑</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>问卷结构的编辑有诸多的功能，在百度问卷系统中，将用户的使用场景分级，在不同的场景下，用户的操作需求是不一样的。需要关注的信息也是不一样的。</p>
+<p>整体的设计思路是，用户不需要关注不必要的信息或功能（设计要让用户自动忽略无关信息），用户可以自然而然的找到需要的信息或功能（设计要让用户在操作过程中自动获得足够的信息或功能，且不至于产生困惑——符合预期）</p>
+<h2 id="一、编辑初体验——查看问卷（问题列表）"><a href="#一、编辑初体验——查看问卷（问题列表）" class="headerlink" title="一、编辑初体验——查看问卷（问题列表）"></a>一、编辑初体验——查看问卷（问题列表）</h2><p>设计目的：没有不必要的信息负担</p>
+<p><img src="/ddemo/UIBaiduWenJuan/1.png" alt="初始体验"></p>
+<h3 id="Tips"><a href="#Tips" class="headerlink" title="Tips:"></a>Tips:</h3><ul>
+<li>关注焦点：问卷内容，次要关注点：问卷大纲。</li>
+<li>操作区域：触摸板、鼠标滚轮、拖动滚动条</li>
+</ul>
+<h2 id="二、快速操作-删除-or-复制——简单管理问题"><a href="#二、快速操作-删除-or-复制——简单管理问题" class="headerlink" title="二、快速操作: 删除 or 复制——简单管理问题"></a>二、快速操作: 删除 or 复制——简单管理问题</h2><p>此时用户开始浏览问卷，此时有可能是希望在 <code>某个问题</code> 下方插入一个新的问题，或者删除这个问卷，有如下几种 CASE</p>
+<ul>
+<li>浏览别人的问卷</li>
+<li>浏览自己根据模板创建的问卷</li>
+<li>浏览自己新建的问卷，但是只有一个问题</li>
+</ul>
+<p>设计目的：快速操作，不提供<code>不希望有 or 不需要</code>的信息</p>
+<p><img src="/ddemo/UIBaiduWenJuan/2.png" alt="删除或者复制"></p>
+<p>支持有可能的操作：希望编辑某个题目的内容，标题或是某个回答</p>
+<p><img src="/ddemo/UIBaiduWenJuan/2-1.png" alt="预备支持对标题内容的编辑"></p>
+<h3 id="Tips-1"><a href="#Tips-1" class="headerlink" title="Tips:"></a>Tips:</h3><ul>
+<li>关注焦点：问卷一块区域的内容，下级关注点：某个题目的内容。</li>
+<li>操作区域：触摸板、鼠标滚轮、拖动滚动条、<code>鼠标划过题目</code></li>
+</ul>
+        
+          <p class="article-more-link">
+            <a href="/2017/07/12/百度问卷交互-1-问题编辑/#more">Read More</a>
+          </p>
+        
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://webooxx.com/2017/07/12/百度问卷交互-1-问题编辑/" data-id="cjorxa2t00009bb8slf7qk4av" class="article-share-link">share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/交互设计/">交互设计</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/体验/">体验</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/表单/">表单</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/问卷系统/">问卷系统</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-两个JS时间小技巧" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/07/10/两个JS时间小技巧/" class="article-date">
+  <time datetime="2017-07-10T08:08:20.000Z" itemprop="datePublished">2017-07-10</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/07/10/两个JS时间小技巧/">两个JS时间小技巧</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>分享两个时间小技巧</p>
+<p>一、获得 Y-m-d H:i:s 格式的时间</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">new</span> <span class="built_in">Date</span>(+<span class="keyword">new</span> <span class="built_in">Date</span>()+<span class="number">8</span>*<span class="number">3600</span>*<span class="number">1000</span>).toISOString().replace(<span class="regexp">/T/g</span>,<span class="string">' '</span>).replace(<span class="regexp">/\.[\d]&#123;3&#125;Z/</span>,<span class="string">''</span>)</span><br><span class="line"><span class="comment">// 输出 "2017-07-10 16:08:57"</span></span><br></pre></td></tr></table></figure>
+<p>二、根据时间自动增加的商品数量</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> n = <span class="number">220</span>; <span class="comment">// 默认有 N 个，或者真实有 N 个，下面代码中 2017/01/01 是可以变动的</span></span><br><span class="line">n + ( ( ( (<span class="keyword">new</span> <span class="built_in">Date</span>()).getTime() - (<span class="keyword">new</span> <span class="built_in">Date</span>(<span class="string">'2017/01/01'</span>)).getTime()  ) / (<span class="number">3600</span>*<span class="number">24</span> * <span class="number">1000</span>) ) &gt;&gt; <span class="number">0</span> ) * <span class="number">2</span>  + <span class="string">'个'</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 2017/01/01 =&gt; 600</span></span><br><span class="line"><span class="comment">// 2017/07/01 =&gt; 238</span></span><br><span class="line"><span class="comment">// 2017/07/09 =&gt; 222</span></span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://webooxx.com/2017/07/10/两个JS时间小技巧/" data-id="cjorxa2sy0008bb8swwu6kitg" class="article-share-link">share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/js/">js</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/时间处理/">时间处理</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-2016圣诞填色小游戏" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/06/05/2016圣诞填色小游戏/" class="article-date">
+  <time datetime="2017-06-05T07:36:53.000Z" itemprop="datePublished">2017-06-05</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/06/05/2016圣诞填色小游戏/">2016圣诞填色小游戏</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>这个小游戏是运营同学在圣诞节前一周突然想出来的脑洞，想搞个配色游戏去做推广。先放个效果上来玩玩，不过因为 GithubPage 没有php，所以无法生成最后的合成图。</p>
+<p><img src="/ddemo/2016ChristmasBear/qrcode.png" alt="在线效果"></p>
+<p><img src="/ddemo/2016ChristmasBear/face.png" width="30%"></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://webooxx.com/2017/06/05/2016圣诞填色小游戏/" data-id="cjorxa2sw0005bb8s1blpxvan" class="article-share-link">share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/canvas/">canvas</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/js/">js</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/svg/">svg</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/小游戏/">小游戏</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-hexo新建日志时自动使用atom编辑" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/05/31/hexo新建日志时自动使用atom编辑/" class="article-date">
+  <time datetime="2017-05-31T05:19:51.000Z" itemprop="datePublished">2017-05-31</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/05/31/hexo新建日志时自动使用atom编辑/">hexo新建日志时自动使用atom编辑</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>在 <code>scripts</code> 目录下新建一个  <code>autoOpen.js</code> 内容如下</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> spawn = <span class="built_in">require</span>(<span class="string">'child_process'</span>).spawn;</span><br><span class="line">hexo.on(<span class="string">'new'</span>, <span class="function"><span class="keyword">function</span>(<span class="params">data</span>)</span>&#123;</span><br><span class="line">  spawn(<span class="string">'atom'</span>, [data.path]);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>然后每次 <code>hex new 新文章</code> 的时候就可以自动关联atom去编辑啦~</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://webooxx.com/2017/05/31/hexo新建日志时自动使用atom编辑/" data-id="cjorxa2ss0003bb8sycl4q472" class="article-share-link">share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/hexo/">hexo</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/js/">js</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/自动脚本/">自动脚本</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-在access-log中查询作弊请求" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/05/31/在access-log中查询作弊请求/" class="article-date">
+  <time datetime="2017-05-31T03:48:16.000Z" itemprop="datePublished">2017-05-31</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/05/31/在access-log中查询作弊请求/">在access_log中查询作弊请求</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="引子"><a href="#引子" class="headerlink" title="引子"></a>引子</h2><p>有个业务有投票功能，没有做用户限定（登录用户才可以投票），果然有人刷票了，服务器是一个集群，有4个单元，有近30天的访问日志要去查询。</p>
+<p>先看看日志文件：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">ls -al acc*</span><br><span class="line"></span><br><span class="line"><span class="comment"># 结果输出</span></span><br><span class="line"></span><br><span class="line">access_log           </span><br><span class="line">...            </span><br><span class="line">access_log.20170529  access_log.20170530</span><br></pre></td></tr></table></figure>
+<h2 id="一、vim-access-log-分析具体请求"><a href="#一、vim-access-log-分析具体请求" class="headerlink" title="一、vim access_log 分析具体请求"></a>一、vim access_log 分析具体请求</h2><p>得到一个正则</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">%s/expo_praise\/id\/<span class="number">417</span><span class="comment">//gn</span></span><br></pre></td></tr></table></figure>
+<h2 id="二、-grep-查询并且统计"><a href="#二、-grep-查询并且统计" class="headerlink" title="二、  grep 查询并且统计"></a>二、  grep 查询并且统计</h2><p>可以看到当天的日志里面有86个请求</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">grep <span class="string">'expo_praise/id/417'</span> access_log  | wc -l</span><br><span class="line"></span><br><span class="line"><span class="comment"># 结果输出</span></span><br><span class="line"></span><br><span class="line">86</span><br></pre></td></tr></table></figure>
+<h2 id="三、-组合命令，统计每天的日志"><a href="#三、-组合命令，统计每天的日志" class="headerlink" title="三、 组合命令，统计每天的日志"></a>三、 组合命令，统计每天的日志</h2><p>版本1: 直接列出所有结果</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">find . -name <span class="string">"acc*"</span> -<span class="built_in">exec</span> grep -c <span class="string">"expo_praise/id/417"</span>  &#123;&#125; \;</span><br><span class="line"></span><br><span class="line"><span class="comment"># 结果输出</span></span><br><span class="line"></span><br><span class="line">86</span><br><span class="line">0</span><br><span class="line">...</span><br><span class="line">281</span><br><span class="line">870</span><br><span class="line">878</span><br><span class="line">729</span><br></pre></td></tr></table></figure>
+<p>版本2: 把文件名也输出出来<br><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">find . -name <span class="string">"acc*"</span> | xargs  grep -c <span class="string">"expo_praise/id/417"</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 结果输出</span></span><br><span class="line"></span><br><span class="line">/access_log:86</span><br><span class="line">./access_log.20170509:0</span><br><span class="line">...</span><br><span class="line">./access_log.20170527:281</span><br><span class="line">./access_log.20170528:870</span><br><span class="line">./access_log.20170529:878</span><br><span class="line">./access_log.20170530:729</span><br></pre></td></tr></table></figure></p>
+<p>另一种笨一点的实现，想直接给出个csv格式，后续方便用excel看到图表</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">find . -name <span class="string">"acc*"</span> | awk <span class="string">'&#123;print "echo -n "$0" &amp;&amp; echo -n , &amp;&amp; cat " $0 " | grep \"expo_praise/id/417\" | wc -l "&#125;'</span> | sh</span><br><span class="line"></span><br><span class="line"><span class="comment"># 结果输出</span></span><br><span class="line"></span><br><span class="line">/access_log,86</span><br><span class="line">./access_log.20170509,0</span><br><span class="line">...</span><br><span class="line">./access_log.20170527,281</span><br><span class="line">./access_log.20170528,870</span><br><span class="line">./access_log.20170529,878</span><br><span class="line">./access_log.20170530,729</span><br></pre></td></tr></table></figure>
+<h2 id="四、-命令总览-amp-技巧总结"><a href="#四、-命令总览-amp-技巧总结" class="headerlink" title="四、 命令总览&amp;技巧总结"></a>四、 命令总览&amp;技巧总结</h2><ul>
+<li>find<ul>
+<li>find 命令可以直接 -exec 执行一条命令</li>
+<li>{} 花括号是find的每行记录？</li>
+<li>命令格式结尾需要 \;</li>
+</ul>
+</li>
+<li>xargs</li>
+<li>grep<ul>
+<li>grep 可以直接使用 -c 获得匹配结果行数统计</li>
+</ul>
+</li>
+<li>awk<ul>
+<li>如果匹配出来的结果要再次进行处理的话，使用管道都不好使，最好就是拼好所有的命令最后管道给sh执行</li>
+</ul>
+</li>
+</ul>
+<p>如下，awk 不带 sh 的结果：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">find . -name <span class="string">"acc*"</span>   | awk <span class="string">'&#123;print "echo -n "$0" &amp;&amp; echo -n , &amp;&amp;  cat " $0 " | grep \"expo_praise/id/417\" | wc -l "&#125;'</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 结果输出</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">echo</span> -n ./access_log &amp;&amp; <span class="built_in">echo</span> -n , &amp;&amp;  cat ./access_log | grep <span class="string">"expo_praise/id/417"</span> | wc -l                         </span><br><span class="line"><span class="built_in">echo</span> -n ./access_log.20170509 &amp;&amp; <span class="built_in">echo</span> -n , &amp;&amp;  cat ./access_log.20170509 | grep <span class="string">"expo_praise/id/417"</span> | wc -l</span><br><span class="line">...      </span><br><span class="line"><span class="built_in">echo</span> -n ./access_log.20170530 &amp;&amp; <span class="built_in">echo</span> -n , &amp;&amp;  cat ./access_log.20170530 | grep <span class="string">"expo_praise/id/417"</span> | wc -l</span><br></pre></td></tr></table></figure>
+<p> 这种思路非常棒，先得到一个 sh 的内容再去执行！</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://webooxx.com/2017/05/31/在access-log中查询作弊请求/" data-id="cjorxa2su0004bb8swfyoz4yv" class="article-share-link">share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/access-log/">access_log</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/http/">http</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/linux/">linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/sh/">sh</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/日志/">日志</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-jssort" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/05/27/jssort/" class="article-date">
+  <time datetime="2017-05-27T06:24:09.000Z" itemprop="datePublished">2017-05-27</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/05/27/jssort/">JS的排序函数使用方法</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="1-简单排序-amp-不传排序处理函数容易出现的问题"><a href="#1-简单排序-amp-不传排序处理函数容易出现的问题" class="headerlink" title="1. 简单排序 &amp; 不传排序处理函数容易出现的问题"></a>1. 简单排序 &amp; 不传排序处理函数容易出现的问题</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> foo = [<span class="number">7</span>,<span class="number">1</span>,<span class="number">3</span>,<span class="number">5</span>,<span class="number">6</span>,<span class="number">1</span>];</span><br><span class="line">foo.sort();</span><br><span class="line"><span class="built_in">console</span>.log(foo); <span class="comment">//  [1, 1, 3, 5, 6, 7]</span></span><br></pre></td></tr></table></figure>
+<p>看起来不用传入参数也能正常排序，使用起来和下面的代码输出一致</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">foo.sort(<span class="function">(<span class="params">a,b</span>)=&gt;</span>&#123;<span class="keyword">return</span> a-b&#125;)</span><br><span class="line"><span class="built_in">console</span>.log(foo); <span class="comment">//  [1, 1, 3, 5, 6, 7]</span></span><br></pre></td></tr></table></figure>
+<p>逆序来下</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">foo.sort(<span class="function">(<span class="params">a,b</span>)=&gt;</span>&#123;<span class="keyword">return</span> b-a&#125;)</span><br><span class="line"><span class="built_in">console</span>.log(foo); <span class="comment">//  [7, 6, 5, 3, 1, 1]</span></span><br></pre></td></tr></table></figure>
+<p>但实际上，如果待排序的数字超过10的话，就会有问题</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> foo = [<span class="number">7</span>,<span class="number">1</span>,<span class="number">3</span>,<span class="number">5</span>,<span class="number">6</span>,<span class="number">1</span>,<span class="number">11</span>,<span class="number">33</span>];</span><br><span class="line">foo.sort();</span><br><span class="line"><span class="built_in">console</span>.log(foo); <span class="comment">//  [1, 1, 11, 3, 33, 5, 6, 7]</span></span><br></pre></td></tr></table></figure>
+<p>可以看到<code>11，3</code>这个是不对的。必须传入排序函数去处理</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">foo.sort(<span class="function">(<span class="params">a,b</span>)=&gt;</span>&#123;<span class="keyword">return</span> b-a&#125;)</span><br><span class="line"><span class="built_in">console</span>.log(foo); <span class="comment">//   [1, 1, 3, 5, 6, 7, 11, 33]</span></span><br></pre></td></tr></table></figure>
+<h2 id="2-多维数组-amp-键值对成员"><a href="#2-多维数组-amp-键值对成员" class="headerlink" title="2. 多维数组 &amp; 键值对成员"></a>2. 多维数组 &amp; 键值对成员</h2><p>二维数组</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> foo =[ [<span class="number">1</span>,<span class="number">2</span>],[<span class="number">3</span>,<span class="number">5</span>],[<span class="number">5</span>,<span class="number">7</span>],[<span class="number">4</span>,<span class="number">6</span>]  ];</span><br><span class="line">foo.sort( <span class="function">(<span class="params">a,b</span>)=&gt;</span>&#123;<span class="keyword">return</span> a[<span class="number">0</span>]-b[<span class="number">0</span>];&#125; ); <span class="comment">// 以第1个值排序（1,3,5,4）=》(1,3,4,5)</span></span><br><span class="line">foo.toString() <span class="comment">// 1,2 3,5 4,6 5,7</span></span><br><span class="line"></span><br><span class="line">foo.sort( <span class="function">(<span class="params">a,b</span>)=&gt;</span>&#123;<span class="keyword">return</span> a[<span class="number">1</span>]-b[<span class="number">1</span>];&#125; ); <span class="comment">// 以第2个值排序（2,5,7,6）=》(2,5,6,7)</span></span><br><span class="line">foo.toString() <span class="comment">// 1,2 3,5 4,6 5,7</span></span><br></pre></td></tr></table></figure>
+<p>键值对成员同理</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> bar = [</span><br><span class="line">    &#123;<span class="attr">name</span>:<span class="string">'x'</span>,<span class="attr">age</span>:<span class="number">9</span>&#125;,&#123;<span class="attr">name</span>:<span class="string">'z'</span>,<span class="attr">age</span>:<span class="number">21</span>&#125;,</span><br><span class="line">    &#123;<span class="attr">name</span>:<span class="string">'y'</span>,<span class="attr">age</span>:<span class="number">32</span>&#125;,&#123;<span class="attr">name</span>:<span class="string">'g'</span>,<span class="attr">age</span>:<span class="number">14</span>&#125;,&#123;<span class="attr">name</span>:<span class="string">'y'</span>,<span class="attr">age</span>:<span class="number">32</span>&#125;</span><br><span class="line">  ];</span><br><span class="line">bar.sort( <span class="function">(<span class="params">a,b</span>)=&gt;</span>&#123;<span class="keyword">return</span> a.age-b.age&#125; );</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log( <span class="built_in">JSON</span>.stringify(person) );</span><br><span class="line"><span class="comment">//   [</span></span><br><span class="line"><span class="comment">//     &#123;"name":"x","age":9&#125;,&#123;"name":"g","age":14&#125;,</span></span><br><span class="line"><span class="comment">//     &#123;"name":"z","age":21&#125;,&#123;"name":"y","age":32&#125;,&#123;"name":"y","age":32&#125;</span></span><br><span class="line"><span class="comment">//   ]</span></span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://webooxx.com/2017/05/27/jssort/" data-id="cjorxa2si0001bb8szpa4m07q" class="article-share-link">share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/js/">js</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/js基础/">js基础</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/排序/">排序</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-知乎中预览图过渡处理" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2016/12/01/知乎中预览图过渡处理/" class="article-date">
+  <time datetime="2016-12-01T02:52:48.000Z" itemprop="datePublished">2016-12-01</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/12/01/知乎中预览图过渡处理/">知乎中预览图过渡处理&amp;Img标签的srcset属性</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>逛知的时候，发现对不在屏幕可视区的图片载入的时候会有个模糊的渐变效果，直觉上应该是用了一些延迟加载的功能。</p>
+<p><img src="/images/zhihu-lazy-image.png" alt="知乎上图片多个源"></p>
+<p>果然，实际上图片是有2个地址的，原来我猜测<code>模糊效果是有个低质量的图片</code>，<code>原图</code>载入完成后模糊来个过渡，实际上并不是。</p>
+<ul>
+<li><a href="https://pic3.zhimg.com/407d770c67426629a7b94cef4e48468e_r.png" target="_blank" rel="noopener">预览图</a></li>
+<li><a href="https://pic3.zhimg.com/407d770c67426629a7b94cef4e48468e_r.png" target="_blank" rel="noopener">原图</a></li>
+</ul>
+<p>预览图就是页面上看到的尺寸，原图大于一定的尺寸。点击的效果是出现更大的图。</p>
+<p>忽然想起来，img 标签是有个属性能设置比较模糊的预览图的，翻了下资料。</p>
+<h2 id="早期浏览器对预览图的支持"><a href="#早期浏览器对预览图的支持" class="headerlink" title="早期浏览器对预览图的支持"></a>早期浏览器对预览图的支持</h2><p>早期img标签是有个lowsrc属性</p>
+<h4 id="lowsrc"><a href="#lowsrc" class="headerlink" title="lowsrc"></a>lowsrc</h4><ul>
+<li>lowsrc 属性可设置或返回图像的低分辨率版本的 URL。</li>
+</ul>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">"sourceImg.png"</span> <span class="attr">lowsrc</span>=<span class="string">"previewImg.png"</span> <span class="attr">width</span>=<span class="string">"500"</span> <span class="attr">height</span>=<span class="string">"2000"</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h2 id="HTML5的新属性-srcset"><a href="#HTML5的新属性-srcset" class="headerlink" title="HTML5的新属性 srcset"></a>HTML5的新属性 srcset</h2><p>然而HTML5最新的标准放弃了这个属性，而采用 srcset 代替。新的 srcset 属性设置，更像是是处理</p>
+<ol>
+<li>高清屏下2倍图、多倍图</li>
+<li>不同设备（比如移动端）屏幕宽度不同的情况下显示不同尺寸的图片</li>
+</ol>
+<p>和早期的 lowsrc 解决带宽不用，显示预览图的作用思路完全不一样。</p>
+<h4 id="MDN上的案例"><a href="#MDN上的案例" class="headerlink" title="MDN上的案例"></a>MDN上的案例</h4><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">"mdn-logo-sm.png"</span> <span class="attr">alt</span>=<span class="string">"MDN"</span> <span class="attr">srcset</span>=<span class="string">"mdn-logo-HD.png 2x"</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!-- 以及 --&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">"clock-demo-thumb-200.png"</span></span></span><br><span class="line"><span class="tag">      <span class="attr">alt</span>=<span class="string">"Clock"</span></span></span><br><span class="line"><span class="tag">      <span class="attr">srcset</span>=<span class="string">"clock-demo-thumb-200.png 200w, clock-demo-thumb-400.png 400w"</span></span></span><br><span class="line"><span class="tag">      <span class="attr">sizes</span>=<span class="string">"(min-width: 600px) 200px, 50vw"</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>具体可以看这 <a href="http://www.zhangxinxu.com/wordpress/2014/10/responsive-images-srcset-size-w-descriptor/" target="_blank" rel="noopener">响应式图片srcset全新释义sizes属性w描述符</a></p>
+<h4 id="相关连接"><a href="#相关连接" class="headerlink" title="相关连接"></a>相关连接</h4><ul>
+<li><a href="http://www.w3school.com.cn/jsref/dom_obj_image.asp" target="_blank" rel="noopener">HTML DOM Image 对象</a></li>
+<li><a href="http://html.com/attributes/img-lowsrc/" target="_blank" rel="noopener">lwosrc Attribute of img </a></li>
+<li><a href="https://w3c.github.io/html/semantics-embedded-content.html#the-img-element" target="_blank" rel="noopener">the-img-element</a></li>
+<li><a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/img" target="_blank" rel="noopener">The HTML &lt;img&gt; element</a></li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://webooxx.com/2016/12/01/知乎中预览图过渡处理/" data-id="cjoql9w9w002hji8sb83k9oqi" class="article-share-link">share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/HTML5/">HTML5</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/css/">css</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/交互/">交互</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-跟随页面保持在底部的footer" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2016/11/25/跟随页面保持在底部的footer/" class="article-date">
+  <time datetime="2016-11-25T07:55:05.000Z" itemprop="datePublished">2016-11-25</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/11/25/跟随页面保持在底部的footer/">跟随页面保持在底部的footer</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>网上看了一个代码，可以用负边距来保持footer元素在底部，类似这种</p>
+<p><img src="/ddemo/keepBottomFooter/1.png" alt="默认状态"><br><img src="/ddemo/keepBottomFooter/1.png" alt="新增了内容"></p>
+<p>HTML 结构</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">div.wrapper &gt; div.content ^+ div.footer</span><br></pre></td></tr></table></figure>
+<p>CSS代码</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.wrapper</span> &#123;<span class="attribute">min-height</span>: <span class="number">100%</span>; <span class="attribute">margin-bottom</span>: -<span class="number">50px</span>; &#125;</span><br><span class="line"><span class="selector-class">.content</span> &#123;<span class="attribute">height</span>: <span class="number">500px</span>; <span class="attribute">background-color</span>: blue;<span class="attribute">border-bottom</span>:<span class="number">1px</span> red solid;&#125;</span><br><span class="line"><span class="selector-class">.footer</span>  &#123;<span class="attribute">height</span>: <span class="number">50px</span>; <span class="attribute">background-color</span>: black&#125;</span><br></pre></td></tr></table></figure>
+<p>其中最关键的是 <code>.wrapper</code> 的 <code>margin-bottom: -50px;</code></p>
+<p><a href="/ddemo/keepBottomFooter/keep-bottom-footer.html">在线演示1/2</a></p>
+<h2 id="扩展，换个思路试试用Padding"><a href="#扩展，换个思路试试用Padding" class="headerlink" title="扩展，换个思路试试用Padding"></a>扩展，换个思路试试用Padding</h2><p>仔细想想，既然都有个盒子是100%的高，其实用 padding 也可以。</p>
+<p>关键 CSS</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.wrapper</span> &#123;<span class="attribute">min-height</span>: <span class="number">100%</span>;  <span class="attribute">padding-bottom</span>: <span class="number">50px</span>;<span class="attribute">position</span>: relative;&#125;</span><br><span class="line"><span class="selector-class">.footer</span>&#123; <span class="attribute">position</span>: absolute;<span class="attribute">bottom</span>: <span class="number">0</span>;&#125;</span><br></pre></td></tr></table></figure>
+<p>但是 .wrapper 的 padding 明显成高了盒子，所以需要再来个 <code>box-sizing: border-box;</code></p>
+<p><a href="/ddemo/keepBottomFooter/keep-bottom-footer2.html">在线演示2/2</a></p>
+<h2 id="关于box-sizing"><a href="#关于box-sizing" class="headerlink" title="关于box-sizing"></a>关于box-sizing</h2><p>box-sizing 可以设置CSS盒模型里宽度和高度的计算方式</p>
+<ul>
+<li>content-box : 遵从标准规定，宽高只包括 content 区域</li>
+<li>border-box  : 宽度和高度属性包括 content、padding 和 border ，但是不包括 margin</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://webooxx.com/2016/11/25/跟随页面保持在底部的footer/" data-id="cjorxa2se0000bb8seip0fwjp" class="article-share-link">share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/html/">html</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/布局/">布局</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-SchulteGrid" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2016/11/16/SchulteGrid/" class="article-date">
+  <time datetime="2016-11-16T06:33:18.000Z" itemprop="datePublished">2016-11-16</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/11/16/SchulteGrid/">舒尔特表 - SchulteGrid</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>舒尔特表可以通过动态的练习锻炼视神经末梢。心理学上用此表来研究和发展心理感知的速度，其中包括视觉定向搜索运动的速度。</p>
+<h2 id="作用练习"><a href="#作用练习" class="headerlink" title="作用练习"></a>作用练习</h2><p>培养注意力集中、分配、控制能力；拓展视幅；加快视频；提高视觉的稳定性、辨别力、定向搜索能力。</p>
+<p>练习的时间越长，看表所需的时间会越短。随着练习的深入，眼球的末梢视觉能力提高，不仅初学者可以有效地拓展视幅，加快阅读节奏，锻炼眼睛快速认读；而且对于进入提高阶段之后，同时拓展纵横视幅，达到一目十行、一目一页非常有效。</p>
+<p><code>每表按字符顺序，迅速找全所有的字符，平均1个字符用1秒钟成绩为优良，即9格用9秒、16格用16秒、25格用25秒。</code></p>
+<p>练习开始，达不到标准是非常正常的，切莫急躁。应该从9格开始练起。感觉熟练或比较轻松达到要求之后，再逐渐增加难度，千万不要因急于求成而使学习热情受挫。</p>
+<p><a href="/ddemo/SchulteGrid/SchulteGrid.html">在线预览</a></p>
+<p><img src="/ddemo/SchulteGrid/SchulteGrid.png" alt="SchulteGrid"></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://webooxx.com/2016/11/16/SchulteGrid/" data-id="cjoql9w9v002gji8sm97rttvm" class="article-share-link">share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/js特效/">js特效</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/心理学/">心理学</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/游戏/">游戏</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-使用二进制运算模拟加法" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2016/10/31/使用二进制运算模拟加法/" class="article-date">
+  <time datetime="2016-10-31T02:28:35.000Z" itemprop="datePublished">2016-10-31</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/10/31/使用二进制运算模拟加法/">使用二进制运算模拟加法 AddWithoutArithmetic</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="代码如下："><a href="#代码如下：" class="headerlink" title="代码如下："></a>代码如下：</h2><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">AddWithoutArithmetic</span><span class="params">(<span class="keyword">int</span> num1, <span class="keyword">int</span> num2)</span></span>&#123;</span><br><span class="line">      <span class="keyword">int</span> sum, carry;</span><br><span class="line">      <span class="keyword">if</span> (<span class="number">0</span> == num2)&#123;</span><br><span class="line">          <span class="keyword">return</span> num1;</span><br><span class="line">      &#125;</span><br><span class="line">      sum = num1 ^ num2;</span><br><span class="line">      carry = (num1 &amp; num2) &lt;&lt; <span class="number">1</span>;</span><br><span class="line">      <span class="keyword">return</span> AddWithoutArithmetic(sum, carry);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="JS版代码"><a href="#JS版代码" class="headerlink" title="JS版代码"></a>JS版代码</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">addWithOutArithmetic</span>(<span class="params"> a , b</span>)</span>&#123;</span><br><span class="line">  <span class="keyword">if</span>( b === <span class="number">0</span> )&#123; <span class="keyword">return</span> a;&#125; <span class="comment">// 递归的退出的条件</span></span><br><span class="line"></span><br><span class="line">  c = a ^ b; <span class="comment">// 按位异或运算, 对等长二进制模式按位或二进制数的每一位执行逻辑按位异或操作. 操作的结果是如果某位不同则该位为1, 否则该位为0.</span></span><br><span class="line"></span><br><span class="line">  d = ( a &amp; b ) &lt;&lt; <span class="number">1</span>; <span class="comment">// 按位与运算, 相同位的两个数字都为1，则为1；若有一个不为1，则为0。</span></span><br><span class="line">                       <span class="comment">// 左移1位</span></span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> addWithOutArithmetic( c , d); <span class="comment">// 递归</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="模拟执行看看"><a href="#模拟执行看看" class="headerlink" title="模拟执行看看"></a>模拟执行看看</h2><ul>
+<li><code>addWithOutArithmetic(1,2)</code></li>
+<li>开始运算 b的值为 2 a的值为 1</li>
+<li>c的值 3 二进制表示为 11 c来源 a^b 即 1  ^  10</li>
+<li>d的值 0 二进制表示为 0 d来源 a &amp; b 即 1  &amp;  10 结果 0 然后左移1位 0</li>
+<li>开始下一次循环</li>
+<li>开始运算 b的值为 0 a的值为 3</li>
+<li>b的值为0,返回a的值 3</li>
+<li><code>3</code></li>
+</ul>
+<ul>
+<li><code>addWithOutArithmetic(4,8)</code></li>
+<li>开始运算 b的值为 8 a的值为 4</li>
+<li>c的值 12 二进制表示为 1100 c来源 a^b 即 100  ^  1000</li>
+<li>d的值 0 二进制表示为 0 d来源 a &amp; b 即 100  &amp;  1000 结果 0 然后左移1位 0</li>
+<li>开始下一次循环</li>
+<li>开始运算 b的值为 0 a的值为 12</li>
+<li>b的值为0,返回a的值 12</li>
+<li><code>12</code></li>
+</ul>
+<ul>
+<li><code>addWithOutArithmetic(11,17)</code></li>
+<li>开始运算 b的值为 17 a的值为 11</li>
+<li>c的值 26 二进制表示为 11010 c来源 a^b 即 1011  ^  10001</li>
+<li>d的值 2 二进制表示为 10 d来源 a &amp; b 即 1011  &amp;  10001 结果 1 然后左移1位 2</li>
+<li>开始下一次循环</li>
+<li>开始运算 b的值为 2 a的值为 26</li>
+<li>c的值 24 二进制表示为 11000 c来源 a^b 即 11010  ^  10</li>
+<li>d的值 4 二进制表示为 100 d来源 a &amp; b 即 11010  &amp;  10 结果 2 然后左移1位 4</li>
+<li>开始下一次循环</li>
+<li>开始运算 b的值为 4 a的值为 24</li>
+<li>c的值 28 二进制表示为 11100 c来源 a^b 即 11000  ^  100</li>
+<li>d的值 0 二进制表示为 0 d来源 a &amp; b 即 11000  &amp;  100 结果 0 然后左移1位 0</li>
+<li>开始下一次循环</li>
+<li>开始运算 b的值为 0 a的值为 28</li>
+<li>b的值为0,返回a的值 28</li>
+<li><code>28</code></li>
+</ul>
+<h2 id="模拟执行的测试脚本"><a href="#模拟执行的测试脚本" class="headerlink" title="模拟执行的测试脚本"></a>模拟执行的测试脚本</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">addWithOutArithmetic</span>(<span class="params"> a , b</span>)</span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.info(<span class="string">'开始运算'</span>,<span class="string">'b的值为'</span>,b,<span class="string">'a的值为'</span>,a)</span><br><span class="line">  <span class="keyword">if</span>( b === <span class="number">0</span> )&#123;<span class="built_in">console</span>.warn(<span class="string">'b的值为0,返回a的值'</span>,a); <span class="keyword">return</span> a;&#125; <span class="comment">// 递归的退出的条件</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">  c = a ^ b; <span class="comment">// 按位异或运算, 对等长二进制模式按位或二进制数的每一位执行逻辑按位异或操作. 操作的结果是如果某位不同则该位为1, 否则该位为0.</span></span><br><span class="line"></span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">'c的值'</span>,c,<span class="string">'二进制表示为'</span>,<span class="keyword">new</span> <span class="built_in">Number</span>(c).toString(<span class="number">2</span>),<span class="string">'c来源 a^b 即'</span>,(a).toString(<span class="number">2</span>),<span class="string">' ^ '</span>,(b).toString(<span class="number">2</span>) );</span><br><span class="line"></span><br><span class="line">  d = ( a &amp; b ) &lt;&lt; <span class="number">1</span>; <span class="comment">// 按位与运算, 相同位的两个数字都为1，则为1；若有一个不为1，则为0。</span></span><br><span class="line">                       <span class="comment">// 左移1位</span></span><br><span class="line"></span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">'d的值'</span>,d,<span class="string">'二进制表示为'</span>,(d).toString(<span class="number">2</span>),<span class="string">'d来源 a &amp; b 即'</span>,(a).toString(<span class="number">2</span>),<span class="string">' &amp; '</span>,(b).toString(<span class="number">2</span>),<span class="string">'结果'</span>,a&amp;b, <span class="string">'然后左移1位'</span>, (a&amp;b) &lt;&lt; <span class="number">1</span> );</span><br><span class="line"></span><br><span class="line">  <span class="built_in">console</span>.warn(<span class="string">'开始下一次循环'</span>)</span><br><span class="line">  <span class="keyword">return</span> addWithOutArithmetic( c , d); <span class="comment">// 递归</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">// addWithOutArithmetic( 1 , 2 )</span></span><br><span class="line">  <span class="comment">// b == 2 继续</span></span><br><span class="line">  <span class="comment">// c = 3 ;  ===&gt; 01 ^ 10  ===&gt; 0位、1位，都不同，都为 1 ===&gt; 11 ===&gt; 3  ；注意 c 的值在下一次循环中，变量名为 a</span></span><br><span class="line">  <span class="comment">// d = 0 ;  ===&gt; 01 &amp; 10  ===&gt; 需要两个数的同位同时为 1 ====&gt; 00 ===&gt; 0 ；注意 d 的的值在下一次循环中，变量名为 b</span></span><br><span class="line"></span><br><span class="line">  <span class="comment">// b == 0 ，返回 a 的值（上一轮为3)</span></span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://webooxx.com/2016/10/31/使用二进制运算模拟加法/" data-id="cjoql9w9n0021ji8snbroluxy" class="article-share-link">share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JS/">JS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/位操作/">位操作</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/算法/">算法</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-16格抽奖程序" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2016/10/30/16格抽奖程序/" class="article-date">
+  <time datetime="2016-10-30T01:51:21.000Z" itemprop="datePublished">2016-10-30</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/10/30/16格抽奖程序/">16格抽奖程序</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>有时候需要个抽奖的界面，现在抽出来单独做个应用，年会上抽奖可以用。</p>
+<h2 id="运行界面："><a href="#运行界面：" class="headerlink" title="运行界面："></a>运行界面：</h2><p><a href="/ddemo/reward-maching.html">预览地址</a></p>
+<p><img src="/images/2016-10-30 10.18.29.png" alt="效果预览"></p>
+<h2 id="关键代码"><a href="#关键代码" class="headerlink" title="关键代码"></a>关键代码</h2><h4 id="盒子设定"><a href="#盒子设定" class="headerlink" title="盒子设定"></a>盒子设定</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> size = <span class="number">5</span>;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> items = [];</span><br><span class="line"><span class="keyword">var</span> items_top = [];</span><br><span class="line"><span class="keyword">var</span> items_bottom=[]</span><br><span class="line"><span class="keyword">var</span> items_right = [];</span><br><span class="line"><span class="keyword">var</span> items_left = [];</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> box = $(<span class="string">'.box'</span>);  <span class="comment">// 容器</span></span><br><span class="line"></span><br><span class="line">box.css(<span class="string">'width'</span>,size*<span class="number">100</span>+<span class="string">'px'</span>); <span class="comment">// 默认100*100 是每个格子的大小</span></span><br><span class="line">box.css(<span class="string">'height'</span>,size*<span class="number">100</span>+<span class="string">'px'</span>)</span><br></pre></td></tr></table></figure>
+<h4 id="插入中奖方块"><a href="#插入中奖方块" class="headerlink" title="插入中奖方块"></a>插入中奖方块</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">$.each(<span class="built_in">Array</span>(size),<span class="function"><span class="keyword">function</span> (<span class="params">x</span>) </span>&#123;</span><br><span class="line">  $.each(<span class="built_in">Array</span>(size),<span class="function"><span class="keyword">function</span> (<span class="params">y</span>) </span>&#123;</span><br><span class="line">      <span class="keyword">var</span> idx = x*size + y;</span><br><span class="line">      <span class="keyword">var</span> id = <span class="string">'i_'</span>+idx;</span><br><span class="line">      box.append(<span class="string">'&lt;div class="box__item" data-idx="'</span>+idx+<span class="string">'" id="'</span>+id+<span class="string">'"&gt;'</span>);</span><br><span class="line"></span><br><span class="line">      <span class="comment">// 把id分成四个部分</span></span><br><span class="line">      <span class="keyword">if</span>( idx &gt; size  &amp;&amp; idx%size == size<span class="number">-1</span> &amp;&amp; idx &lt; size*size-size)&#123;</span><br><span class="line">        items_right.push(id);</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="keyword">if</span>( idx &gt; size<span class="number">-1</span>  &amp;&amp; idx%size == <span class="number">0</span> &amp;&amp; idx &lt; size*size-size)&#123;</span><br><span class="line">        items_left.push(id);</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="keyword">if</span>( idx&lt; size)&#123;</span><br><span class="line">        items_top.push(id);</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="keyword">if</span>(idx &gt; size*size-size<span class="number">-1</span>  )&#123;</span><br><span class="line">          items_bottom.push(id);</span><br><span class="line">      &#125;</span><br><span class="line"></span><br><span class="line">  &#125;);        </span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<h4 id="调整id顺序为逆时针"><a href="#调整id顺序为逆时针" class="headerlink" title="调整id顺序为逆时针"></a>调整id顺序为逆时针</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">items = items_top.join(<span class="string">','</span>)+<span class="string">','</span>+items_right.join(<span class="string">','</span>)+<span class="string">','</span>+items_bottom.reverse().join(<span class="string">','</span>)+<span class="string">','</span>+items_left.reverse().join(<span class="string">','</span>);</span><br><span class="line">items = items.split(<span class="string">','</span>);</span><br><span class="line"></span><br><span class="line">$.each(items,<span class="function"><span class="keyword">function</span>  (<span class="params">i,id</span>) </span>&#123;</span><br><span class="line">  $(<span class="string">'#'</span>+id).text(i+<span class="number">1</span>)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<h4 id="抽奖开始"><a href="#抽奖开始" class="headerlink" title="抽奖开始"></a>抽奖开始</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">var</span> last = <span class="string">''</span>;  <span class="comment">// 重新开始会从上一个结束的地方开始</span></span><br><span class="line"><span class="keyword">var</span> go = <span class="function"><span class="keyword">function</span> (<span class="params">num</span>) </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> end = items.slice(<span class="number">0</span>,num+<span class="number">1</span>).join(<span class="string">','</span>);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> all = items.join(<span class="string">','</span>);</span><br><span class="line">    <span class="keyword">var</span> arr = (last+all+<span class="string">','</span>+all+<span class="string">','</span>+all+<span class="string">','</span>+end).split(<span class="string">','</span>);</span><br><span class="line">    <span class="keyword">var</span> len = arr.length <span class="number">-1</span>;</span><br><span class="line"></span><br><span class="line">     last = items.slice(num+<span class="number">1</span>).join(<span class="string">','</span>)+<span class="string">','</span>;</span><br><span class="line"></span><br><span class="line">    $.each(arr,<span class="function"><span class="keyword">function</span>  (<span class="params">i,item</span>) </span>&#123;</span><br><span class="line">      setTimeout(<span class="function"><span class="keyword">function</span>  (<span class="params"></span>) </span>&#123;</span><br><span class="line">        $(<span class="string">'.box__item'</span>).removeClass(<span class="string">'highlight'</span>);</span><br><span class="line">        $(<span class="string">'#'</span>+item).addClass(<span class="string">'highlight'</span>);</span><br><span class="line">      &#125;,<span class="number">100</span>*i); <span class="comment">// 这个动画效果 ~_~!!!</span></span><br><span class="line"></span><br><span class="line">    &#125;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">go( ~~ (<span class="built_in">Math</span>.random()*items.length )  )</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://webooxx.com/2016/10/30/16格抽奖程序/" data-id="cjoql9w7w0000ji8saqy2f3xz" class="article-share-link">share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/js特效/">js特效</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/单页应用/">单页应用</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-JS小游戏-贪吃蛇" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2016/10/20/JS小游戏-贪吃蛇/" class="article-date">
+  <time datetime="2016-10-20T03:16:25.000Z" itemprop="datePublished">2016-10-20</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/10/20/JS小游戏-贪吃蛇/">JS小游戏-贪吃蛇</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>网上找的js小游戏，难以想象贪吃蛇的游戏代码就这么点～</p>
+<p><a href="/rdemo/snake.html">效果预览</a></p>
+<p><img src="/images/2016-10-30 11.15.54.png" alt="效果预览"></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://webooxx.com/2016/10/20/JS小游戏-贪吃蛇/" data-id="cjoql9w8g0005ji8swuezzd12" class="article-share-link">share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/js特效/">js特效</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/游戏/">游戏</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/网络案例/">网络案例</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-前后端处理分页" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2016/07/20/前后端处理分页/" class="article-date">
+  <time datetime="2016-07-20T03:07:00.000Z" itemprop="datePublished">2016-07-20</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/07/20/前后端处理分页/">前后端处理分页</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>不管前后端算法是一致的，表现出来的处理步骤不一样。</p>
+<h2 id="已知道数据和设定"><a href="#已知道数据和设定" class="headerlink" title="已知道数据和设定"></a>已知道数据和设定</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">$data = <span class="keyword">new</span> <span class="built_in">Array</span>( <span class="number">2000</span> ); <span class="comment">// 数据</span></span><br><span class="line">$data_size = $data.length; <span class="comment">// 数据的总长度</span></span><br><span class="line">$page_size = <span class="number">560</span>; <span class="comment">// 页长</span></span><br><span class="line">$page_count = <span class="built_in">Math</span>.ceil( $data_size / <span class="number">560</span> ) <span class="comment">// 总页数</span></span><br><span class="line"></span><br><span class="line">$current_page = $_GET[<span class="string">'pn'</span>] || <span class="number">0</span> ; <span class="comment">// 当前页码 $_GET 是JS 的实现</span></span><br></pre></td></tr></table></figure>
+<p>以下是 $_GET.js 的代码</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$_GET = &#123;&#125;;</span><br><span class="line">location.search.substr(<span class="number">1</span>).split(<span class="string">'&amp;'</span>).forEach(<span class="function"><span class="keyword">function</span>(<span class="params">i</span>)</span>&#123;</span><br><span class="line">  <span class="keyword">var</span> i=i.split(<span class="string">'='</span>);$_GET[i[<span class="number">0</span>]]=i[<span class="number">1</span>]</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<h2 id="需要呈现的数据"><a href="#需要呈现的数据" class="headerlink" title="需要呈现的数据"></a>需要呈现的数据</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$show_data = $data.slice( $current_page*$page_size, $page_size );</span><br></pre></td></tr></table></figure>
+<h2 id="页码控制部分"><a href="#页码控制部分" class="headerlink" title="页码控制部分"></a>页码控制部分</h2><blockquote>
+<p>【首页】【上一页】【1】【2】…【下一页】【末页】</p>
+</blockquote>
+<h4 id="页码控制的关键参数"><a href="#页码控制的关键参数" class="headerlink" title="页码控制的关键参数"></a>页码控制的关键参数</h4><ul>
+<li>首页： $_GET[‘pn’]=0</li>
+<li>上一页： Math.max( $_GET[‘pn’]-=1 ,0 )</li>
+<li>下一页： Math.min( $_GET[‘pn’]+=1 ,$page_count )</li>
+<li>末页：$page_count</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://webooxx.com/2016/07/20/前后端处理分页/" data-id="cjoql9w91000wji8s443182cs" class="article-share-link">share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JS/">JS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/PHP/">PHP</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/分页/">分页</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-Javascript-右移0位的作用" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2016/06/24/Javascript-右移0位的作用/" class="article-date">
+  <time datetime="2016-06-24T06:03:00.000Z" itemprop="datePublished">2016-06-24</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/06/24/Javascript-右移0位的作用/">Javascript-右移0位的作用</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>Javascript 中右移0位可以用来快速去掉小数，关于位移运算的定义：</p>
+<blockquote>
+<p>右移运算是将一个二进制位的操作数按指定移动的位数向右移动，移出位被丢弃，左边移出的空位或者一律补0，或者补符号位。</p>
+</blockquote>
+<p>实际看下效果：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">32.5</span> &gt;&gt; <span class="number">0</span>  <span class="comment">// 32</span></span><br></pre></td></tr></table></figure>
+<h2 id="右移是什么作用？"><a href="#右移是什么作用？" class="headerlink" title="右移是什么作用？"></a>右移是什么作用？</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">(<span class="number">32</span>).toString(<span class="string">'2'</span>) <span class="comment">// 转换为2进制，得到 100000</span></span><br><span class="line"></span><br><span class="line">( <span class="number">32</span> &gt;&gt; <span class="number">1</span> ).toString(<span class="number">2</span>) <span class="comment">// 右移1位，得到 10000</span></span><br></pre></td></tr></table></figure>
+<p>对比下：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">100000</span>  <span class="comment">// 实际值 32</span></span><br><span class="line"><span class="number">010000</span>  <span class="comment">// 实际值 16</span></span><br></pre></td></tr></table></figure>
+<p>怎么去掉小数位？</p>
+<pre><code>32.5 &gt;&gt;1 &lt;&lt; 1
+</code></pre><p>或者直接</p>
+<pre><code>32.5 &gt;&gt; 0
+</code></pre><h2 id="其他的方法？"><a href="#其他的方法？" class="headerlink" title="其他的方法？"></a>其他的方法？</h2><pre><code>~~ 32.5
+</code></pre>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://webooxx.com/2016/06/24/Javascript-右移0位的作用/" data-id="cjoql9w8l000aji8s9r2r7eom" class="article-share-link">share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JS/">JS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/位操作/">位操作</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+
+
+  <nav id="page-nav">
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/2/"> &raquo;</a>
+  </nav>
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">recent_posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2018/04/08/Promise实现/">Promise实现</a>
+          </li>
+        
+          <li>
+            <a href="/2017/12/14/CanvasEdge/">前端图像处理-使用Canvas查找图片边缘</a>
+          </li>
+        
+          <li>
+            <a href="/2017/10/17/为一组数字添加千分位符号/">为一组数字添加千分位符号</a>
+          </li>
+        
+          <li>
+            <a href="/2017/08/15/使用indexOf成双成对的匹配标签/">使用indexOf成双成对的匹配标签</a>
+          </li>
+        
+          <li>
+            <a href="/2017/08/02/Canvas和Dom实现的五子棋/">Canvas和Dom实现的五子棋</a>
+          </li>
+        
+          <li>
+            <a href="/2017/07/28/用css模拟手机下拉Loading/">用css模拟手机下拉Loading</a>
+          </li>
+        
+          <li>
+            <a href="/2017/07/12/百度问卷交互-1-问题编辑/">百度问卷交互设计（一）问题编辑</a>
+          </li>
+        
+          <li>
+            <a href="/2017/07/10/两个JS时间小技巧/">两个JS时间小技巧</a>
+          </li>
+        
+          <li>
+            <a href="/2017/06/05/2016圣诞填色小游戏/">2016圣诞填色小游戏</a>
+          </li>
+        
+          <li>
+            <a href="/2017/05/31/hexo新建日志时自动使用atom编辑/">hexo新建日志时自动使用atom编辑</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">tagcloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Android/" style="font-size: 10px;">Android</a> <a href="/tags/Canvas/" style="font-size: 11.11px;">Canvas</a> <a href="/tags/HTML5/" style="font-size: 10px;">HTML5</a> <a href="/tags/JS/" style="font-size: 20px;">JS</a> <a href="/tags/JS游戏/" style="font-size: 10px;">JS游戏</a> <a href="/tags/PHP/" style="font-size: 15.56px;">PHP</a> <a href="/tags/Promise/" style="font-size: 10px;">Promise</a> <a href="/tags/QQ空间/" style="font-size: 11.11px;">QQ空间</a> <a href="/tags/Resizeable/" style="font-size: 10px;">Resizeable</a> <a href="/tags/UBUNTUN/" style="font-size: 10px;">UBUNTUN</a> <a href="/tags/WEB开发/" style="font-size: 11.11px;">WEB开发</a> <a href="/tags/WIN7/" style="font-size: 10px;">WIN7</a> <a href="/tags/XML解析/" style="font-size: 10px;">XML解析</a> <a href="/tags/access-log/" style="font-size: 10px;">access_log</a> <a href="/tags/canvas/" style="font-size: 13.33px;">canvas</a> <a href="/tags/css/" style="font-size: 11.11px;">css</a> <a href="/tags/fiddler/" style="font-size: 10px;">fiddler</a> <a href="/tags/flash/" style="font-size: 10px;">flash</a> <a href="/tags/hexo/" style="font-size: 10px;">hexo</a> <a href="/tags/html/" style="font-size: 10px;">html</a> <a href="/tags/http/" style="font-size: 10px;">http</a> <a href="/tags/jQuery/" style="font-size: 12.22px;">jQuery</a> <a href="/tags/jQuery原理/" style="font-size: 10px;">jQuery原理</a> <a href="/tags/js/" style="font-size: 16.67px;">js</a> <a href="/tags/js基础/" style="font-size: 10px;">js基础</a> <a href="/tags/js特效/" style="font-size: 18.89px;">js特效</a> <a href="/tags/js组件/" style="font-size: 12.22px;">js组件</a> <a href="/tags/linux/" style="font-size: 10px;">linux</a> <a href="/tags/loading/" style="font-size: 10px;">loading</a> <a href="/tags/python/" style="font-size: 10px;">python</a> <a href="/tags/sh/" style="font-size: 10px;">sh</a> <a href="/tags/slider/" style="font-size: 10px;">slider</a> <a href="/tags/string/" style="font-size: 10px;">string</a> <a href="/tags/svg/" style="font-size: 10px;">svg</a> <a href="/tags/一行代码/" style="font-size: 10px;">一行代码</a> <a href="/tags/交互/" style="font-size: 10px;">交互</a> <a href="/tags/交互设计/" style="font-size: 10px;">交互设计</a> <a href="/tags/位操作/" style="font-size: 11.11px;">位操作</a> <a href="/tags/体验/" style="font-size: 10px;">体验</a> <a href="/tags/全站/" style="font-size: 10px;">全站</a> <a href="/tags/内存性能/" style="font-size: 10px;">内存性能</a> <a href="/tags/分页/" style="font-size: 11.11px;">分页</a> <a href="/tags/动画/" style="font-size: 10px;">动画</a> <a href="/tags/单页应用/" style="font-size: 10px;">单页应用</a> <a href="/tags/卷积/" style="font-size: 10px;">卷积</a> <a href="/tags/可视化/" style="font-size: 11.11px;">可视化</a> <a href="/tags/商业项目/" style="font-size: 10px;">商业项目</a> <a href="/tags/图像处理/" style="font-size: 10px;">图像处理</a> <a href="/tags/基本语法/" style="font-size: 10px;">基本语法</a> <a href="/tags/实现原理/" style="font-size: 10px;">实现原理</a> <a href="/tags/富文本编辑器/" style="font-size: 10px;">富文本编辑器</a> <a href="/tags/小工具/" style="font-size: 14.44px;">小工具</a> <a href="/tags/小游戏/" style="font-size: 10px;">小游戏</a> <a href="/tags/布局/" style="font-size: 10px;">布局</a> <a href="/tags/开发工具/" style="font-size: 13.33px;">开发工具</a> <a href="/tags/开发经验/" style="font-size: 10px;">开发经验</a> <a href="/tags/开机脚本/" style="font-size: 10px;">开机脚本</a> <a href="/tags/心理学/" style="font-size: 10px;">心理学</a> <a href="/tags/性能优化/" style="font-size: 10px;">性能优化</a> <a href="/tags/慕课网案例/" style="font-size: 17.78px;">慕课网案例</a> <a href="/tags/拖拽/" style="font-size: 10px;">拖拽</a> <a href="/tags/排序/" style="font-size: 10px;">排序</a> <a href="/tags/摄像头/" style="font-size: 10px;">摄像头</a> <a href="/tags/收集系统/" style="font-size: 10px;">收集系统</a> <a href="/tags/效率工具/" style="font-size: 10px;">效率工具</a> <a href="/tags/无线密码破解/" style="font-size: 10px;">无线密码破解</a> <a href="/tags/无线网卡/" style="font-size: 10px;">无线网卡</a> <a href="/tags/日志/" style="font-size: 10px;">日志</a> <a href="/tags/时光轴/" style="font-size: 11.11px;">时光轴</a> <a href="/tags/时间处理/" style="font-size: 10px;">时间处理</a> <a href="/tags/智能/" style="font-size: 11.11px;">智能</a> <a href="/tags/智能设备/" style="font-size: 11.11px;">智能设备</a> <a href="/tags/正则/" style="font-size: 10px;">正则</a> <a href="/tags/游戏/" style="font-size: 15.56px;">游戏</a> <a href="/tags/生命游戏/" style="font-size: 11.11px;">生命游戏</a> <a href="/tags/用户体验/" style="font-size: 11.11px;">用户体验</a> <a href="/tags/百度首页彩蛋/" style="font-size: 10px;">百度首页彩蛋</a> <a href="/tags/相册/" style="font-size: 11.11px;">相册</a> <a href="/tags/眼动实验/" style="font-size: 11.11px;">眼动实验</a> <a href="/tags/移动端/" style="font-size: 11.11px;">移动端</a> <a href="/tags/算法/" style="font-size: 14.44px;">算法</a> <a href="/tags/缩略图/" style="font-size: 10px;">缩略图</a> <a href="/tags/网络案例/" style="font-size: 10px;">网络案例</a> <a href="/tags/翻译/" style="font-size: 10px;">翻译</a> <a href="/tags/自动脚本/" style="font-size: 10px;">自动脚本</a> <a href="/tags/表单/" style="font-size: 10px;">表单</a> <a href="/tags/视频流/" style="font-size: 10px;">视频流</a> <a href="/tags/调试工具/" style="font-size: 10px;">调试工具</a> <a href="/tags/进制处理/" style="font-size: 10px;">进制处理</a> <a href="/tags/迷宫/" style="font-size: 10px;">迷宫</a> <a href="/tags/递归/" style="font-size: 10px;">递归</a> <a href="/tags/问卷系统/" style="font-size: 10px;">问卷系统</a> <a href="/tags/面向对象/" style="font-size: 11.11px;">面向对象</a> <a href="/tags/黑客帝国/" style="font-size: 10px;">黑客帝国</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android/">Android</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Canvas/">Canvas</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HTML5/">HTML5</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JS/">JS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JS游戏/">JS游戏</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/PHP/">PHP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Promise/">Promise</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/QQ空间/">QQ空间</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Resizeable/">Resizeable</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/UBUNTUN/">UBUNTUN</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/WEB开发/">WEB开发</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/WIN7/">WIN7</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/XML解析/">XML解析</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/access-log/">access_log</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/canvas/">canvas</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/css/">css</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/fiddler/">fiddler</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/flash/">flash</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/">hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/html/">html</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/http/">http</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/jQuery/">jQuery</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/jQuery原理/">jQuery原理</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/js/">js</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/js基础/">js基础</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/js特效/">js特效</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/js组件/">js组件</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/">linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/loading/">loading</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python/">python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/sh/">sh</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/slider/">slider</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/string/">string</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/svg/">svg</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/一行代码/">一行代码</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/交互/">交互</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/交互设计/">交互设计</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/位操作/">位操作</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/体验/">体验</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/全站/">全站</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/内存性能/">内存性能</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/分页/">分页</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/动画/">动画</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/单页应用/">单页应用</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/卷积/">卷积</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/可视化/">可视化</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/商业项目/">商业项目</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/图像处理/">图像处理</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/基本语法/">基本语法</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/实现原理/">实现原理</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/富文本编辑器/">富文本编辑器</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/小工具/">小工具</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/小游戏/">小游戏</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/布局/">布局</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/开发工具/">开发工具</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/开发经验/">开发经验</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/开机脚本/">开机脚本</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/心理学/">心理学</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/性能优化/">性能优化</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/慕课网案例/">慕课网案例</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/拖拽/">拖拽</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/排序/">排序</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/摄像头/">摄像头</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/收集系统/">收集系统</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/效率工具/">效率工具</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/无线密码破解/">无线密码破解</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/无线网卡/">无线网卡</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/日志/">日志</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/时光轴/">时光轴</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/时间处理/">时间处理</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/智能/">智能</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/智能设备/">智能设备</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/正则/">正则</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/游戏/">游戏</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/生命游戏/">生命游戏</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/用户体验/">用户体验</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/百度首页彩蛋/">百度首页彩蛋</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/相册/">相册</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/眼动实验/">眼动实验</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/移动端/">移动端</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/算法/">算法</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/缩略图/">缩略图</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/网络案例/">网络案例</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/翻译/">翻译</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/自动脚本/">自动脚本</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/表单/">表单</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/视频流/">视频流</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/调试工具/">调试工具</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/进制处理/">进制处理</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/迷宫/">迷宫</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/递归/">递归</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/问卷系统/">问卷系统</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/面向对象/">面向对象</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/黑客帝国/">黑客帝国</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">archive_a</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/04/">四月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/12/">十二月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/10/">十月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/08/">八月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/07/">七月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">六月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/05/">五月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/12/">十二月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/11/">十一月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/10/">十月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/07/">七月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/06/">六月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/04/">四月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/02/">二月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/08/">八月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/06/">六月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/03/">三月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/01/">一月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/11/">十一月 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/10/">十月 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/08/">八月 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/07/">七月 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/05/">五月 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/04/">四月 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/03/">三月 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/01/">一月 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/02/">二月 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/11/">十一月 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/10/">十月 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/07/">七月 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/06/">六月 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/05/">五月 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/04/">四月 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/03/">三月 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/02/">二月 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/12/">十二月 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/07/">七月 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/05/">五月 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/04/">四月 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/03/">三月 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/02/">二月 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/01/">一月 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2010/04/">四月 2010</a></li></ul>
+    </div>
+  </div>
+
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2018 Lyn<br>
+      powered_by <a href="mailto://web@webooxx.com" target="_blank">webooxx.com</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//libs.baidu.com/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+</body>
+</html>

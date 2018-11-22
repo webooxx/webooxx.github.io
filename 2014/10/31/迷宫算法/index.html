@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+  <title>迷宫算法 - Eller’s  algorithm for maze generation | webooxx</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="Last time I talked about the recursive backtracker algorithm for maze generation. That’s probably always going to be my favorite algorithm for generating mazes, for a variety of reasons, but that’s no">
+<meta name="keywords" content="游戏,算法,迷宫">
+<meta property="og:type" content="article">
+<meta property="og:title" content="迷宫算法 - Eller’s  algorithm for maze generation">
+<meta property="og:url" content="http://webooxx.com/2014/10/31/迷宫算法/index.html">
+<meta property="og:site_name" content="webooxx">
+<meta property="og:description" content="Last time I talked about the recursive backtracker algorithm for maze generation. That’s probably always going to be my favorite algorithm for generating mazes, for a variety of reasons, but that’s no">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2018-11-21T03:07:52.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="迷宫算法 - Eller’s  algorithm for maze generation">
+<meta name="twitter:description" content="Last time I talked about the recursive backtracker algorithm for maze generation. That’s probably always going to be my favorite algorithm for generating mazes, for a variety of reasons, but that’s no">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">webooxx</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">懒惰即美德</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+        <a id="nav-search-btn" class="nav-icon" title="search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://webooxx.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-迷宫算法" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2014/10/31/迷宫算法/" class="article-date">
+  <time datetime="2014-10-31T03:16:44.000Z" itemprop="datePublished">2014-10-31</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      迷宫算法 - Eller’s  algorithm for maze generation
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>Last time I talked about the recursive backtracker algorithm for maze generation. That’s probably always going to be my favorite algorithm for generating mazes, for a variety of reasons, but that’s not going to stop me from looking at others</p>
+<p><code>上次我谈到了 recursive backtracker 迷宫产生算法，这也许是我最喜欢的迷宫生成算法，出于多种原因，这不会阻止我去了解其他的算法。</code></p>
+<p>For one thing, there are some pretty crazy algorithms out there for generating mazes.</p>
+<p><code>首先，有许多疯狂的算法来生成迷宫。</code></p>
+<p>Eller’s algorithm is one of the craziest. It’s also one of the fastest. And it’s the only one I know that let’s you generate mazes of an infinite size. In linear time.</p>
+<p><code>Eller 的算法是其中一个，也是最快的算法之一。并且他是我所知道唯一一个可以生成无限大小的迷宫算法。在线性时间内。</code></p>
+<p>Yeah, it’s that crazy.</p>
+<p><code>是的，就是那么不可思议。</code></p>
+<p>It does this by building the maze one row at a time, using sets to keep track of which columns are ultimately connected. But it never needs to look at more than a single row, and when it finishes, it always produces a perfect maze.</p>
+<p><code>它每次构建迷宫的一行，使用集合去跟踪那些列是需要联通的。它不需要关注超过一行，当它完成时，它总是生成一个完美的迷宫。</code></p>
+<p>Like I did for the recursive backtracking algorithm, here’s the “mile-high” overview of Eller’s algorithm:</p>
+<p><code>像我处理 recursive backtracker 算法一样，在这里我概述一下Eller的算法。</code></p>
+<ol>
+<li>Initialize the cells of the first row to each exist in their own set.</li>
+<li>Now, randomly join adjacent cells, but only if they are not in the same set. When joining adjacent cells, merge the cells of both sets into a single set, indicating that all cells in both sets are now connected (there is a path that connects any two cells in the set).</li>
+<li>For each set, randomly create vertical connections downward to the next row. Each remaining set must have at least one vertical connection. The cells in the next row thus connected must share the set of the cell above them.</li>
+<li>Flesh out the next row by putting any remaining cells into their own sets.</li>
+<li>Repeat until the last row is reached.</li>
+<li>For the last row, join all adjacent cells that do not share a set, and omit the vertical connections, and you’re done!</li>
+</ol>
+<ol>
+<li>在第一行初始化所有单元格为它们自身所在的集合中。</li>
+<li>现在，随机加入相邻的单元格，并且它们彼此不在同一个集合中，加入完成后，将这两个单元格所在的集合合并为一个，这表明所有的单元格 在这两个集合中并且是连通的。（在这个集合中有一个路径连通任意两个单元格）</li>
+<li>遍历所有集合，每个集合中的单元随机连通下一行，每个集合至少有一个单元向下连接。这些单元格在下一行中也因此能够与上一行相连。所以与上一行共享一个集合。</li>
+<li>填充下一行，（根据上一行每个集合中随机单元格联通到下一行，当前操作中这些单元格是已经确定了需要与上一行联通的）把剩余的单元格插入到集合中</li>
+<li>重复2和3，一直到最后一行。</li>
+<li>最后一行时，合并所有的相邻的单元格，忽略垂直向下的连通，然后你就已经完成了！</li>
+</ol>
+<h2 id="An-example-示例"><a href="#An-example-示例" class="headerlink" title="An example 示例"></a>An example 示例</h2><p>First, we initialize each cell in that row to be in its own set. I’ll just assign each cell a number, indicating the set it belongs to:</p>
+<p><code>首先，我们在一行中初始化所有单元格，他们在各自的集合中。我为每个单元格设置了一个数字，表明它属于哪个集合</code></p>
+<pre><code> ___________________
+|   |   |   |   |   |
+| 1 | 2 | 3 | 4 | 5 |
+|___|___|___|___|___|
+</code></pre><p>Next, we randomly join adjacent cells that belong to different sets. The cells so joined also are merged into the same set:</p>
+<p><code>然后，我们随机加入两个相邻的单元格并且它们属于不同的集合。这些单元格被合并为一个集合</code></p>
+<pre><code> ___________________
+|           |       |
+| 1   1   1 | 4   4 |
+|___________|_______|
+</code></pre><p>Now we randomly determine the vertical connections, at least one per set. The cells in the next row that we connected to must be assigned to the set of the cell above them:</p>
+<p><code>现在，我们让每个集合中的单元格随机的向下连通，每个集合至少保证有一个单元格向下联通</code></p>
+<pre><code> ___________________
+|           |       |
+| 1   1   1 | 4   4 |
+|    ___    |___    |
+|   |   |   |   |   |
+| 1 |   | 1 |   | 4 |
+|___|   |___|   |___|
+</code></pre><p>Next, we flesh out the next row, assigning each remaining cell to its own set:</p>
+<p><code>然后我们填充下一行，并且把剩余的单元格（上一步未设置连通的单元格）各设置为一个集合</code></p>
+<pre><code> ___________________
+|           |       |
+| 1   1   1 | 4   4 |
+|    ___    |___    |
+|   |   |   |   |   |
+| 1 | 6 | 1 | 7 | 4 |
+|___|___|___|___|___|
+</code></pre><p>At this point, we can actually discard the first row, because the algorithm is done with it. We’ll keep it around for now, though, for the sake of illustration. I’ll just put a little space between the previous rows, and the current row:</p>
+<p><code>在这里，我们其实可以丢弃第一行的数据了，它的作用已经完成了。我们尽量把注意力放在当前行，我在当前行与前一行增加了一些空距</code></p>
+<pre><code> ___________________
+|           |       |
+| 1   1   1 | 4   4 |
+|    ___    |___    |
+     ___     ___     
+|   |   |   |   |   |
+| 1 | 6 | 1 | 7 | 4 |
+|___|___|___|___|___|
+</code></pre><p>Now, we just repeat the previous steps on our new row. We randomly connect adjacent sets that do not share a set. Something like this:</p>
+<p><code>现在，我们只需要重复前面的操作来继续生成新的行。我们随机连接的相邻集合，（？ that do not share a set ）如图</code></p>
+<pre><code>     ___     ___     
+|       |       |   |
+| 1   1 | 1   1 | 4 |
+|_______|_______|___|
+</code></pre><p>Now we add at least one vertical connection for each set:</p>
+<p><code>现在我们为每个组至少添加一个垂直的连接</code></p>
+<pre><code>     ___     ___     
+|       |       |   |
+| 1   1 | 1   1 | 4 |
+|___    |_______|   |
+    |   |       |   |
+    | 1 |       | 4 |
+    |___|       |___|
+</code></pre><p>And then we flesh out the next row (I’m reusing some extinct set numbers here, for the sake of single-digits)</p>
+<p><code>然后我们填充下一行（我重用了一些已经用过的数字，为了保持集合的数字标识是个位数）</code></p>
+<pre><code>     ___     ___     
+|       |       |   |
+| 1   1 | 1   1 | 4 |
+|___    |_______|   |
+|   |   |   |   |   |
+| 8 | 1 | 9 | 2 | 4 |
+|___|___|___|___|___|
+</code></pre><p>This is our current state, with history, now:</p>
+<p><code>这是我们现在的状态，历史和当前行</code></p>
+<pre><code> ___________________
+|           |       |
+| 1   1   1 | 4   4 |
+|    ___    |___    |
+|       |       |   |
+| 1   1 | 1   1 | 4 |
+|___    |_______|   |
+ ___     ___ ___
+|   |   |   |   |   |
+| 8 | 1 | 9 | 2 | 4 |
+|___|___|___|___|___|
+</code></pre><p>It’s starting to look like a maze! Let’s do one more iteration, and then finish it out. So, first, randomly join adjacent cells from different sets:</p>
+<p><code>它开始看起来像一个迷宫了！让我们做一个迭代完成它。所以，首先随机加入不在一个集合内的两个单元格。</code></p>
+<pre><code> ___     ___ ___
+|   |   |           |
+| 8 | 1 | 9   9   9 |
+|___|___|___ ___ ___|
+</code></pre><p>Then, add at least one veritcal connection for each set:</p>
+<p><code>然后为每个集合添加到下一行的的连通单元格，每个集合至少一个。</code></p>
+<pre><code> ___     ___ ___
+|   |   |           |
+| 8 | 1 | 9   9   9 |
+|   |   |___     ___|
+|   |   |   |   |
+| 8 | 1 |   | 9 |
+|___|___|   |___|
+</code></pre><p>And flesh out the next</p>
+<p><code>然后填充下一行。</code></p>
+<pre><code> ___________________
+|           |       |
+| 1   1   1 | 9   9 |
+|    ___    |___    |
+|       |       |   |
+| 1   1 | 1   1 | 9 |
+|___    |_______|   |
+|   |   |           |
+| 8 | 1 | 9   9   9 |
+|   |   |___     ___|
+         ___     ___
+|   |   |   |   |   |
+| 8 | 1 | 3 | 9 | 5 |
+|___|___|___|___|___|
+</code></pre><p>And now the last row. This time, we must connect ALL adjacent (but disjoint) cells. In this case, that means all of them:</p>
+<p><code>然后在最后一行时。我们必须连接所有的相邻的单元格，在这个例子中，就像图中一样</code></p>
+<pre><code>         ___     ___
+|                   |
+| 8   8   8   8   8 |
+|___________________|
+</code></pre><p>Since this is the last row, we skip the bit where we add verticals…and that means we’re done! The result, with set numbers removed, is:</p>
+<p><code>因为这是最后一行，我们跳过添加垂直连接这个步骤，这意味着我们已经完成了，把数字移除，我们看到的结果就是</code></p>
+<pre><code> ___________________
+|           |       |
+|           |       |
+|    ___    |___    |
+|       |       |   |
+|       |       |   |
+|___    |_______|   |
+|   |   |           |
+|   |   |           |
+|   |   |___     ___|
+|                   |
+|                   |
+|___________________|
+</code></pre><p>A perfect maze!</p>
+<p><code>一个完美的迷宫！</code></p>
+<h2 id="Analysis-分析"><a href="#Analysis-分析" class="headerlink" title="Analysis 分析"></a>Analysis 分析</h2><p>Let’s analyze that a bit. It seemed to come together pretty magically, considering we weren’t looking at anything but the current row (and the next row, briefly). The key to it all are the sets.</p>
+<p><code>让我们来一点点分析下。它似乎很神奇的合在一起就成了。考虑到我们除了一行（和下一行，非常简单的过程）似乎没看到其他的东西。这一切的关键就在集合。</code></p>
+<p>The set that a cell belongs to tells the algorithm who its siblings were, are, and will be. It’s the crystal ball that lets the algorithm gaze into the future (and the past!) and avoid adding cycles and isolates to the maze.</p>
+<p><code>集合告诉了算法哪些单元格将被连通。就像一个水晶球，让算法可以看到未来（和过去）并且避免增加了单元格的遍历次数和孤立的迷宫。</code></p>
+<p>Cells that share a set, also share a path between them. (If you don’t believe me, look at the example I just gave, above. Every cell that shares a set identifier is connected; cells in different sets are not connected.)</p>
+<p><code>在一个集合内的单元格，也同样拥有连通的路径（如果你不信我，看看上面的例子，单元格在同一个集合内是有相同的数字标识的，是可以连通的，不在一个集合内则是不可以联通的）</code></p>
+<p>If the algorithm allowed us to create a passage between two cells that shared a set, it would be introducing a second path between those two cells. That’s essentially the definition of a loop or cycle in the graph, and since we don’t want cycles in our maze, we disallow that.</p>
+<p><code>如果算法允许我们创建一个通道，在两个集合里，那它将允许第二条路径存在那两个集合中，那实际上相当于定义了一个循环，因为我们不希望在我们迷宫中瞎转圈，所以我们不允许这样做。</code></p>
+<p>Conversely, cells that do not share a set, are not connected (they are disjoint). By the time we reach the end of the maze, every cell must be connected to every other cell, and the only way we can do that is if every set is eventually merged into a single set.</p>
+<p><code>相反，单元格不在一个集合内，它们不连通（不相交）。当我们处理迷宫的最后一行时，每个单元格必须被连接到其他的单元格。我们能做的就是把所有的集合合并为一个集合。</code></p>
+<p>We can’t do that if a set does not propogate itself to the next row. This is why the algorithm requires that at least one vertical passage be created for each set in the row. Otherwise, any set that didn’t create a vertical passage would become extinct after the current row. The result would be an isolate, an orphaned collection of cells that could never be reached from outside that set.</p>
+<p><code>我们必须让集合连通到下一行，这就是为什么算法要求每个集合至少创建一个向下连接的通道。否则，任一集合没有创建连到下一行的通道的话，其结果是，这个集合将被隔离，你可能无法从任意的路径到达这个集合。</code><br>Then, at the end, the algorithm joins all disjoint sets, allowing every cell in the the entire maze to be connected by a single, unique path to any other cell in the maze. And we’re done!</p>
+<p><code>那么，在最后，这个算法合并所有不在一起的集合。让所有的单元格在迷宫中被连接为一个集合，有唯一的路径在迷宫中连接任意的单元格。然后，我们完成了。</code></p>
+<p><a href="http://weblog.jamisbuck.org/2010/12/29/maze-generation-eller-s-algorithm" target="_blank" rel="noopener">原文连接</a><br><a href="http://creativecommons.org/licenses/by-nc-sa/2.5/" target="_blank" rel="noopener">版权限制</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://webooxx.com/2014/10/31/迷宫算法/" data-id="cjoql9w9t002dji8sedt9jzt0" class="article-share-link">share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/游戏/">游戏</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/算法/">算法</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/迷宫/">迷宫</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2014/11/26/JS特效-H5报告-印尼互联网报告白皮书/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">newer</strong>
+      <div class="article-nav-title">
+        
+          JS特效-H5报告-印尼2014移动互联网白皮书
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2014/08/31/平方根倒数速算法/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">older</strong>
+      <div class="article-nav-title">平方根倒数速算法</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+<section id="comments">
+
+  <!-- 多说评论框 start -->
+  	<div class="ds-thread" data-thread-key="2014/10/31/迷宫算法/" data-title="迷宫算法 - Eller’s  algorithm for maze generation" data-url="http://webooxx.com/2014/10/31/迷宫算法/"></div>
+  <!-- 多说评论框 end -->
+  <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+  <script type="text/javascript">
+  var duoshuoQuery = {short_name:"webooxx"};
+  	(function() {
+  		var ds = document.createElement('script');
+  		ds.type = 'text/javascript';ds.async = true;
+  		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+  		ds.charset = 'UTF-8';
+  		(document.getElementsByTagName('head')[0]
+  		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+  	})();
+  	</script>
+  <!-- 多说公共JS代码 end -->
+
+
+
+</section>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">recent_posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2018/04/08/Promise实现/">Promise实现</a>
+          </li>
+        
+          <li>
+            <a href="/2017/12/14/CanvasEdge/">前端图像处理-使用Canvas查找图片边缘</a>
+          </li>
+        
+          <li>
+            <a href="/2017/10/17/为一组数字添加千分位符号/">为一组数字添加千分位符号</a>
+          </li>
+        
+          <li>
+            <a href="/2017/08/15/使用indexOf成双成对的匹配标签/">使用indexOf成双成对的匹配标签</a>
+          </li>
+        
+          <li>
+            <a href="/2017/08/02/Canvas和Dom实现的五子棋/">Canvas和Dom实现的五子棋</a>
+          </li>
+        
+          <li>
+            <a href="/2017/07/28/用css模拟手机下拉Loading/">用css模拟手机下拉Loading</a>
+          </li>
+        
+          <li>
+            <a href="/2017/07/12/百度问卷交互-1-问题编辑/">百度问卷交互设计（一）问题编辑</a>
+          </li>
+        
+          <li>
+            <a href="/2017/07/10/两个JS时间小技巧/">两个JS时间小技巧</a>
+          </li>
+        
+          <li>
+            <a href="/2017/06/05/2016圣诞填色小游戏/">2016圣诞填色小游戏</a>
+          </li>
+        
+          <li>
+            <a href="/2017/05/31/hexo新建日志时自动使用atom编辑/">hexo新建日志时自动使用atom编辑</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">tagcloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Android/" style="font-size: 10px;">Android</a> <a href="/tags/Canvas/" style="font-size: 11.11px;">Canvas</a> <a href="/tags/HTML5/" style="font-size: 10px;">HTML5</a> <a href="/tags/JS/" style="font-size: 20px;">JS</a> <a href="/tags/JS游戏/" style="font-size: 10px;">JS游戏</a> <a href="/tags/PHP/" style="font-size: 15.56px;">PHP</a> <a href="/tags/Promise/" style="font-size: 10px;">Promise</a> <a href="/tags/QQ空间/" style="font-size: 11.11px;">QQ空间</a> <a href="/tags/Resizeable/" style="font-size: 10px;">Resizeable</a> <a href="/tags/UBUNTUN/" style="font-size: 10px;">UBUNTUN</a> <a href="/tags/WEB开发/" style="font-size: 11.11px;">WEB开发</a> <a href="/tags/WIN7/" style="font-size: 10px;">WIN7</a> <a href="/tags/XML解析/" style="font-size: 10px;">XML解析</a> <a href="/tags/access-log/" style="font-size: 10px;">access_log</a> <a href="/tags/canvas/" style="font-size: 13.33px;">canvas</a> <a href="/tags/css/" style="font-size: 11.11px;">css</a> <a href="/tags/fiddler/" style="font-size: 10px;">fiddler</a> <a href="/tags/flash/" style="font-size: 10px;">flash</a> <a href="/tags/hexo/" style="font-size: 10px;">hexo</a> <a href="/tags/html/" style="font-size: 10px;">html</a> <a href="/tags/http/" style="font-size: 10px;">http</a> <a href="/tags/jQuery/" style="font-size: 12.22px;">jQuery</a> <a href="/tags/jQuery原理/" style="font-size: 10px;">jQuery原理</a> <a href="/tags/js/" style="font-size: 16.67px;">js</a> <a href="/tags/js基础/" style="font-size: 10px;">js基础</a> <a href="/tags/js特效/" style="font-size: 18.89px;">js特效</a> <a href="/tags/js组件/" style="font-size: 12.22px;">js组件</a> <a href="/tags/linux/" style="font-size: 10px;">linux</a> <a href="/tags/loading/" style="font-size: 10px;">loading</a> <a href="/tags/python/" style="font-size: 10px;">python</a> <a href="/tags/sh/" style="font-size: 10px;">sh</a> <a href="/tags/slider/" style="font-size: 10px;">slider</a> <a href="/tags/string/" style="font-size: 10px;">string</a> <a href="/tags/svg/" style="font-size: 10px;">svg</a> <a href="/tags/一行代码/" style="font-size: 10px;">一行代码</a> <a href="/tags/交互/" style="font-size: 10px;">交互</a> <a href="/tags/交互设计/" style="font-size: 10px;">交互设计</a> <a href="/tags/位操作/" style="font-size: 11.11px;">位操作</a> <a href="/tags/体验/" style="font-size: 10px;">体验</a> <a href="/tags/全站/" style="font-size: 10px;">全站</a> <a href="/tags/内存性能/" style="font-size: 10px;">内存性能</a> <a href="/tags/分页/" style="font-size: 11.11px;">分页</a> <a href="/tags/动画/" style="font-size: 10px;">动画</a> <a href="/tags/单页应用/" style="font-size: 10px;">单页应用</a> <a href="/tags/卷积/" style="font-size: 10px;">卷积</a> <a href="/tags/可视化/" style="font-size: 11.11px;">可视化</a> <a href="/tags/商业项目/" style="font-size: 10px;">商业项目</a> <a href="/tags/图像处理/" style="font-size: 10px;">图像处理</a> <a href="/tags/基本语法/" style="font-size: 10px;">基本语法</a> <a href="/tags/实现原理/" style="font-size: 10px;">实现原理</a> <a href="/tags/富文本编辑器/" style="font-size: 10px;">富文本编辑器</a> <a href="/tags/小工具/" style="font-size: 14.44px;">小工具</a> <a href="/tags/小游戏/" style="font-size: 10px;">小游戏</a> <a href="/tags/布局/" style="font-size: 10px;">布局</a> <a href="/tags/开发工具/" style="font-size: 13.33px;">开发工具</a> <a href="/tags/开发经验/" style="font-size: 10px;">开发经验</a> <a href="/tags/开机脚本/" style="font-size: 10px;">开机脚本</a> <a href="/tags/心理学/" style="font-size: 10px;">心理学</a> <a href="/tags/性能优化/" style="font-size: 10px;">性能优化</a> <a href="/tags/慕课网案例/" style="font-size: 17.78px;">慕课网案例</a> <a href="/tags/拖拽/" style="font-size: 10px;">拖拽</a> <a href="/tags/排序/" style="font-size: 10px;">排序</a> <a href="/tags/摄像头/" style="font-size: 10px;">摄像头</a> <a href="/tags/收集系统/" style="font-size: 10px;">收集系统</a> <a href="/tags/效率工具/" style="font-size: 10px;">效率工具</a> <a href="/tags/无线密码破解/" style="font-size: 10px;">无线密码破解</a> <a href="/tags/无线网卡/" style="font-size: 10px;">无线网卡</a> <a href="/tags/日志/" style="font-size: 10px;">日志</a> <a href="/tags/时光轴/" style="font-size: 11.11px;">时光轴</a> <a href="/tags/时间处理/" style="font-size: 10px;">时间处理</a> <a href="/tags/智能/" style="font-size: 11.11px;">智能</a> <a href="/tags/智能设备/" style="font-size: 11.11px;">智能设备</a> <a href="/tags/正则/" style="font-size: 10px;">正则</a> <a href="/tags/游戏/" style="font-size: 15.56px;">游戏</a> <a href="/tags/生命游戏/" style="font-size: 11.11px;">生命游戏</a> <a href="/tags/用户体验/" style="font-size: 11.11px;">用户体验</a> <a href="/tags/百度首页彩蛋/" style="font-size: 10px;">百度首页彩蛋</a> <a href="/tags/相册/" style="font-size: 11.11px;">相册</a> <a href="/tags/眼动实验/" style="font-size: 11.11px;">眼动实验</a> <a href="/tags/移动端/" style="font-size: 11.11px;">移动端</a> <a href="/tags/算法/" style="font-size: 14.44px;">算法</a> <a href="/tags/缩略图/" style="font-size: 10px;">缩略图</a> <a href="/tags/网络案例/" style="font-size: 10px;">网络案例</a> <a href="/tags/翻译/" style="font-size: 10px;">翻译</a> <a href="/tags/自动脚本/" style="font-size: 10px;">自动脚本</a> <a href="/tags/表单/" style="font-size: 10px;">表单</a> <a href="/tags/视频流/" style="font-size: 10px;">视频流</a> <a href="/tags/调试工具/" style="font-size: 10px;">调试工具</a> <a href="/tags/进制处理/" style="font-size: 10px;">进制处理</a> <a href="/tags/迷宫/" style="font-size: 10px;">迷宫</a> <a href="/tags/递归/" style="font-size: 10px;">递归</a> <a href="/tags/问卷系统/" style="font-size: 10px;">问卷系统</a> <a href="/tags/面向对象/" style="font-size: 11.11px;">面向对象</a> <a href="/tags/黑客帝国/" style="font-size: 10px;">黑客帝国</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android/">Android</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Canvas/">Canvas</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HTML5/">HTML5</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JS/">JS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JS游戏/">JS游戏</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/PHP/">PHP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Promise/">Promise</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/QQ空间/">QQ空间</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Resizeable/">Resizeable</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/UBUNTUN/">UBUNTUN</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/WEB开发/">WEB开发</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/WIN7/">WIN7</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/XML解析/">XML解析</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/access-log/">access_log</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/canvas/">canvas</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/css/">css</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/fiddler/">fiddler</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/flash/">flash</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/">hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/html/">html</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/http/">http</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/jQuery/">jQuery</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/jQuery原理/">jQuery原理</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/js/">js</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/js基础/">js基础</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/js特效/">js特效</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/js组件/">js组件</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/">linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/loading/">loading</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python/">python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/sh/">sh</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/slider/">slider</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/string/">string</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/svg/">svg</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/一行代码/">一行代码</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/交互/">交互</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/交互设计/">交互设计</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/位操作/">位操作</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/体验/">体验</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/全站/">全站</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/内存性能/">内存性能</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/分页/">分页</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/动画/">动画</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/单页应用/">单页应用</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/卷积/">卷积</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/可视化/">可视化</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/商业项目/">商业项目</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/图像处理/">图像处理</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/基本语法/">基本语法</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/实现原理/">实现原理</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/富文本编辑器/">富文本编辑器</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/小工具/">小工具</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/小游戏/">小游戏</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/布局/">布局</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/开发工具/">开发工具</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/开发经验/">开发经验</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/开机脚本/">开机脚本</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/心理学/">心理学</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/性能优化/">性能优化</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/慕课网案例/">慕课网案例</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/拖拽/">拖拽</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/排序/">排序</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/摄像头/">摄像头</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/收集系统/">收集系统</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/效率工具/">效率工具</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/无线密码破解/">无线密码破解</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/无线网卡/">无线网卡</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/日志/">日志</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/时光轴/">时光轴</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/时间处理/">时间处理</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/智能/">智能</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/智能设备/">智能设备</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/正则/">正则</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/游戏/">游戏</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/生命游戏/">生命游戏</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/用户体验/">用户体验</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/百度首页彩蛋/">百度首页彩蛋</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/相册/">相册</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/眼动实验/">眼动实验</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/移动端/">移动端</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/算法/">算法</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/缩略图/">缩略图</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/网络案例/">网络案例</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/翻译/">翻译</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/自动脚本/">自动脚本</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/表单/">表单</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/视频流/">视频流</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/调试工具/">调试工具</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/进制处理/">进制处理</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/迷宫/">迷宫</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/递归/">递归</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/问卷系统/">问卷系统</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/面向对象/">面向对象</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/黑客帝国/">黑客帝国</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">archive_a</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/04/">四月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/12/">十二月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/10/">十月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/08/">八月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/07/">七月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">六月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/05/">五月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/12/">十二月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/11/">十一月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/10/">十月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/07/">七月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/06/">六月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/04/">四月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/02/">二月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/08/">八月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/06/">六月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/03/">三月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/01/">一月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/11/">十一月 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/10/">十月 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/08/">八月 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/07/">七月 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/05/">五月 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/04/">四月 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/03/">三月 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/01/">一月 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/02/">二月 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/11/">十一月 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/10/">十月 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/07/">七月 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/06/">六月 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/05/">五月 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/04/">四月 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/03/">三月 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/02/">二月 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/12/">十二月 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/07/">七月 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/05/">五月 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/04/">四月 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/03/">三月 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/02/">二月 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/01/">一月 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2010/04/">四月 2010</a></li></ul>
+    </div>
+  </div>
+
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2018 Lyn<br>
+      powered_by <a href="mailto://web@webooxx.com" target="_blank">webooxx.com</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//libs.baidu.com/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+</body>
+</html>

@@ -1,0 +1,509 @@
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>慕课网 - QQ空间时光轴效果</title>
+    <style type="text/css">
+
+        
+        body{ background: #fff;margin: 0px;padding: 0;padding-top: 41px;background: url(images/1.jpg) #1c0c0f  center 0 no-repeat fixed;}
+
+        .top{width: 100%;top:0px;height:41px;background-color: #001E3B;box-shadow: 0 1px 0 rgba(0, 0, 0, 0.2);position: fixed;z-index: 999;}
+        .header{width: 960px;height: 200px;margin: 0px auto;background-color: rgba(255,255,255,.2);}
+        .container{width: 960px;min-width:960px;margin: 0px auto;position: relative;}
+
+        /*  框架结构和通用样式 */
+        .hide{display: none;}
+
+        /* 左侧 时序列表 */
+        .scrubber {width: 47px;position: absolute;top: 29px;left: 0px;z-index: 999}
+        .scrubber a{
+            display: block;
+            height: 26px;line-height: 26px;
+            font-size: 12px;
+            color: #a5a5a5;text-decoration: none;
+            padding-right: 5px;
+
+            border-right:2px solid #c8c8c8;
+            border-right-color: rgba(200,200,200,.5);
+
+            text-shadow: 0 1px 1px rgba(0,0,0,.3);
+            text-align: right;
+        }
+
+        .scrubber a:hover,
+        .scrubber a.current{border-right-color: #7ebad0;color: #7ebad0;font-weight: bold;}
+
+        .scrubber a:hover{text-decoration: underline;}
+        .scrubber a.current:hover{text-decoration: none;}
+    
+        a.scrubber_year{}
+        a.scrubber_month{display: none;}
+
+
+        /* 右侧 主要内容区域 */
+        .content{min-height:1000px;padding-left: 160px;padding-top:50px;background:url(images/spine.png) repeat-y  121px 0;position: relative;}
+
+        .content_year,
+        .content_month{
+            height:30px;line-height: 30px;
+            color: #a5a5a5;text-shadow: 0 1px 1px rgba(0,0,0,.3);font-weight: bold;font-size: 14px;
+            position: relative;left:-90px;
+            clear: both;
+        }
+
+
+            /* 每一个日志块 */
+        .content_item{width:370px;background: #fff;height: auto;margin: 20px 30px 0 0;position: relative;border-radius: 4px;color: #888;}
+            /* 第一个日志块往上来20个像素 */
+        .content_item_first{margin-top: -20px;}
+            /* 日志分左右两列 */
+        .content_item_left{float: left;}
+        .content_item_right{float: right;}
+
+            /* 在时间轴上的白色小圆点，以及内部的蓝色小圆心 */
+        .content_item_icon_dot{
+            width: 11px;
+            height: 11px;
+            border-radius: 11px;
+            position: absolute;
+            left: -43px;top: 25px;   
+            background: #fff;
+        }
+        .content_item_icon_dot_child{
+            width: 7px;
+            height: 7px;
+            border-radius: 7px;
+            position: absolute;
+            left: 2px;top: 2px;   
+            background: #b3dae9;
+        }
+            /* 在右列的原点，需要重新设置偏移 */
+        .content_item_right .content_item_icon_dot{left: -443px;}
+
+            /* 左边的三角形标志 */
+        .content_item_icon_arrow{
+            position: absolute;
+            height: 0px;
+            border-color: transparent #e2e2e2 transparent transparent;
+            border-width: 10px 10px 10px 0;
+            border-style: dashed solid dashed dashed;
+            border-right-color: #fff;
+            left: -10px;top: 20px;
+        }
+
+            /* 每个内容模块的详细结构 */
+        .content_item_head{padding: 15px 15px 0px 15px;}
+
+        .content_item_head_title{height: 46px;line-height: 46px;font-size: 28px;padding: 0px 0px 10px 56px;position: relative;}
+        .content_item_head_intro{
+            margin-bottom: 10px;
+            font-size: 14px;
+            line-height: 22px;
+            padding: 0 15px;
+        }
+        .content_item_head_title_lunar{
+            width: 46px;height: 46px;background-color: #b3dae9;border-radius: 8px;position: absolute;left: 0px;top: 0px;
+            overflow: hidden;
+            color:#fff;
+            font-size: 27px;
+            line-height: 23px;
+        }
+        .content_item_media{padding-bottom: 10px;height: 277px;overflow: hidden;}
+        .content_item_footer{padding: 10px 15px;margin: 0px 15px;border-top: 1px solid #d6d6d6;font-size: 12px;color: #b2b2b2;}
+        
+        .content_item_footer_info{line-height: 20px;}
+        .content_item_footer_like{padding-top: 5px;}
+
+        .content_item_footer a{color: #b2b2b2;text-decoration: none;padding-right: 10px;display: inline-block;height: 20px;}
+        .content_item_footer a:hover{color: #6EB8D3;text-decoration: underline;}
+
+        /* 图标 */
+        .icon_zan,
+        .icon_pin{
+            width: 20px;height: 20px;
+            background: url(images/timeline.png) no-repeat; 
+            display: inline-block;
+        }
+        .icon_zan{
+            
+            background-position: -883px -21px;
+        }
+        .icon_pin{
+            background-image: url(images/timeline.png);
+            background-position: -897px -42px;
+        }
+
+        .ui_icon  {
+            width: 15px;
+            height: 15px;
+            display: inline-block;
+            background-repeat: no-repeat;
+            font-size: 0;
+            overflow: hidden;
+        }
+        .quote_after {
+            vertical-align: bottom;
+            background-image: url(images/timeline.png);
+            background-position: -986px -102px;
+            margin-left: 5px;
+        }
+        .quote_before{
+            vertical-align: top;
+            background-image: url(images/timeline.png);
+            background-position: -986px -85px;
+            margin-right: 5px;
+        }
+    </style>
+</head>
+<body>
+
+<!-- 模版定义 -->
+<div class="hide">
+
+    <div id="tpl_scrubber_year">
+        <a href="javascript:;"class="scrubber_year" id="scrubber_year_{year}"  onclick="show_year({year},this)" >{year}
+            {list}
+        </a>
+    </div>
+
+    <div id="tpl_scrubber_month" >
+           <a href="javascript:;"
+           class="scrubber_month month_from_year_{year}"
+           id="scrubber_month_{year}_{month}"
+           onclick="show_month({year},{month},this)" >{month}月</a>
+    </div>
+
+    <div id="tpl_content_year">
+
+        <div class="content_year" id="content_year_{year}">{year}</div>
+        {list}
+
+    </div>
+
+    <div id="tpl_content_month">
+
+        <div class="content_item content_item_{leftOrRight} content_date_{year}{month} {isFirst}">
+
+            <div class="content_item_icon_arrow"></div>
+            <div class="content_item_icon_dot"><div class="content_item_icon_dot_child"></div></div>
+
+            <div class="content_item_head">
+
+                <div class="content_item_head_title">
+                    <div class="content_item_head_title_lunar">{lunar}</div>
+                    {date}
+                </div>
+                <div class="content_item_head_intro">
+                    <i class="ui_icon quote_before"></i>
+                    {intro}
+                    <i class="ui_icon quote_after"></i>
+                </div>
+            </div>
+            <div class="content_item_media">
+                {media}
+            </div>
+            <div class="content_item_footer">
+                <div class="content_item_footer_info">
+                        <a href="javascript:void(0)" title="赞">
+                            <i class="icon_zan">&nbsp;</i>
+                            ({like})</a>
+                        <a href="javascript:void(0)" title="评论">
+                            <i class="icon_pin">&nbsp;</i>
+                            ({comment})
+
+                        </a>
+                </div>
+                <div class="content_item_footer_like">
+                    {like_format}人觉得很赞
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<!--  网页内容 -->
+
+    <div class="top"></div>
+    <div class="header"></div>
+
+    <div class="container">
+
+
+        <!-- 时序列表 -->
+        <div class="scrubber" id="scrubber"> 
+        </div>
+
+        <!-- 日志列表 -->
+        <div class="content" id="content">
+        </div>
+
+    </div>
+
+    <script type="text/javascript" src="script/data.js"></script>
+    <script type="text/javascript" src="script/fx.js"></script>
+    <script type="text/javascript" src="script/GetLunarDay.js"></script>
+
+    <script type="text/javascript">
+
+//--------  公共函数
+
+    //  获取元素
+    var g = function(id){ return document.getElementById(id);}
+    var g_class = function( className ,parent ){
+        //  原生方法 ie9 以下不支持
+        return ( parent || document ).getElementsByClassName(className);
+    }
+
+    var getBodyW = function(){ return document.body.offsetWidth; };
+    var getBodyH = function(){ return document.body.offsetHeight; };
+    var get_top = function(el){ return el.offsetTop+170; };
+    
+    var trim = function( str ){
+        return str.replace(/^\s*/,'').replace(/\s*$/,'');
+    }
+
+    var template = function( tplStr , data ){
+        for( k in data ){
+            tplStr  = tplStr.replace(new RegExp('{'+k+'}','g'),data[k]);
+        }
+        return tplStr;
+    }
+
+//--------  模版内容输出
+
+        //  分析归类数据
+        var list = {};  //  { year: { month : [ item ,item ] } }
+
+        data.sort(function(a,b){
+            return new Date(a.date).getTime() > new Date(b.date).getTime();
+        })
+        console.log(data);
+
+        //  格式化数据
+        for (var i = 0; i <data.length ; i++) {
+
+            var date = new Date(data[i].date);
+            var year  = date.getFullYear();
+            var month = date.getMonth()+1;
+            var lunar = GetLunarDateString( date );
+
+            if( !list[year] ){ list[year] = {}; }
+            if( !list[year][month] ){ list[year][month] = []; }
+
+            var item = data[i];
+            item.lunar = lunar[0]+'<br>&nbsp;&nbsp;&nbsp;'+lunar[1];
+            item.like_format = item.like < 10000 ? item.like : ( item.like / 10000 ).toFixed(1) + '万';
+            item.year = year;
+            item.month = month;
+            list[year][month].push( item );
+        };
+
+
+        //  最终html内容
+        var html_scrubber = [];
+        var html_content  = [];
+
+        //  模版
+        var tpl_scrubber_year  = trim( g('tpl_scrubber_year').innerHTML );
+        var tpl_scrubber_month = g('tpl_scrubber_month').innerHTML.replace(/^\s*/,'').replace(/\s*$/,'');
+
+        var tpl_content_year = g('tpl_content_year').innerHTML.replace(/^\s*/,'').replace(/\s*$/,'');
+        var tpl_content_month = g('tpl_content_month').innerHTML.replace(/^\s*/,'').replace(/\s*$/,'');
+
+        //  构建时序和内容html
+        for (year in list) {
+
+            var scrubber_month = [];
+            var content_month = [];
+
+            var isLeft = 0;
+
+            for (month in list[year]) {
+
+                scrubber_month.unshift(  template( tpl_scrubber_month , {month:month ,year:year}  ) );
+
+
+                for (var i = list[year][month].length - 1; i >= 0; i--) {
+                    var item = list[year][month][i];
+
+                    isLeft = isLeft ^ 1;
+
+                    content_month.unshift(
+                        tpl_content_month.replace(/\{year\}/g,year).replace(/\{month\}/g,month)
+                            .replace(/\{lunar\}/g,item.lunar)
+                            .replace(/\{date\}/g,item.date)
+                            .replace(/\{intro\}/g,item.intro)
+                            .replace(/\{media\}/g,item.media)
+                            .replace(/\{like\}/g,item.like)
+                            .replace(/\{comment\}/g,item.comment)
+                            .replace(/\{like_format\}/g,item.like_format)
+                            .replace(/\{leftOrRight\}/g, isLeft ? 'left' : 'right')
+                            .replace(/\{isFirst\}/g, i == 0 ? 'content_item_first' : '')
+                        ) ;
+                };
+                content_month.unshift(  '<div class="clear content_month" id="content_month_'+year+'_'+month+'">'+month+'月</div>' );
+            };
+            html_scrubber.unshift( tpl_scrubber_year.replace(/\{year\}/g,year).replace(/\{list\}/g,scrubber_month.join('') ) );
+
+            html_content.unshift( tpl_content_year.replace(/\{year\}/g,year).replace(/\{list\}/g,content_month.join('') )  );
+        };
+
+        //  写入内容
+        g('scrubber').innerHTML = '<a href="javascript:;" onclick="scroll_to(0)">现在</a>'+html_scrubber.join('')+'<a href="javascript:;" onclick="scroll_to(getBodyH())">出生</a>';
+        g('content').innerHTML = html_content.join('')+ tpl_content_year.replace(/\{year\}/g,'出生').replace(/\{list\}/g,'')+'<div class="clear content_month" id="content_month_0_0"></div>'  ;
+
+
+
+//--------  脚本处理
+
+        //  动画滚动页面
+        var scrolling = false;
+        var scroll_to = function( to ){
+            var start =  document.body.scrollTop;
+            fx( function( now , type ){
+                if( type == 'end' ){
+                    scrolling = false;
+                }else{
+                    scrolling = true;
+                }
+                window.scroll(0,now);
+
+            },start ,to );
+        }
+
+
+        //  展开时序菜单的年份
+        var expand_year = function( year,elem ){
+
+            var years  = g_class('scrubber_year');
+            var months = g_class('scrubber_month');
+
+            var show_months = g_class('month_from_year_'+year );
+
+            //  清理所有年份的 current 样式
+            for (var i = years.length - 1; i >= 0; i--) {
+                years[i].className = 'scrubber_year';
+            };
+            
+            //  隐藏所有的月份
+            for (var i = months.length - 1; i >= 0; i--) {
+                months[i].style.display = 'none';
+            };
+
+            //  展现当前年份下所有的月份
+            for (var i = show_months.length - 1; i >= 0; i--) {
+                show_months[i].style.display = 'block';
+            };
+
+            //  设置当前年份的 current 样式
+            elem.className = 'scrubber_year current';
+        }
+
+        //  高亮月份
+        var highlight_month = function( year , month , elem ){
+
+            var months = g_class('month_from_year_'+year);
+
+            for (var i = months.length - 1; i >= 0; i--) {
+                months[i].className = months[i].className.replace(/current/g,'');
+            };
+
+            elem.className = elem.className+' current';
+        }
+
+
+        //  根据窗口滚动条更新时序年份状态
+        var update_scrubber_year = function( top ){
+
+            var years  = g('content').getElementsByClassName('content_year');
+            var tops = [];
+
+            for (var i = 0; i <years.length ; i++) {
+                tops.push( years[i].offsetTop );
+            };
+
+            for(var i = 1; i <tops.length ; i++){
+
+                if( top > tops[i-1] && top < tops[i] ){
+
+                    var year = years[i-1].innerHTML;
+
+                    expand_year(year,g('scrubber_year_'+year));
+                    return ;
+                }
+            }
+
+        }
+
+        //  根据窗口滚动条更新时序月份状态
+        var update_scrubber_month = function( top ){
+
+            //  获取日志列表中所有月份标签的高度信息
+            var months  = g('content').getElementsByClassName('content_month');
+            var tops = [];
+            for (var i = 0; i <months.length ; i++) {
+                tops.push( months[i].offsetTop );
+            };
+
+            //   定位页面窗口在哪个月份区间
+            for(var i = 1; i <tops.length ; i++){
+
+                if( top > tops[i-1] && top < tops[i] ){
+
+                    var id    = months[i-1].id;
+                    var info  = id.split('_');
+                    var year  = info[2];
+                    var month = info[3];
+
+                    highlight_month( year , month , g(  id.replace('content','scrubber')  ) );
+                    return ;
+                }
+            }
+        }
+
+        //  年份点击处理
+        var show_year = function(year,elem){
+            expand_year(year ,elem);
+            var top = get_top( g('content_year_'+year) );
+            scroll_to( top );
+            //  滚动到当前年份的位置
+        }
+
+        //  月份点击处理
+        var show_month = function( year , month ,elem ){
+            var top = get_top( g_class('content_date_'+year+''+month)[0] );
+            highlight_month( year , month , elem );
+            scroll_to( top );
+        }
+
+        //  滚动条事件处理; 定位时间
+        window.onscroll = function(){
+            if( scrolling ){ return false;}
+            var top = document.body.scrollTop ;
+
+            if( top > 200){
+                g('scrubber').style.position = 'fixed';
+                g('scrubber').style.left = (getBodyW()-960)/2+ 'px';
+                g('scrubber').style.top  = '60px';
+            }else{
+                g('scrubber').style.position = '';
+                g('scrubber').style.left =     '';
+                g('scrubber').style.top  =     '';
+            }
+
+            //  更新时序状态
+            update_scrubber_year( top );
+            update_scrubber_month( top );
+        }
+
+        //  窗口改变事件处理; 保持时序列表的位置
+        window.onresize = function(){
+            window.onscroll();
+        }
+    </script>
+
+</body>
+</html>

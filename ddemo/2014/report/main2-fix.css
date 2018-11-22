@@ -1,0 +1,151 @@
+.ppt-theme-report .page-startup .caption {
+    width: 171px;
+    height: 101px;
+    left: 50%;
+    margin-left: -85px;
+    top: 14%;
+    background-image: url(img/title-2.png);
+    background-size: 171px 101px;
+    background-repeat: no-repeat;
+
+}
+.ppt-theme-report .page-chapter .caption{
+    line-height: 24px;
+}
+.ppt-theme-report .footer:after {
+    content: ' ';
+    text-indent: -999px;
+
+    width: 164px;
+    height: 10px;
+
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    background-image: url(img/sm-tip-2.png);
+    background-size: 164px 10px;
+    background-repeat: no-repeat;
+}
+
+.caption {
+    font-family: "C";
+}
+.ppt-theme-report .page-1 .text-1{
+    width: 245px;
+    height: 100px;
+    top: 23%;
+    line-height: 18px;
+    padding: 10px 5px 0 10px;
+}
+.ppt-theme-report .page-1 .text-2 {
+    font-size: 14px;
+    line-height: 18px;
+    width: 260px;
+    margin-left: -130px;
+}
+
+.ppt-theme-report .page-2 .caption {
+    font-size: 16px;
+}
+
+.ppt-theme-report .page-2 .text-1 {
+    padding: 10px 0px;
+    height: auto;
+    bottom: 8.5%;
+    width: 300px;
+    margin-left: -150px;
+}
+
+.ppt-theme-report .page-2 .text-1 .item {
+    font-size: 12px;
+    line-height: 14px;
+    height: auto;
+    padding-left: 30px;
+}
+
+.ppt-theme-report .page-2 .text-1 .item b {
+    font-size: 13px;
+}
+
+.ppt-theme-report .page-3 .graph-1 .desc {
+    line-height: 15px;
+    top: 58%;
+}
+
+.ppt-theme-report .page-3 .graph-2 .desc {
+    top: 10px;
+}
+
+.ppt-theme-report .graph_points .inBlock b {
+    width: 150%;
+    top: 75%;
+    left: -25%;
+}
+
+.ppt-theme-report .graph_points b {
+    -webkit-transform: scale(.8);
+}
+
+.ppt-theme-report .page-5 .text-1 {
+    text-align: left;
+    line-height: 20px;
+}
+
+.ppt-theme-report .page-5 .graph-2 {
+    top: 32%;
+}
+
+.ppt-theme-report .page-5 .graph-1 .item {
+    width: 120px;
+    padding-top: 5px;
+    height: 45px;
+    left: 0px;
+}
+.ppt-theme-report .page-4 .caption,
+.ppt-theme-report .page-9 .caption,
+.ppt-theme-report .page-6 .caption {
+    font-size: 16px;
+    line-height: 24px;
+}
+
+.ppt-theme-report .page-6 .text-1 {
+    top: 20%;
+    width: 200px;
+    margin-left: -100px;
+}
+
+.ppt-theme-report .page-7 .text-1 {
+    height: auto;
+    line-height: 15px;
+    padding-bottom: 10px;
+}
+
+.ppt-theme-report .page-7 .text-2 {
+    width: 220px;
+    margin-left: -110px;
+    top: 29%;
+}
+.ppt-theme-report .page-7 .caption{
+    font-size: 15px;
+}
+
+.ppt-theme-report .page-7 .graph-1 {
+    top: 41%;
+}
+
+.ppt-theme-report .page-8 .graph-1 {
+    width: 120px;
+    margin-left: -132px;
+}
+
+.ppt-theme-report .page-reference .download .button {
+    width: 150px;
+    text-indent: 32px;
+    background-position: 10px 10px;
+}
+
+.ppt-theme-report .page-reference .source-list {
+    width: 100%;
+    top: 72%;
+    left: 0%;
+}

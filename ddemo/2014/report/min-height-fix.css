@@ -1,0 +1,52 @@
+.ppt-theme-report .page-1 .img-1_afterSwitchIn,
+.component {
+    -webkit-transform: scale(.8);
+}
+
+.footer,
+.pageNumber,
+.caption {
+    -webkit-transform: scale(1);
+}
+
+.ppt-theme-report .page-1 .text-1_afterSwitchIn {
+    top: 22%;
+}
+
+.ppt-theme-report .page-1 .text-2_afterSwitchIn {
+    top: 50%;
+}
+
+.ppt-theme-report .page-2 .graph-1 {
+    top: 15%;
+}
+
+.ppt-theme-report .page-3 .graph-2 {
+    height: 140px;
+}
+.ppt-theme-report .page-4 .text-1{
+    top: 23%;
+}
+.ppt-theme-report .page-6 .text-2 {
+    top: 56%;
+}
+
+.ppt-theme-report .page-6 .graph-1 {
+    top: 59%;
+}
+
+.ppt-theme-report .page-7 .text-1 {
+    top: 22%;
+}
+
+.ppt-theme-report .page-7 .text-2 {
+    top: 30%;
+}
+
+.ppt-theme-report .page-7 .graph-1 {
+    top: 32%;
+}
+.ppt-theme-report .page-reference .source-list {
+    -webkit-transform: scale(.5);
+    margin-left:-5%
+}

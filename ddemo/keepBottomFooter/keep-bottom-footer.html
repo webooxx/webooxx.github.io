@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="zh-ch">
+<head>
+	<meta charset="UTF-8">
+	<title>负边距保持在底部的footer</title>
+	<style type="text/css">
+		
+		html, body {height: 100%;   margin: 0; } 
+		.wrapper {min-height: 100%;   margin-bottom: -50px; } 
+		.content{height: 500px;background-color: blue;border-bottom:1px red solid;}
+		.footer{   height: 50px; background-color: black}
+		
+
+	</style>
+</head>
+<body>
+	<div class="wrapper" onclick="this.innerHTML += '<div class=content>content</div>' ">点我加内容</div>
+	<div class="footer"></div>
+</body>
+</html>
