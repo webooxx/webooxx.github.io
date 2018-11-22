@@ -1,7 +1,7 @@
 ---
 title: Canvas和Dom实现的五子棋
 date: 2017-08-02 15:50:05
-tags: Canvas,JS游戏
+tags: [Canvas,JS游戏]
 ---
 
 ![效果预览](/images/gomoku.png)
