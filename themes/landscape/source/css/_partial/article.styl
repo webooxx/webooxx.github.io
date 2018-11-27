@@ -60,12 +60,10 @@
     margin-top: line-height
     margin-bottom: line-height
   img, video
-    max-width: 95%;
-    height: auto;
-    display: block;
-    margin: auto;
-    box-shadow: 0 0 20px 0 rgba(0,0,0,.6);
-    border: 1px solid #eee;
+    max-width: 100%
+    height: auto
+    display: block
+    margin: auto
   iframe
     border: none
   table
@@ -303,6 +301,14 @@ $article-share-link
   &:hover
     background: color-google
     text-shadow: 0 1px darken(color-google, 20%)
+
+.article-share-linkedin
+  @extend $article-share-link
+  &:before
+    content: "\f0e1"
+  &:hover
+    background: color-linkedin
+    text-shadow: 0 1px darken(color-linkedin, 20%)
 
 .article-gallery
   background: #000

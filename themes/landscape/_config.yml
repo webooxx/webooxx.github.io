@@ -13,9 +13,7 @@ widgets:
 - category
 - recent_posts
 - tagcloud
-- tag
 - archive
-
 
 # display widgets at the bottom of index pages (pagination == 2)
 index_widgets:
@@ -28,9 +26,23 @@ archive_type: 'monthly'
 show_count: false
 
 # Miscellaneous
-#google_analytics:
+google_analytics:
+gauges_analytics:
 favicon: /favicon.png
-#twitter:
-#google_plus:
-#fb_admins:
-#fb_app_id:
+twitter:
+google_plus:
+fb_admins:
+fb_app_id:
+
+# valine comment system. https://valine.js.org
+valine:
+  enable: true # if you want use valine,please set this value is ture
+  appId:  'HR77FMixlz5NgCn91uVQfvb3-gzGzoHsz' # leancloud application app id
+  appKey:  'qLI5uJ3RVb8uK2QxCw9HOvoq' # leancloud application app key
+  notify: true # valine mail notify (true/false) https://github.com/xCss/Valine/wiki
+  verify: false # valine verify code (true/false)
+  pageSize: 10 # comment list page size
+  avatar: mm # gravatar style https://valine.js.org/#/avatar
+  lang: zh-cn # i18n: zh-cn/en
+  placeholder: '请在此添加评论' # valine comment input placeholder(like: Please leave your footprints )
+  visitor: true
