@@ -65,6 +65,65 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-当连接到特定网络时执行特定的程序" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2013/02/21/当连接到特定网络时执行特定的程序/" class="article-date">
+  <time datetime="2013-02-21T02:02:00.000Z" itemprop="datePublished">2013-02-21</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2013/02/21/当连接到特定网络时执行特定的程序/">当连接到特定网络时执行特定的程序</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>也许有这样的需求，当我们在公司的时候，连公司的网络后需要开启网关验证程序，在家里连网后需要开启VPN。即：希望在连接到某个特定的网络时执行某些特定的程序。</p>
+<h2 id="步骤0-准备"><a href="#步骤0-准备" class="headerlink" title="步骤0.准备"></a>步骤0.准备</h2><p>思路理清：当网络发生变动时，会有某些事件被记录，那么我们执行的特定程序就在某些特定事件被记录之后。</p>
+<p>相关程序：控制面板-管理工具-查看日志事件，控制面板-管理工具-计划任务</p>
+<p><img src="/images/wn-01.jpg" alt="1"></p>
+<p><img src="/images/wn-02.jpg" alt="2"></p>
+<h2 id="步骤1-连接网络，得到特定事件的ID。"><a href="#步骤1-连接网络，得到特定事件的ID。" class="headerlink" title="步骤1. 连接网络，得到特定事件的ID。"></a>步骤1. 连接网络，得到特定事件的ID。</h2><p>查看网卡的连接日志事件 中 左侧树展开：应用程序和服务日志-Microsoft-Windows-WLAN-AutoConfig-Operational ，首先清空这里的日志，然后连接公司的网络。接下来就可以看到一系列的事件。</p>
+<p><img src="/images/wn-11.jpg" alt="2"></p>
+<p>从事件的详细信息中，确认对应网络的SSID。（加入不同的网络事件ID会不一样）</p>
+<p><img src="/images/wn-12.jpg" alt="12"></p>
+<h2 id="步骤2-将执行程序的操作附加到特定事件发生后"><a href="#步骤2-将执行程序的操作附加到特定事件发生后" class="headerlink" title="步骤2.将执行程序的操作附加到特定事件发生后"></a>步骤2.将执行程序的操作附加到特定事件发生后</h2><p><img src="/images/wn-21.jpg" alt="21"></p>
+<p>设置完成后在计划任务中可以看到对应的事件</p>
+<p><img src="/images/wn-22.jpg" alt="22"></p>
+<h2 id="步骤3-当这个网络断开连接后，关闭上步执行的程序"><a href="#步骤3-当这个网络断开连接后，关闭上步执行的程序" class="headerlink" title="步骤3.当这个网络断开连接后，关闭上步执行的程序"></a>步骤3.当这个网络断开连接后，关闭上步执行的程序</h2><p>在网络连接正常的情况下清空 Microsoft-Windows-WLAN-AutoConfig-Operational 的日志，然后断开网络。从中查找对应的事件ID，然后重复步骤2.</p>
+<p>PS：linux、ubuntu 的直接把脚本放在 /etc/network/if-up.d/ 和/etc/network/if-dn.d/ 下即可，MAC OSX 还没有找到对应方法，如果有知道的还请告知，谢谢。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://webooxx.com/2013/02/21/当连接到特定网络时执行特定的程序/" data-id="cjp89z7v6001eyw8sz313t7lz" class="article-share-link">Share</a>
+      
+      
+        <a href="/2013/02/21/当连接到特定网络时执行特定的程序/#comments" class="article-comment-link">
+          <span class="post-comments-count valine-comment-count" data-xid="/2013/02/21/当连接到特定网络时执行特定的程序/" itemprop="commentCount"></span>
+          留言
+        </a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/WIN7/">WIN7</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/开机脚本/">开机脚本</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/效率工具/">效率工具</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
     <article id="post-长记性了，千万不要用create-funciton" class="article article-type-post" itemscope="" itemprop="blogPost">
   <div class="article-meta">
     <a href="/2012/11/28/长记性了，千万不要用create-funciton/" class="article-date">
@@ -94,7 +153,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://webooxx.com/2012/11/28/长记性了，千万不要用create-funciton/" data-id="cjozrnrev001hst8s7yk5f9zk" class="article-share-link">Share</a>
+      <a data-url="http://webooxx.com/2012/11/28/长记性了，千万不要用create-funciton/" data-id="cjp89z7v8001gyw8sws94ywhz" class="article-share-link">Share</a>
       
       
         <a href="/2012/11/28/长记性了，千万不要用create-funciton/#comments" class="article-comment-link">
@@ -150,7 +209,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://webooxx.com/2012/11/19/取得文件目录树-两种递归模式/" data-id="cjozrnrel0011st8sd0xoqdj7" class="article-share-link">Share</a>
+      <a data-url="http://webooxx.com/2012/11/19/取得文件目录树-两种递归模式/" data-id="cjp89z7uu0011yw8s57e5olx2" class="article-share-link">Share</a>
       
       
         <a href="/2012/11/19/取得文件目录树-两种递归模式/#comments" class="article-comment-link">
@@ -198,7 +257,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://webooxx.com/2012/10/18/使用Fiddler调试Https的JS内容/" data-id="cjozrnreg000tst8sefqsoiru" class="article-share-link">Share</a>
+      <a data-url="http://webooxx.com/2012/10/18/使用Fiddler调试Https的JS内容/" data-id="cjp89z7um000tyw8s4npsdxp1" class="article-share-link">Share</a>
       
       
         <a href="/2012/10/18/使用Fiddler调试Https的JS内容/#comments" class="article-comment-link">
@@ -254,7 +313,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://webooxx.com/2012/07/10/js进制转换两则/" data-id="cjozrnreb000nst8s04leltu7" class="article-share-link">Share</a>
+      <a data-url="http://webooxx.com/2012/07/10/js进制转换两则/" data-id="cjp89z7ul000syw8sb9jzdkbl" class="article-share-link">Share</a>
       
       
         <a href="/2012/07/10/js进制转换两则/#comments" class="article-comment-link">
@@ -315,7 +374,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://webooxx.com/2012/06/07/在WIN7-64下使用PYTHON获得摄像头图片/" data-id="cjozrnren0014st8sln202ih1" class="article-share-link">Share</a>
+      <a data-url="http://webooxx.com/2012/06/07/在WIN7-64下使用PYTHON获得摄像头图片/" data-id="cjp89z7uw0014yw8s7ddmsdyw" class="article-share-link">Share</a>
       
       
         <a href="/2012/06/07/在WIN7-64下使用PYTHON获得摄像头图片/#comments" class="article-comment-link">
@@ -367,7 +426,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://webooxx.com/2012/05/27/大家来找茬作弊指南-用canvas做图片对比/" data-id="cjozrnrep0017st8snxzvqwx5" class="article-share-link">Share</a>
+      <a data-url="http://webooxx.com/2012/05/27/大家来找茬作弊指南-用canvas做图片对比/" data-id="cjp89z7v00017yw8sfytawe8u" class="article-share-link">Share</a>
       
       
         <a href="/2012/05/27/大家来找茬作弊指南-用canvas做图片对比/#comments" class="article-comment-link">
@@ -447,7 +506,7 @@ HTTP1.1 pipelining Opera浏览器默认开启
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://webooxx.com/2012/04/13/WEB前端性能优化/" data-id="cjozrnref000sst8scyba7a8j" class="article-share-link">Share</a>
+      <a data-url="http://webooxx.com/2012/04/13/WEB前端性能优化/" data-id="cjp89z7ue000jyw8s9znxrnhp" class="article-share-link">Share</a>
       
       
         <a href="/2012/04/13/WEB前端性能优化/#comments" class="article-comment-link">
@@ -494,7 +553,7 @@ HTTP1.1 pipelining Opera浏览器默认开启
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://webooxx.com/2012/03/09/取得序列中某个点的范围边界/" data-id="cjozrnrek000zst8sd17icjm6" class="article-share-link">Share</a>
+      <a data-url="http://webooxx.com/2012/03/09/取得序列中某个点的范围边界/" data-id="cjp89z7us000zyw8s1f3sh4ik" class="article-share-link">Share</a>
       
       
         <a href="/2012/03/09/取得序列中某个点的范围边界/#comments" class="article-comment-link">
@@ -540,7 +599,7 @@ HTTP1.1 pipelining Opera浏览器默认开启
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://webooxx.com/2012/02/21/javascript的字段值，私有变量，静态方法声明/" data-id="cjozrnred000pst8srxpnvlrw" class="article-share-link">Share</a>
+      <a data-url="http://webooxx.com/2012/02/21/javascript的字段值，私有变量，静态方法声明/" data-id="cjp89z7uj000pyw8s67zp465s" class="article-share-link">Share</a>
       
       
         <a href="/2012/02/21/javascript的字段值，私有变量，静态方法声明/#comments" class="article-comment-link">
@@ -591,7 +650,7 @@ HTTP1.1 pipelining Opera浏览器默认开启
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://webooxx.com/2012/02/20/PHP在子类方法B调用父类的方法A时-不传参数时仍能得到方法B的名称/" data-id="cjozrnre1000cst8sniag19i6" class="article-share-link">Share</a>
+      <a data-url="http://webooxx.com/2012/02/20/PHP在子类方法B调用父类的方法A时-不传参数时仍能得到方法B的名称/" data-id="cjp89z7u9000cyw8sc608qixg" class="article-share-link">Share</a>
       
       
         <a href="/2012/02/20/PHP在子类方法B调用父类的方法A时-不传参数时仍能得到方法B的名称/#comments" class="article-comment-link">
@@ -646,7 +705,7 @@ HTTP1.1 pipelining Opera浏览器默认开启
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://webooxx.com/2011/12/08/jQuery的arrayLike/" data-id="cjozrnre8000kst8sm3j66tid" class="article-share-link">Share</a>
+      <a data-url="http://webooxx.com/2011/12/08/jQuery的arrayLike/" data-id="cjp89z7ui000nyw8souxj1c14" class="article-share-link">Share</a>
       
       
         <a href="/2011/12/08/jQuery的arrayLike/#comments" class="article-comment-link">
@@ -713,7 +772,7 @@ HTTP1.1 pipelining Opera浏览器默认开启
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://webooxx.com/2011/07/16/使用wubi安装ubuntu11-04后无线网卡被禁用无法打开-解决办法/" data-id="cjozrnreh000vst8s3qqgun9d" class="article-share-link">Share</a>
+      <a data-url="http://webooxx.com/2011/07/16/使用wubi安装ubuntu11-04后无线网卡被禁用无法打开-解决办法/" data-id="cjp89z7uo000vyw8syl4cnnrn" class="article-share-link">Share</a>
       
       
         <a href="/2011/07/16/使用wubi安装ubuntu11-04后无线网卡被禁用无法打开-解决办法/#comments" class="article-comment-link">
@@ -826,7 +885,7 @@ HTTP1.1 pipelining Opera浏览器默认开启
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://webooxx.com/2011/05/25/在手机上安装BT5系统-没错就是破解无线密码的那个/" data-id="cjozrnreo0015st8s4fqp5fmn" class="article-share-link">Share</a>
+      <a data-url="http://webooxx.com/2011/05/25/在手机上安装BT5系统-没错就是破解无线密码的那个/" data-id="cjp89z7uy0015yw8siezic55l" class="article-share-link">Share</a>
       
       
         <a href="/2011/05/25/在手机上安装BT5系统-没错就是破解无线密码的那个/#comments" class="article-comment-link">
@@ -872,7 +931,7 @@ HTTP1.1 pipelining Opera浏览器默认开启
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://webooxx.com/2011/04/01/PHP遍历解析XML为一个数组/" data-id="cjozrnre3000fst8sqz7bzbvo" class="article-share-link">Share</a>
+      <a data-url="http://webooxx.com/2011/04/01/PHP遍历解析XML为一个数组/" data-id="cjp89z7ub000gyw8s315abatf" class="article-share-link">Share</a>
       
       
         <a href="/2011/04/01/PHP遍历解析XML为一个数组/#comments" class="article-comment-link">
@@ -938,7 +997,7 @@ HTTP1.1 pipelining Opera浏览器默认开启
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://webooxx.com/2011/03/11/讨厌的文本选区/" data-id="cjozrnreu001est8sk61a4sxm" class="article-share-link">Share</a>
+      <a data-url="http://webooxx.com/2011/03/11/讨厌的文本选区/" data-id="cjp89z7v4001cyw8sl0ze5fyk" class="article-share-link">Share</a>
       
       
         <a href="/2011/03/11/讨厌的文本选区/#comments" class="article-comment-link">
@@ -988,7 +1047,7 @@ HTTP1.1 pipelining Opera浏览器默认开启
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://webooxx.com/2011/03/02/Dom-Biulder-数据替换脚本-基于jquery/" data-id="cjozrnrdo0001st8slgnofcmy" class="article-share-link">Share</a>
+      <a data-url="http://webooxx.com/2011/03/02/Dom-Biulder-数据替换脚本-基于jquery/" data-id="cjp89z7tw0001yw8sgu1z4mxd" class="article-share-link">Share</a>
       
       
         <a href="/2011/03/02/Dom-Biulder-数据替换脚本-基于jquery/#comments" class="article-comment-link">
@@ -1046,7 +1105,7 @@ HTTP1.1 pipelining Opera浏览器默认开启
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://webooxx.com/2011/02/25/Dom-Builder-基于jquery/" data-id="cjozrnrds0003st8s14m8fpu5" class="article-share-link">Share</a>
+      <a data-url="http://webooxx.com/2011/02/25/Dom-Builder-基于jquery/" data-id="cjp89z7u00003yw8sngkof318" class="article-share-link">Share</a>
       
       
         <a href="/2011/02/25/Dom-Builder-基于jquery/#comments" class="article-comment-link">
@@ -1093,7 +1152,7 @@ HTTP1.1 pipelining Opera浏览器默认开启
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://webooxx.com/2011/01/18/返回对象在当前级别中是第几个元素/" data-id="cjozrnret001cst8s2ee1fw51" class="article-share-link">Share</a>
+      <a data-url="http://webooxx.com/2011/01/18/返回对象在当前级别中是第几个元素/" data-id="cjp89z7v30019yw8sd5f0j82w" class="article-share-link">Share</a>
       
       
         <a href="/2011/01/18/返回对象在当前级别中是第几个元素/#comments" class="article-comment-link">
@@ -1144,7 +1203,7 @@ HTTP1.1 pipelining Opera浏览器默认开启
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://webooxx.com/2011/01/18/PHP缩略图-满窗格等比例缩小/" data-id="cjozrnre4000gst8se9wsqmwv" class="article-share-link">Share</a>
+      <a data-url="http://webooxx.com/2011/01/18/PHP缩略图-满窗格等比例缩小/" data-id="cjp89z7ua000fyw8s6un2t16k" class="article-share-link">Share</a>
       
       
         <a href="/2011/01/18/PHP缩略图-满窗格等比例缩小/#comments" class="article-comment-link">
@@ -1163,71 +1222,11 @@ HTTP1.1 pipelining Opera浏览器默认开启
 
 
   
-    <article id="post-FLASH全站项目-园林网志" class="article article-type-post" itemscope="" itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2010/04/19/FLASH全站项目-园林网志/" class="article-date">
-  <time datetime="2010-04-19T03:25:11.000Z" itemprop="datePublished">2010-04-19</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2010/04/19/FLASH全站项目-园林网志/">FLASH全站项目-园林网志</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>这个项目是我10年为南昌的一个做园林设计的公司开发的网站，纯flash，技术简单的可怕～～</p>
-<h2 id="基本信息"><a href="#基本信息" class="headerlink" title="基本信息"></a>基本信息</h2><ul>
-<li>类型：整站FLASH + XML,后台ASP</li>
-<li>时间：2010-04-19</li>
-</ul>
-<p><a href="/ddemo/2010YLWZ/site/default.html">效果预览</a><br><a href="/ddemo/2010YLWZ/site.zip">整站下载</a></p>
-<h2 id="效果图预览"><a href="#效果图预览" class="headerlink" title="效果图预览"></a>效果图预览</h2><p><img src="/ddemo/2010YLWZ/preview/1.jpg" alt="加载界面"></p>
-<p><img src="/ddemo/2010YLWZ/preview/2.jpg" alt="首页"></p>
-<p><img src="/ddemo/2010YLWZ/preview/3.1.jpg" alt="新闻页"></p>
-<p><img src="/ddemo/2010YLWZ/preview/3.2.jpg" alt="文章页详细"></p>
-<p><img src="/ddemo/2010YLWZ/preview/4.1.jpg" alt="案例页封面"></p>
-<p><img src="/ddemo/2010YLWZ/preview/4.2.jpg" alt="案例页详细"></p>
-<p><img src="/ddemo/2010YLWZ/preview/5.1.jpg" alt="文章列表页"></p>
-<p><img src="/ddemo/2010YLWZ/preview/5.2.jpg" alt="文章详细"></p>
-<p><img src="/ddemo/2010YLWZ/preview/6.jpg" alt="关于我们"></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://webooxx.com/2010/04/19/FLASH全站项目-园林网志/" data-id="cjozrnrex001jst8s3b0ebu5h" class="article-share-link">Share</a>
-      
-      
-        <a href="/2010/04/19/FLASH全站项目-园林网志/#comments" class="article-comment-link">
-          <span class="post-comments-count valine-comment-count" data-xid="/2010/04/19/FLASH全站项目-园林网志/" itemprop="commentCount"></span>
-          留言
-        </a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/flash/">flash</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/全站/">全站</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/商业项目/">商业项目</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
 
 
   <nav id="page-nav">
     
-    <a class="extend prev" rel="prev" href="/page/2/">&laquo; 上一页</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span>
+    <a class="extend prev" rel="prev" href="/page/2/">&laquo; 上一页</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/4/">下一页 &raquo;</a>
   </nav>
 
 </section>
@@ -1242,6 +1241,10 @@ HTTP1.1 pipelining Opera浏览器默认开启
     <h3 class="widget-title">最新文章</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/2018/12/03/通用上传组件设计/">通用上传组件设计</a>
+          </li>
         
           <li>
             <a href="/2018/11/27/CSS3特效-波浪效果/">CSS3特效-水波效果</a>
@@ -1259,10 +1262,6 @@ HTTP1.1 pipelining Opera浏览器默认开启
             <a href="/2017/10/17/为一组数字添加千分位符号/">为一组数字添加千分位符号</a>
           </li>
         
-          <li>
-            <a href="/2017/08/15/使用indexOf成双成对的匹配标签/">使用indexOf成双成对的匹配标签</a>
-          </li>
-        
       </ul>
     </div>
   </div>
@@ -1272,7 +1271,7 @@ HTTP1.1 pipelining Opera浏览器默认开启
   <div class="widget-wrap">
     <h3 class="widget-title">标签云</h3>
     <div class="widget tagcloud">
-      <a href="/tags/Android/" style="font-size: 10px;">Android</a> <a href="/tags/CSS3/" style="font-size: 10px;">CSS3</a> <a href="/tags/Canvas/" style="font-size: 11.11px;">Canvas</a> <a href="/tags/HTML5/" style="font-size: 10px;">HTML5</a> <a href="/tags/JS/" style="font-size: 20px;">JS</a> <a href="/tags/JS游戏/" style="font-size: 10px;">JS游戏</a> <a href="/tags/PHP/" style="font-size: 15.56px;">PHP</a> <a href="/tags/Promise/" style="font-size: 10px;">Promise</a> <a href="/tags/QQ空间/" style="font-size: 11.11px;">QQ空间</a> <a href="/tags/Resizeable/" style="font-size: 10px;">Resizeable</a> <a href="/tags/UBUNTUN/" style="font-size: 10px;">UBUNTUN</a> <a href="/tags/WEB开发/" style="font-size: 11.11px;">WEB开发</a> <a href="/tags/WIN7/" style="font-size: 10px;">WIN7</a> <a href="/tags/XML解析/" style="font-size: 10px;">XML解析</a> <a href="/tags/access-log/" style="font-size: 10px;">access_log</a> <a href="/tags/canvas/" style="font-size: 13.33px;">canvas</a> <a href="/tags/css/" style="font-size: 11.11px;">css</a> <a href="/tags/fiddler/" style="font-size: 10px;">fiddler</a> <a href="/tags/flash/" style="font-size: 10px;">flash</a> <a href="/tags/hexo/" style="font-size: 10px;">hexo</a> <a href="/tags/html/" style="font-size: 10px;">html</a> <a href="/tags/http/" style="font-size: 10px;">http</a> <a href="/tags/jQuery/" style="font-size: 12.22px;">jQuery</a> <a href="/tags/jQuery原理/" style="font-size: 10px;">jQuery原理</a> <a href="/tags/js/" style="font-size: 16.67px;">js</a> <a href="/tags/js基础/" style="font-size: 10px;">js基础</a> <a href="/tags/js特效/" style="font-size: 18.89px;">js特效</a> <a href="/tags/js组件/" style="font-size: 12.22px;">js组件</a> <a href="/tags/linux/" style="font-size: 10px;">linux</a> <a href="/tags/loading/" style="font-size: 10px;">loading</a> <a href="/tags/python/" style="font-size: 10px;">python</a> <a href="/tags/sh/" style="font-size: 10px;">sh</a> <a href="/tags/slider/" style="font-size: 10px;">slider</a> <a href="/tags/string/" style="font-size: 10px;">string</a> <a href="/tags/svg/" style="font-size: 10px;">svg</a> <a href="/tags/一行代码/" style="font-size: 10px;">一行代码</a> <a href="/tags/交互/" style="font-size: 10px;">交互</a> <a href="/tags/交互设计/" style="font-size: 10px;">交互设计</a> <a href="/tags/位操作/" style="font-size: 11.11px;">位操作</a> <a href="/tags/体验/" style="font-size: 10px;">体验</a> <a href="/tags/全站/" style="font-size: 10px;">全站</a> <a href="/tags/内存性能/" style="font-size: 10px;">内存性能</a> <a href="/tags/分页/" style="font-size: 11.11px;">分页</a> <a href="/tags/动画/" style="font-size: 10px;">动画</a> <a href="/tags/单页应用/" style="font-size: 10px;">单页应用</a> <a href="/tags/卷积/" style="font-size: 10px;">卷积</a> <a href="/tags/可视化/" style="font-size: 11.11px;">可视化</a> <a href="/tags/商业项目/" style="font-size: 10px;">商业项目</a> <a href="/tags/图像处理/" style="font-size: 10px;">图像处理</a> <a href="/tags/基本语法/" style="font-size: 10px;">基本语法</a> <a href="/tags/实现原理/" style="font-size: 10px;">实现原理</a> <a href="/tags/富文本编辑器/" style="font-size: 10px;">富文本编辑器</a> <a href="/tags/小工具/" style="font-size: 14.44px;">小工具</a> <a href="/tags/小游戏/" style="font-size: 10px;">小游戏</a> <a href="/tags/布局/" style="font-size: 10px;">布局</a> <a href="/tags/开发工具/" style="font-size: 13.33px;">开发工具</a> <a href="/tags/开发经验/" style="font-size: 10px;">开发经验</a> <a href="/tags/开机脚本/" style="font-size: 10px;">开机脚本</a> <a href="/tags/心理学/" style="font-size: 10px;">心理学</a> <a href="/tags/性能优化/" style="font-size: 10px;">性能优化</a> <a href="/tags/慕课网案例/" style="font-size: 17.78px;">慕课网案例</a> <a href="/tags/拖拽/" style="font-size: 10px;">拖拽</a> <a href="/tags/排序/" style="font-size: 10px;">排序</a> <a href="/tags/摄像头/" style="font-size: 10px;">摄像头</a> <a href="/tags/收集系统/" style="font-size: 10px;">收集系统</a> <a href="/tags/效率工具/" style="font-size: 10px;">效率工具</a> <a href="/tags/无线密码破解/" style="font-size: 10px;">无线密码破解</a> <a href="/tags/无线网卡/" style="font-size: 10px;">无线网卡</a> <a href="/tags/日志/" style="font-size: 10px;">日志</a> <a href="/tags/时光轴/" style="font-size: 11.11px;">时光轴</a> <a href="/tags/时间处理/" style="font-size: 10px;">时间处理</a> <a href="/tags/智能/" style="font-size: 11.11px;">智能</a> <a href="/tags/智能设备/" style="font-size: 11.11px;">智能设备</a> <a href="/tags/正则/" style="font-size: 10px;">正则</a> <a href="/tags/游戏/" style="font-size: 15.56px;">游戏</a> <a href="/tags/特效/" style="font-size: 11.11px;">特效</a> <a href="/tags/生命游戏/" style="font-size: 11.11px;">生命游戏</a> <a href="/tags/用户体验/" style="font-size: 11.11px;">用户体验</a> <a href="/tags/百度首页彩蛋/" style="font-size: 10px;">百度首页彩蛋</a> <a href="/tags/相册/" style="font-size: 11.11px;">相册</a> <a href="/tags/眼动实验/" style="font-size: 11.11px;">眼动实验</a> <a href="/tags/移动端/" style="font-size: 11.11px;">移动端</a> <a href="/tags/算法/" style="font-size: 14.44px;">算法</a> <a href="/tags/缩略图/" style="font-size: 10px;">缩略图</a> <a href="/tags/网络案例/" style="font-size: 10px;">网络案例</a> <a href="/tags/翻译/" style="font-size: 10px;">翻译</a> <a href="/tags/自动脚本/" style="font-size: 10px;">自动脚本</a> <a href="/tags/表单/" style="font-size: 10px;">表单</a> <a href="/tags/视频流/" style="font-size: 10px;">视频流</a> <a href="/tags/调试工具/" style="font-size: 10px;">调试工具</a> <a href="/tags/进制处理/" style="font-size: 10px;">进制处理</a> <a href="/tags/迷宫/" style="font-size: 10px;">迷宫</a> <a href="/tags/递归/" style="font-size: 10px;">递归</a> <a href="/tags/问卷系统/" style="font-size: 10px;">问卷系统</a> <a href="/tags/面向对象/" style="font-size: 11.11px;">面向对象</a> <a href="/tags/黑客帝国/" style="font-size: 10px;">黑客帝国</a>
+      <a href="/tags/Android/" style="font-size: 10px;">Android</a> <a href="/tags/CSS3/" style="font-size: 10px;">CSS3</a> <a href="/tags/Canvas/" style="font-size: 11.25px;">Canvas</a> <a href="/tags/HTML5/" style="font-size: 10px;">HTML5</a> <a href="/tags/JS/" style="font-size: 20px;">JS</a> <a href="/tags/JS游戏/" style="font-size: 10px;">JS游戏</a> <a href="/tags/NodeJs/" style="font-size: 10px;">NodeJs</a> <a href="/tags/PHP/" style="font-size: 16.25px;">PHP</a> <a href="/tags/Promise/" style="font-size: 10px;">Promise</a> <a href="/tags/QQ空间/" style="font-size: 11.25px;">QQ空间</a> <a href="/tags/Resizeable/" style="font-size: 10px;">Resizeable</a> <a href="/tags/UBUNTUN/" style="font-size: 10px;">UBUNTUN</a> <a href="/tags/WEB开发/" style="font-size: 11.25px;">WEB开发</a> <a href="/tags/WIN7/" style="font-size: 10px;">WIN7</a> <a href="/tags/XML解析/" style="font-size: 10px;">XML解析</a> <a href="/tags/access-log/" style="font-size: 10px;">access_log</a> <a href="/tags/canvas/" style="font-size: 13.75px;">canvas</a> <a href="/tags/css/" style="font-size: 11.25px;">css</a> <a href="/tags/fiddler/" style="font-size: 10px;">fiddler</a> <a href="/tags/flash/" style="font-size: 10px;">flash</a> <a href="/tags/hexo/" style="font-size: 10px;">hexo</a> <a href="/tags/html/" style="font-size: 10px;">html</a> <a href="/tags/http/" style="font-size: 10px;">http</a> <a href="/tags/jQuery/" style="font-size: 12.5px;">jQuery</a> <a href="/tags/jQuery原理/" style="font-size: 10px;">jQuery原理</a> <a href="/tags/js/" style="font-size: 17.5px;">js</a> <a href="/tags/js基础/" style="font-size: 10px;">js基础</a> <a href="/tags/js特效/" style="font-size: 18.75px;">js特效</a> <a href="/tags/js组件/" style="font-size: 12.5px;">js组件</a> <a href="/tags/linux/" style="font-size: 10px;">linux</a> <a href="/tags/loading/" style="font-size: 10px;">loading</a> <a href="/tags/python/" style="font-size: 10px;">python</a> <a href="/tags/sh/" style="font-size: 10px;">sh</a> <a href="/tags/slider/" style="font-size: 10px;">slider</a> <a href="/tags/string/" style="font-size: 10px;">string</a> <a href="/tags/svg/" style="font-size: 10px;">svg</a> <a href="/tags/一行代码/" style="font-size: 10px;">一行代码</a> <a href="/tags/交互/" style="font-size: 10px;">交互</a> <a href="/tags/交互设计/" style="font-size: 10px;">交互设计</a> <a href="/tags/位操作/" style="font-size: 11.25px;">位操作</a> <a href="/tags/体验/" style="font-size: 10px;">体验</a> <a href="/tags/全站/" style="font-size: 10px;">全站</a> <a href="/tags/内存性能/" style="font-size: 10px;">内存性能</a> <a href="/tags/分页/" style="font-size: 11.25px;">分页</a> <a href="/tags/动画/" style="font-size: 10px;">动画</a> <a href="/tags/单页应用/" style="font-size: 10px;">单页应用</a> <a href="/tags/卷积/" style="font-size: 10px;">卷积</a> <a href="/tags/可视化/" style="font-size: 11.25px;">可视化</a> <a href="/tags/商业项目/" style="font-size: 10px;">商业项目</a> <a href="/tags/图像处理/" style="font-size: 10px;">图像处理</a> <a href="/tags/基本语法/" style="font-size: 10px;">基本语法</a> <a href="/tags/实现原理/" style="font-size: 10px;">实现原理</a> <a href="/tags/富文本编辑器/" style="font-size: 10px;">富文本编辑器</a> <a href="/tags/小工具/" style="font-size: 15px;">小工具</a> <a href="/tags/小游戏/" style="font-size: 10px;">小游戏</a> <a href="/tags/布局/" style="font-size: 10px;">布局</a> <a href="/tags/开发工具/" style="font-size: 13.75px;">开发工具</a> <a href="/tags/开发经验/" style="font-size: 10px;">开发经验</a> <a href="/tags/开机脚本/" style="font-size: 10px;">开机脚本</a> <a href="/tags/心理学/" style="font-size: 10px;">心理学</a> <a href="/tags/性能优化/" style="font-size: 10px;">性能优化</a> <a href="/tags/慕课网案例/" style="font-size: 17.5px;">慕课网案例</a> <a href="/tags/拖拽/" style="font-size: 10px;">拖拽</a> <a href="/tags/排序/" style="font-size: 10px;">排序</a> <a href="/tags/摄像头/" style="font-size: 10px;">摄像头</a> <a href="/tags/收集系统/" style="font-size: 10px;">收集系统</a> <a href="/tags/效率工具/" style="font-size: 10px;">效率工具</a> <a href="/tags/文件上传/" style="font-size: 10px;">文件上传</a> <a href="/tags/无线密码破解/" style="font-size: 10px;">无线密码破解</a> <a href="/tags/无线网卡/" style="font-size: 10px;">无线网卡</a> <a href="/tags/日志/" style="font-size: 10px;">日志</a> <a href="/tags/时光轴/" style="font-size: 11.25px;">时光轴</a> <a href="/tags/时间处理/" style="font-size: 10px;">时间处理</a> <a href="/tags/智能/" style="font-size: 11.25px;">智能</a> <a href="/tags/智能设备/" style="font-size: 11.25px;">智能设备</a> <a href="/tags/正则/" style="font-size: 10px;">正则</a> <a href="/tags/游戏/" style="font-size: 16.25px;">游戏</a> <a href="/tags/特效/" style="font-size: 11.25px;">特效</a> <a href="/tags/生命游戏/" style="font-size: 11.25px;">生命游戏</a> <a href="/tags/用户体验/" style="font-size: 11.25px;">用户体验</a> <a href="/tags/百度首页彩蛋/" style="font-size: 10px;">百度首页彩蛋</a> <a href="/tags/相册/" style="font-size: 11.25px;">相册</a> <a href="/tags/眼动实验/" style="font-size: 11.25px;">眼动实验</a> <a href="/tags/移动端/" style="font-size: 11.25px;">移动端</a> <a href="/tags/算法/" style="font-size: 15px;">算法</a> <a href="/tags/缩略图/" style="font-size: 10px;">缩略图</a> <a href="/tags/网络案例/" style="font-size: 10px;">网络案例</a> <a href="/tags/翻译/" style="font-size: 10px;">翻译</a> <a href="/tags/自动脚本/" style="font-size: 10px;">自动脚本</a> <a href="/tags/表单/" style="font-size: 10px;">表单</a> <a href="/tags/视频流/" style="font-size: 10px;">视频流</a> <a href="/tags/调试工具/" style="font-size: 10px;">调试工具</a> <a href="/tags/进制处理/" style="font-size: 10px;">进制处理</a> <a href="/tags/迷宫/" style="font-size: 10px;">迷宫</a> <a href="/tags/递归/" style="font-size: 10px;">递归</a> <a href="/tags/问卷系统/" style="font-size: 10px;">问卷系统</a> <a href="/tags/面向对象/" style="font-size: 11.25px;">面向对象</a> <a href="/tags/黑客帝国/" style="font-size: 10px;">黑客帝国</a>
     </div>
   </div>
 
@@ -1281,7 +1280,7 @@ HTTP1.1 pipelining Opera浏览器默认开启
   <div class="widget-wrap">
     <h3 class="widget-title">归档</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">十一月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/04/">四月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/12/">十二月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/10/">十月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/08/">八月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/07/">七月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">六月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/05/">五月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/12/">十二月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/11/">十一月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/10/">十月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/07/">七月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/06/">六月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/04/">四月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/02/">二月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/08/">八月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/06/">六月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/03/">三月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/01/">一月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/11/">十一月 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/10/">十月 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/08/">八月 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/07/">七月 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/05/">五月 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/04/">四月 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/03/">三月 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/01/">一月 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/02/">二月 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/11/">十一月 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/10/">十月 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/07/">七月 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/06/">六月 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/05/">五月 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/04/">四月 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/03/">三月 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/02/">二月 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/12/">十二月 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/07/">七月 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/05/">五月 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/04/">四月 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/03/">三月 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/02/">二月 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/01/">一月 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2010/04/">四月 2010</a></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">十二月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">十一月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/04/">四月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/12/">十二月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/10/">十月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/08/">八月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/07/">七月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">六月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/05/">五月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/12/">十二月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/11/">十一月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/10/">十月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/07/">七月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/06/">六月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/04/">四月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/02/">二月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/08/">八月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/06/">六月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/03/">三月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/01/">一月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/11/">十一月 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/10/">十月 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/08/">八月 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/07/">七月 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/05/">五月 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/04/">四月 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/03/">三月 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/01/">一月 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/02/">二月 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/11/">十一月 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/10/">十月 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/07/">七月 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/06/">六月 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/05/">五月 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/04/">四月 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/03/">三月 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/02/">二月 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/12/">十二月 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/07/">七月 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/05/">五月 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/04/">四月 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/03/">三月 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/02/">二月 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/01/">一月 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2010/04/">四月 2010</a></li></ul>
     </div>
   </div>
 
