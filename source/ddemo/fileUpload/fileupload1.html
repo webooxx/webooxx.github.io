@@ -1,0 +1,79 @@
+<html>
+<head>
+    <title>文件上传测试DEMO1</title>
+    <meta charset="utf-8" />
+    <style>
+        #opt{
+            width: 300px;
+            height: 30px;
+            background: #eee;
+            text-align: center;
+            line-height: 30px;
+            cursor: pointer;
+        }
+    </style>
+
+</head>
+<body>
+
+<h2>DEMO演示</h2>
+
+<div id="opt" onclick="FileUpload();">文件上传操作区域</div>
+
+<script>
+
+var FileUpload = function( server ,callback ){
+    var fileInput = document.createElement('input');
+    fileInput.type = "file";
+    fileInput.style = "display:none";
+    document.body.appendChild( fileInput );
+    fileInput.onchange = function( evt ){
+        let msg = [
+            '文件: '+evt.target.files[0].name,
+            '类型: '+evt.target.files[0].type,
+            '大小: '+ (( evt.target.files[0].size / 102.4 )>>0)/10 + 'KB',
+        ]
+        alert( msg );
+        // 上传操作...
+        // 完成后执行 callback()
+    }
+    fileInput.click();
+}
+
+
+
+
+
+</script>
+
+
+<h2>本页源码</h2>
+
+<pre>
+
+&lt;div id="opt" onclick="FileUpload();"&gt;文件上传操作区域&lt;/div&gt;
+
+&lt;script&gt;
+
+var FileUpload = function( server ,callback ){
+    var fileInput = document.createElement('input');
+    fileInput.type = "file";
+    fileInput.style = "display:none";
+    document.body.appendChild( fileInput );
+    fileInput.onchange = function( evt ){
+        let msg = [
+            '文件: '+evt.target.files[0].name,
+            '类型: '+evt.target.files[0].type,
+            '大小: '+ (( evt.target.files[0].size / 102.4 )&gt;&gt;0)/10 + 'KB',
+        ]
+        alert( msg )
+        // 上传操作...
+        // 完成后执行 callback()
+    }
+    fileInput.click();
+}
+&lt;/script&gt;
+</pre>
+
+</body>
+</html>
