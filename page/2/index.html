@@ -65,54 +65,6 @@
       <div class="outer">
         <section id="main">
   
-    <article id="post-JS小游戏-贪吃蛇" class="article article-type-post" itemscope="" itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2016/10/20/JS小游戏-贪吃蛇/" class="article-date">
-  <time datetime="2016-10-20T03:16:25.000Z" itemprop="datePublished">2016-10-20</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/10/20/JS小游戏-贪吃蛇/">JS小游戏-贪吃蛇</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>网上找的js小游戏，难以想象贪吃蛇的游戏代码就这么点～</p>
-<p><a href="/rdemo/snake.html">效果预览</a></p>
-<p><img src="/images/2016-10-30 11.15.54.png" alt="效果预览"></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://webooxx.com/2016/10/20/JS小游戏-贪吃蛇/" data-id="cjp89z7u40007yw8spo1afe8s" class="article-share-link">Share</a>
-      
-      
-        <a href="/2016/10/20/JS小游戏-贪吃蛇/#comments" class="article-comment-link">
-          <span class="post-comments-count valine-comment-count" data-xid="/2016/10/20/JS小游戏-贪吃蛇/" itemprop="commentCount"></span>
-          留言
-        </a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/js特效/">js特效</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/游戏/">游戏</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/网络案例/">网络案例</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
     <article id="post-前后端处理分页" class="article article-type-post" itemscope="" itemprop="blogPost">
   <div class="article-meta">
     <a href="/2016/07/20/前后端处理分页/" class="article-date">
@@ -1222,6 +1174,57 @@
 
 
   
+    <article id="post-JS特效-拖拽" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2014/01/19/JS特效-拖拽/" class="article-date">
+  <time datetime="2014-01-19T07:51:00.000Z" itemprop="datePublished">2014-01-19</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2014/01/19/JS特效-拖拽/">JS特效-拖拽</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="part-1"><a href="#part-1" class="headerlink" title="part.1"></a>part.1</h2><p>非常常见的js特效，使用了onmouseup、onmousemove 的简单事件定义，以及addEventListener标准事件侦听处理。</p>
+<p><a href="/ddemo/dragMe.html">效果预览</a></p>
+<p><img src="/images/dragMe.png" alt="效果预览"></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> oDrag = <span class="built_in">document</span>.getElementById(<span class="string">'draggable'</span>);</span><br><span class="line"></span><br><span class="line">	<span class="keyword">var</span> isDraging = <span class="literal">false</span>;</span><br><span class="line">	<span class="keyword">var</span> startX = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">var</span> startY = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">	oDrag.addEventListener(<span class="string">'mousedown'</span>,<span class="function"><span class="keyword">function</span>(<span class="params">e</span>)</span>&#123;</span><br><span class="line">		<span class="built_in">console</span>.log(<span class="string">'mousedown , isDraging = true'</span>);</span><br><span class="line"></span><br><span class="line">		isDraging = <span class="literal">true</span>;</span><br><span class="line"></span><br><span class="line">		startX = e.pageX - <span class="keyword">this</span>.offsetLeft ;</span><br><span class="line">		startY = e.pageY - <span class="keyword">this</span>.offsetTop ;</span><br><span class="line">	&#125;)</span><br><span class="line"></span><br><span class="line">	<span class="built_in">document</span>.onmouseup = <span class="function"><span class="keyword">function</span>(<span class="params">e</span>)</span>&#123;</span><br><span class="line">		<span class="built_in">console</span>.log(<span class="string">'mouseup , isDraging = false'</span>);</span><br><span class="line">		isDraging = <span class="literal">false</span>;</span><br><span class="line"></span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="built_in">document</span>.onmousemove = <span class="function"><span class="keyword">function</span>(<span class="params">e</span>) </span>&#123;</span><br><span class="line"></span><br><span class="line">	    <span class="keyword">if</span> (isDraging) &#123;</span><br><span class="line">			oDrag.style.left = ( e.pageX - startX ) + <span class="string">"px"</span>;</span><br><span class="line">			oDrag.style.top  = ( e.pageY - startY ) + <span class="string">"px"</span>;</span><br><span class="line"></span><br><span class="line">	    &#125;</span><br><span class="line"></span><br><span class="line">	&#125;;</span><br></pre></td></tr></table></figure>
+<h2 id="part-2"><a href="#part-2" class="headerlink" title="part.2"></a>part.2</h2><p>使用 part.1 的基础知识，增加了背景的蒙层，模拟百度首页的登陆浮层效果。</p>
+<p><a href="/ddemo/dragBaiduLoginPanel/index.html">效果预览</a><br><img src="/ddemo/dragBaiduLoginPanel/demo.png" alt="效果预览"></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://webooxx.com/2014/01/19/JS特效-拖拽/" data-id="cjp89z7ve001qyw8sk54lueki" class="article-share-link">Share</a>
+      
+      
+        <a href="/2014/01/19/JS特效-拖拽/#comments" class="article-comment-link">
+          <span class="post-comments-count valine-comment-count" data-xid="/2014/01/19/JS特效-拖拽/" itemprop="commentCount"></span>
+          留言
+        </a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/js特效/">js特效</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/慕课网案例/">慕课网案例</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/拖拽/">拖拽</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
 
 
   <nav id="page-nav">
@@ -1243,10 +1246,6 @@
       <ul>
         
           <li>
-            <a href="/2019/01/29/移动端适配/">移动端适配</a>
-          </li>
-        
-          <li>
             <a href="/2018/12/03/通用上传组件设计/">通用上传组件设计</a>
           </li>
         
@@ -1260,6 +1259,10 @@
         
           <li>
             <a href="/2017/12/14/CanvasEdge/">前端图像处理-使用Canvas查找图片边缘</a>
+          </li>
+        
+          <li>
+            <a href="/2017/10/17/为一组数字添加千分位符号/">为一组数字添加千分位符号</a>
           </li>
         
       </ul>
@@ -1280,7 +1283,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">归档</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">一月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">十二月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">十一月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/04/">四月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/12/">十二月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/10/">十月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/08/">八月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/07/">七月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">六月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/05/">五月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/12/">十二月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/11/">十一月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/10/">十月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/07/">七月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/06/">六月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/04/">四月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/02/">二月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/08/">八月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/06/">六月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/03/">三月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/01/">一月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/11/">十一月 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/10/">十月 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/08/">八月 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/07/">七月 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/05/">五月 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/04/">四月 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/03/">三月 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/01/">一月 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/02/">二月 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/11/">十一月 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/10/">十月 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/07/">七月 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/06/">六月 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/05/">五月 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/04/">四月 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/03/">三月 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/02/">二月 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/12/">十二月 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/07/">七月 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/05/">五月 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/04/">四月 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/03/">三月 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/02/">二月 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/01/">一月 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2010/04/">四月 2010</a></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">十二月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">十一月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/04/">四月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/12/">十二月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/10/">十月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/08/">八月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/07/">七月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">六月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/05/">五月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/12/">十二月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/11/">十一月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/10/">十月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/07/">七月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/06/">六月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/04/">四月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/02/">二月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/08/">八月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/06/">六月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/03/">三月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/01/">一月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/11/">十一月 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/10/">十月 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/08/">八月 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/07/">七月 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/05/">五月 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/04/">四月 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/03/">三月 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/01/">一月 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/02/">二月 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/11/">十一月 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/10/">十月 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/07/">七月 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/06/">六月 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/05/">五月 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/04/">四月 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/03/">三月 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/02/">二月 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/12/">十二月 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/07/">七月 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/05/">五月 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/04/">四月 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/03/">三月 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/02/">二月 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/01/">一月 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2010/04/">四月 2010</a></li></ul>
     </div>
   </div>
 
