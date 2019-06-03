@@ -65,6 +65,57 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-JS特效-拖拽" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2014/01/19/JS特效-拖拽/" class="article-date">
+  <time datetime="2014-01-19T07:51:00.000Z" itemprop="datePublished">2014-01-19</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2014/01/19/JS特效-拖拽/">JS特效-拖拽</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="part-1"><a href="#part-1" class="headerlink" title="part.1"></a>part.1</h2><p>非常常见的js特效，使用了onmouseup、onmousemove 的简单事件定义，以及addEventListener标准事件侦听处理。</p>
+<p><a href="/ddemo/dragMe.html">效果预览</a></p>
+<p><img src="/images/dragMe.png" alt="效果预览"></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> oDrag = <span class="built_in">document</span>.getElementById(<span class="string">'draggable'</span>);</span><br><span class="line"></span><br><span class="line">	<span class="keyword">var</span> isDraging = <span class="literal">false</span>;</span><br><span class="line">	<span class="keyword">var</span> startX = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">var</span> startY = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">	oDrag.addEventListener(<span class="string">'mousedown'</span>,<span class="function"><span class="keyword">function</span>(<span class="params">e</span>)</span>&#123;</span><br><span class="line">		<span class="built_in">console</span>.log(<span class="string">'mousedown , isDraging = true'</span>);</span><br><span class="line"></span><br><span class="line">		isDraging = <span class="literal">true</span>;</span><br><span class="line"></span><br><span class="line">		startX = e.pageX - <span class="keyword">this</span>.offsetLeft ;</span><br><span class="line">		startY = e.pageY - <span class="keyword">this</span>.offsetTop ;</span><br><span class="line">	&#125;)</span><br><span class="line"></span><br><span class="line">	<span class="built_in">document</span>.onmouseup = <span class="function"><span class="keyword">function</span>(<span class="params">e</span>)</span>&#123;</span><br><span class="line">		<span class="built_in">console</span>.log(<span class="string">'mouseup , isDraging = false'</span>);</span><br><span class="line">		isDraging = <span class="literal">false</span>;</span><br><span class="line"></span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="built_in">document</span>.onmousemove = <span class="function"><span class="keyword">function</span>(<span class="params">e</span>) </span>&#123;</span><br><span class="line"></span><br><span class="line">	    <span class="keyword">if</span> (isDraging) &#123;</span><br><span class="line">			oDrag.style.left = ( e.pageX - startX ) + <span class="string">"px"</span>;</span><br><span class="line">			oDrag.style.top  = ( e.pageY - startY ) + <span class="string">"px"</span>;</span><br><span class="line"></span><br><span class="line">	    &#125;</span><br><span class="line"></span><br><span class="line">	&#125;;</span><br></pre></td></tr></table></figure>
+<h2 id="part-2"><a href="#part-2" class="headerlink" title="part.2"></a>part.2</h2><p>使用 part.1 的基础知识，增加了背景的蒙层，模拟百度首页的登陆浮层效果。</p>
+<p><a href="/ddemo/dragBaiduLoginPanel/index.html">效果预览</a><br><img src="/ddemo/dragBaiduLoginPanel/demo.png" alt="效果预览"></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://webooxx.com/2014/01/19/JS特效-拖拽/" data-id="cjp89z7ve001qyw8sk54lueki" class="article-share-link">Share</a>
+      
+      
+        <a href="/2014/01/19/JS特效-拖拽/#comments" class="article-comment-link">
+          <span class="post-comments-count valine-comment-count" data-xid="/2014/01/19/JS特效-拖拽/" itemprop="commentCount"></span>
+          留言
+        </a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/js特效/">js特效</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/慕课网案例/">慕课网案例</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/拖拽/">拖拽</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
     <article id="post-当连接到特定网络时执行特定的程序" class="article article-type-post" itemscope="" itemprop="blogPost">
   <div class="article-meta">
     <a href="/2013/02/21/当连接到特定网络时执行特定的程序/" class="article-date">
@@ -1171,57 +1222,6 @@ HTTP1.1 pipelining Opera浏览器默认开启
 
 
   
-    <article id="post-PHP缩略图-满窗格等比例缩小" class="article article-type-post" itemscope="" itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2011/01/18/PHP缩略图-满窗格等比例缩小/" class="article-date">
-  <time datetime="2011-01-18T04:45:00.000Z" itemprop="datePublished">2011-01-18</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2011/01/18/PHP缩略图-满窗格等比例缩小/">PHP缩略图-满窗格等比例缩小</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="需求"><a href="#需求" class="headerlink" title="需求"></a>需求</h2><ol>
-<li>等比例缩小</li>
-<li>必须是规定的缩略图大小</li>
-<li>原图可以裁剪但需要中心点在窗口</li>
-</ol>
-<h2 id="实现代码"><a href="#实现代码" class="headerlink" title="实现代码"></a>实现代码</h2><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">thumbs</span><span class="params">($FileName,$SaveTo,$SetW,$SetH)</span></span>&#123;</span><br><span class="line">        $IMGInfo= getimagesize($FileName);</span><br><span class="line">        <span class="keyword">if</span>(!$IMGInfo) <span class="keyword">return</span> <span class="keyword">false</span>;        </span><br><span class="line">        <span class="keyword">if</span>($IMGInfo[mime]== <span class="string">"image/pjpeg"</span> || $IMGInfo[mime]==<span class="string">"image/jpeg"</span>)&#123;</span><br><span class="line">            $ThisPhoto= imagecreatefromjpeg($FileName);</span><br><span class="line">        &#125;<span class="keyword">elseif</span>($IMGInfo[mime]== <span class="string">"image/x-png"</span> || $IMGInfo[mime]== <span class="string">"image/png"</span>)&#123;</span><br><span class="line">            $ThisPhoto= imagecreatefrompng($FileName);    </span><br><span class="line">        &#125;<span class="keyword">elseif</span>($IMGInfo[mime]== <span class="string">"image/gif"</span>)&#123;</span><br><span class="line">            $ThisPhoto=imagecreatefromgif($FileName);  </span><br><span class="line">        &#125;  </span><br><span class="line">        $width=$IMGInfo[<span class="number">0</span>];</span><br><span class="line">        $height=$IMGInfo[<span class="number">1</span>];    </span><br><span class="line">        $scalc = max($width/$SetW,$height/$SetH);</span><br><span class="line">        $nw = intval($width/$scalc);</span><br><span class="line">        $nh = intval($height/$scalc);</span><br><span class="line">        <span class="keyword">echo</span> <span class="string">"缩略大小：w$nw,h$nh &lt;br /&gt;"</span>;</span><br><span class="line">        <span class="keyword">if</span>($SetW-$nw == <span class="number">1</span>)&#123;$nw = $SetW;&#125;</span><br><span class="line">        <span class="keyword">if</span>($SetH-$nh == <span class="number">1</span>)&#123;$nh = $SetH;&#125;</span><br><span class="line">        <span class="keyword">echo</span> <span class="string">"+修正1像素： w$nw,h$nh&lt;br /&gt;"</span>;</span><br><span class="line">        <span class="comment">//补宽</span></span><br><span class="line">        <span class="keyword">if</span>($SetW-$nw &gt; <span class="number">0</span>)&#123;</span><br><span class="line">            $nh = $nh +(($nh/$nw) * ($SetW-$nw));</span><br><span class="line">            <span class="keyword">echo</span> <span class="string">"*需补宽"</span>.($SetW-$nw).<span class="string">",陪补高"</span>.(($nh/$nw) * ($SetW-$nw)).<span class="string">"  &lt;br /&gt;"</span>;   </span><br><span class="line">            $nw = $SetW;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">//补高</span></span><br><span class="line">        <span class="keyword">if</span>($SetH-$nh &gt; <span class="number">0</span>)&#123;</span><br><span class="line">            $nw = $nw + (($nw/$nh) * ($SetH-$nh));</span><br><span class="line">            <span class="keyword">echo</span> <span class="string">"*需补高"</span>.($SetH-$nh).<span class="string">",陪补宽"</span>. (($nw/$nh) * ($SetH-$nh)) .<span class="string">"&lt;br /&gt;"</span>;</span><br><span class="line">            $nh = $SetH;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        $nw = intval($nw);</span><br><span class="line">        $nh = intval($nh);</span><br><span class="line">        <span class="keyword">echo</span> <span class="string">"+修正大小：w$nw,h$nh&lt;br /&gt;"</span>;</span><br><span class="line">        $px = ($SetW - $nw)/<span class="number">2</span>;</span><br><span class="line">        $py = ($SetH - $nh)/<span class="number">2</span>;</span><br><span class="line">        <span class="keyword">echo</span> <span class="string">"窗口大小：w$SetW,h$SetH &lt;br /&gt;"</span>;</span><br><span class="line">        <span class="keyword">echo</span> <span class="string">"+偏移修正：x$px,y$py &lt;br /&gt;"</span>;</span><br><span class="line">        $NewPhoto=imagecreatetruecolor($SetW,$SetH);</span><br><span class="line">        imagecopyresized($NewPhoto,$ThisPhoto,$px,$py,<span class="number">0</span>,<span class="number">0</span>,$nw,$nh,$width,$height);</span><br><span class="line">        ImageJpeg ($NewPhoto,$SaveTo);</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    thumbs(<span class="string">'a.jpg'</span>,<span class="string">'newa.jpg'</span>,<span class="number">150</span>,<span class="number">70</span>);</span><br><span class="line"><span class="meta">?&gt;</span></span><br><span class="line">&lt;style&gt;</span><br><span class="line">    img&#123; border:<span class="number">1</span>px solid <span class="comment">#ccc;margin:2px;&#125;</span></span><br><span class="line">&lt;/style&gt;</span><br><span class="line">&lt;img src=<span class="string">"/a.jpg"</span>  /&gt;</span><br><span class="line">&lt;img src=<span class="string">"/newa.jpg"</span> /&gt;</span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://webooxx.com/2011/01/18/PHP缩略图-满窗格等比例缩小/" data-id="cjp89z7ua000fyw8s6un2t16k" class="article-share-link">Share</a>
-      
-      
-        <a href="/2011/01/18/PHP缩略图-满窗格等比例缩小/#comments" class="article-comment-link">
-          <span class="post-comments-count valine-comment-count" data-xid="/2011/01/18/PHP缩略图-满窗格等比例缩小/" itemprop="commentCount"></span>
-          留言
-        </a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/PHP/">PHP</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/开发工具/">开发工具</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/缩略图/">缩略图</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
 
 
   <nav id="page-nav">
@@ -1243,6 +1243,10 @@ HTTP1.1 pipelining Opera浏览器默认开启
       <ul>
         
           <li>
+            <a href="/2019/01/29/移动端适配/">移动端适配</a>
+          </li>
+        
+          <li>
             <a href="/2018/12/03/通用上传组件设计/">通用上传组件设计</a>
           </li>
         
@@ -1256,10 +1260,6 @@ HTTP1.1 pipelining Opera浏览器默认开启
         
           <li>
             <a href="/2017/12/14/CanvasEdge/">前端图像处理-使用Canvas查找图片边缘</a>
-          </li>
-        
-          <li>
-            <a href="/2017/10/17/为一组数字添加千分位符号/">为一组数字添加千分位符号</a>
           </li>
         
       </ul>
@@ -1280,7 +1280,7 @@ HTTP1.1 pipelining Opera浏览器默认开启
   <div class="widget-wrap">
     <h3 class="widget-title">归档</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">十二月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">十一月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/04/">四月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/12/">十二月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/10/">十月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/08/">八月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/07/">七月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">六月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/05/">五月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/12/">十二月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/11/">十一月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/10/">十月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/07/">七月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/06/">六月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/04/">四月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/02/">二月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/08/">八月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/06/">六月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/03/">三月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/01/">一月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/11/">十一月 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/10/">十月 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/08/">八月 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/07/">七月 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/05/">五月 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/04/">四月 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/03/">三月 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/01/">一月 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/02/">二月 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/11/">十一月 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/10/">十月 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/07/">七月 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/06/">六月 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/05/">五月 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/04/">四月 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/03/">三月 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/02/">二月 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/12/">十二月 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/07/">七月 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/05/">五月 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/04/">四月 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/03/">三月 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/02/">二月 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/01/">一月 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2010/04/">四月 2010</a></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">一月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">十二月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">十一月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/04/">四月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/12/">十二月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/10/">十月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/08/">八月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/07/">七月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">六月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/05/">五月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/12/">十二月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/11/">十一月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/10/">十月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/07/">七月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/06/">六月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/04/">四月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/02/">二月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/08/">八月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/06/">六月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/03/">三月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/01/">一月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/11/">十一月 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/10/">十月 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/08/">八月 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/07/">七月 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/05/">五月 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/04/">四月 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/03/">三月 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/01/">一月 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/02/">二月 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/11/">十一月 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/10/">十月 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/07/">七月 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/06/">六月 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/05/">五月 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/04/">四月 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/03/">三月 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/02/">二月 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/12/">十二月 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/07/">七月 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/05/">五月 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/04/">四月 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/03/">三月 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/02/">二月 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/01/">一月 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2010/04/">四月 2010</a></li></ul>
     </div>
   </div>
 
@@ -1293,7 +1293,7 @@ HTTP1.1 pipelining Opera浏览器默认开启
   
   <div class="outer">
     <div id="footer-info" class="inner">
-      &copy; 2018 Lyn<br>
+      &copy; 2019 Lyn<br>
       Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
     </div>
   </div>
